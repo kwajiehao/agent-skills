@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "target": "replace-with-target",
+  "profile": "smoke",
+  "command": ["python3", "tests/fuzz_target.py", "--smoke"],
+  "timeout_seconds": 30,
+  "requirements": ["REQ-001"],
+  "required_scenarios": {"SCN-001": 1},
+  "source_files": ["src/target.py", "tests/fuzz_target.py", "fuzzing/FUZZING_SPEC.md"],
+  "revisions": {
+    "product": "replace-with-revision; selected dirty source is snapshotted",
+    "harness": "replace-with-revision",
+    "specification": "replace-with-accepted-requirement-versions",
+    "dependencies": "replace-with-toolchain-and-lock-or-image-digest",
+    "corpus": "replace-with-content-digest-or-explicit-empty"
+  },
+  "environment": {"TZ": "UTC", "LC_ALL": "C"},
+  "policy": {
+    "authorization": "replace-with-existing-user-decision-and-scope",
+    "isolation": "replace-with-resolved-owned-resources-and-containment",
+    "artifact_policy": "synthetic inputs and sanitized command/output/source files",
+    "owner": "replace-with-owner",
+    "triage_seconds": 300
+  }
+}
