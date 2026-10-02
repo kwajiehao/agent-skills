@@ -24,6 +24,7 @@ Already have the repo cloned? Just run it from the root:
 |-------|-------------|
 | `/ai-fuzzing` | Extracts fuzzing requirements, builds and audits fuzz harnesses, runs bounded campaigns, and turns failures into durable feedback |
 | `/dep-review` | Reviews dependency bump PRs by auditing codebase usage, analyzing changelog/release changes, and cross-referencing impact to produce a structured risk assessment |
+| `/walkthrough` | Builds author-perspective visual PR walkthroughs with synchronized prose, exact code, diagrams, evidence, and a secondary review lens |
 
 ## How installing works
 

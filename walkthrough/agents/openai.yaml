@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Review Buddy"
+  short_description: "Author-perspective visual PR walkthroughs"
+  default_prompt: "Use $walkthrough to turn this pull request into an evidence-linked visual review guide."

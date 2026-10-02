@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>__WALKTHROUGH_TITLE__ — PR walkthrough</title>
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --surface: #121620;
+      --surface-2: #191f2c;
+      --line: #293247;
+      --text: #f4f6fb;
+      --muted: #9aa6bd;
+      --blue: #70a5ff;
+      --green: #55d69e;
+      --amber: #f3bc67;
+      --pink: #f285c9;
+      --purple: #ad8cff;
+      --red: #ff7575;
+      --slate: #8996ac;
+      --focus: #ffffff;
+      --shadow: 0 18px 50px rgba(0, 0, 0, .28);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { background: var(--bg); color: var(--text); }
+    body { margin: 0; min-height: 100vh; overflow-x: hidden; background: radial-gradient(circle at 50% -20%, #1a2235 0, var(--bg) 45%); }
+    button, a { font: inherit; }
+    button { color: inherit; }
+    a { color: var(--blue); }
+    :focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+
+    .topbar {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) auto;
+      gap: 20px;
+      align-items: center;
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(11, 13, 18, .92);
+      backdrop-filter: blur(18px);
+    }
+
+    .identity { min-width: 0; }
+    .eyebrow { color: var(--pink); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    h1 { overflow: hidden; margin: 4px 0 0; font-size: clamp(17px, 2vw, 24px); letter-spacing: -.025em; text-overflow: ellipsis; white-space: nowrap; }
+    .refs { overflow: hidden; margin-top: 5px; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+
+    .controls { display: flex; min-width: 0; flex-wrap: wrap; gap: 8px; justify-content: flex-end; }
+    .control {
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      cursor: pointer;
+    }
+    .control:hover { border-color: #4d5d7d; background: var(--surface-2); }
+    .control.primary { border-color: #bcebd9; background: #d9f8ec; color: #0a251b; font-weight: 800; }
+    .control[aria-pressed="true"] { border-color: var(--pink); box-shadow: inset 0 0 0 1px var(--pink); }
+    .control:disabled { cursor: not-allowed; opacity: .4; }
+    #story-progress { align-self: center; min-width: 72px; color: var(--muted); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; text-align: center; }
+
+    .workspace {
+      display: grid;
+      grid-template-columns: 220px minmax(420px, 1.1fr) minmax(390px, .9fr);
+      min-height: calc(100vh - 88px);
+    }
+
+    .story-rail, .code-column { background: rgba(18, 22, 32, .72); }
+    .story-rail { border-right: 1px solid var(--line); }
+    .rail-inner { position: sticky; top: 88px; max-height: calc(100vh - 88px); overflow: auto; padding: 20px 14px; }
+    .rail-title, .panel-label { color: var(--muted); font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+    #story-list { display: grid; gap: 7px; margin-top: 12px; }
+    .story-step {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      gap: 8px;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      text-align: left;
+    }
+    .story-step:hover { background: var(--surface-2); color: var(--text); }
+    .story-step[aria-current="step"] { border-color: #475878; background: #1a2232; color: var(--text); }
+    .step-number { display: grid; width: 22px; height: 22px; place-items: center; border: 1px solid var(--line); border-radius: 50%; font: 700 10px ui-monospace, monospace; }
+    .story-step[aria-current="step"] .step-number { border-color: var(--pink); background: var(--pink); color: #1d0b19; }
+    .step-nav-title { padding-top: 2px; font-size: 12px; font-weight: 700; line-height: 1.35; }
+
+    .story-column { min-width: 0; padding: clamp(20px, 3vw, 42px); }
+    .story-card { max-width: 930px; margin: 0 auto; }
+    #step-kicker { margin-bottom: 10px; color: var(--green); font-size: 11px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    #step-title { margin: 0; font-size: clamp(28px, 3vw, 46px); letter-spacing: -.045em; line-height: 1.03; }
+    #step-takeaway { max-width: 780px; margin: 16px 0 0; color: #d9dfeb; font-size: clamp(16px, 1.5vw, 20px); line-height: 1.45; }
+    #narrative-body { display: grid; gap: 10px; max-width: 760px; margin-top: 22px; color: var(--muted); font-size: 14px; line-height: 1.65; }
+    #narrative-body p { margin: 0; }
+    #evidence-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
+    .evidence-link { padding: 6px 9px; border: 1px solid var(--line); border-radius: 999px; font-size: 11px; text-decoration: none; }
+
+    .visual-card { margin-top: 28px; border: 1px solid var(--line); border-radius: 12px; background: linear-gradient(145deg, #111725, #0d111a); box-shadow: var(--shadow); overflow: hidden; }
+    .visual-head { display: flex; gap: 14px; align-items: center; justify-content: space-between; padding: 12px 14px; border-bottom: 1px solid var(--line); }
+    .visual-title { min-width: 0; }
+    #diagram-title { overflow: hidden; font-size: 13px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+    #diagram-mode { margin-top: 3px; color: var(--muted); font: 10px ui-monospace, monospace; text-transform: uppercase; }
+    #diagram-stage { position: relative; min-height: 410px; }
+    #diagram-stage svg, #diagram-stage canvas { display: block; width: 100%; height: 410px; }
+    #diagram-stage canvas { cursor: grab; touch-action: none; }
+    #diagram-stage canvas:active { cursor: grabbing; }
+    .node rect { stroke: #56637b; stroke-width: 1; rx: 9; }
+    .node text { pointer-events: none; fill: var(--text); font-size: 12px; font-weight: 800; }
+    .node .node-detail { fill: #b4bfd1; font-size: 9px; font-weight: 500; }
+    .node.focused rect { stroke: var(--focus); stroke-width: 3; filter: drop-shadow(0 0 8px rgba(255,255,255,.25)); }
+    .node.dimmed { opacity: .24; }
+    .edge { fill: none; stroke: #71809b; stroke-width: 1.5; marker-end: url(#arrow); }
+    .edge.dimmed, .edge-label.dimmed { opacity: .16; }
+    .edge-label { fill: #9eacc1; font-size: 9px; paint-order: stroke; stroke: #0f1420; stroke-width: 5px; stroke-linejoin: round; }
+    #diagram-caption { padding: 12px 14px 4px; color: #c3ccdb; font-size: 12px; line-height: 1.5; }
+    #diagram-detail { min-height: 34px; padding: 4px 14px 14px; color: var(--muted); font-size: 11px; }
+    #diagram-legend { display: flex; flex-wrap: wrap; gap: 7px 12px; padding: 0 14px 14px; color: var(--muted); font-size: 10px; }
+    .legend-item { display: inline-flex; gap: 6px; align-items: center; }
+    .legend-dot { width: 8px; height: 8px; border-radius: 2px; background: var(--slate); }
+
+    .code-column { min-width: 0; border-left: 1px solid var(--line); }
+    .code-inner { position: sticky; top: 88px; display: grid; grid-template-rows: auto auto minmax(250px, 1fr); max-height: calc(100vh - 88px); }
+    .code-head { display: flex; gap: 12px; align-items: center; justify-content: space-between; padding: 18px 16px 12px; }
+    #code-tabs { display: flex; gap: 6px; min-height: 36px; padding: 0 16px 10px; overflow-x: auto; }
+    .code-tab { flex: 0 0 auto; padding: 7px 9px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: var(--muted); cursor: pointer; font-size: 11px; }
+    .code-tab[aria-selected="true"] { border-color: var(--blue); background: #16243c; color: var(--text); }
+    #code-panel { min-height: 0; overflow: auto; border-top: 1px solid var(--line); background: #0a0d13; }
+    .code-meta { position: sticky; z-index: 2; top: 0; display: flex; gap: 10px; align-items: center; justify-content: space-between; padding: 10px 12px; border-bottom: 1px solid var(--line); background: rgba(10, 13, 19, .96); }
+    .code-path { overflow: hidden; color: #dbe3ef; font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; text-overflow: ellipsis; white-space: nowrap; }
+    .code-actions { display: flex; gap: 6px; }
+    .mini-button { padding: 5px 7px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); cursor: pointer; font-size: 10px; text-decoration: none; }
+    pre { margin: 0; padding: 10px 0 28px; overflow: visible; color: #dce5f3; font: 12px/1.65 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; tab-size: 2; }
+    code { display: block; min-width: max-content; }
+    .code-line { display: grid; grid-template-columns: 52px 1fr; min-height: 20px; padding-right: 16px; white-space: pre; }
+    .code-line::before { content: attr(data-line); padding-right: 14px; color: #59667c; text-align: right; user-select: none; }
+    .code-line.emphasized { background: rgba(112, 165, 255, .13); box-shadow: inset 3px 0 0 var(--blue); }
+    .empty-state { padding: 28px 18px; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+    .lower-panels { display: grid; gap: 18px; padding: 0 clamp(20px, 3vw, 42px) 42px; }
+    .lower-card { max-width: 1180px; width: 100%; margin: 0 auto; padding: 22px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+    .lower-card h2 { margin: 5px 0 16px; font-size: 22px; }
+    #findings-panel[hidden] { display: none; }
+    .finding-list { display: grid; gap: 10px; }
+    .finding { padding: 14px; border: 1px solid var(--line); border-left: 4px solid var(--amber); border-radius: 8px; background: var(--surface-2); }
+    .finding.blocking { border-left-color: var(--red); }
+    .finding.optional { border-left-color: var(--slate); }
+    .finding-meta { color: var(--muted); font: 10px ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase; }
+    .finding h3 { margin: 6px 0 10px; font-size: 15px; }
+    .finding dl { display: grid; grid-template-columns: 82px 1fr; gap: 6px 10px; margin: 0; font-size: 12px; line-height: 1.5; }
+    .finding dt { color: var(--muted); }
+    .finding dd { margin: 0; }
+    .coverage-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .coverage-group { padding: 12px; border: 1px solid var(--line); border-radius: 8px; }
+    .coverage-group h3 { margin: 0 0 8px; color: var(--muted); font-size: 11px; text-transform: uppercase; }
+    .coverage-group ul { display: grid; gap: 5px; margin: 0; padding-left: 18px; font: 11px/1.45 ui-monospace, monospace; }
+    .meta-summary { max-width: 1180px; margin: 0 auto; padding: 16px clamp(20px, 3vw, 42px) 0; color: var(--muted); font-size: 12px; }
+
+    @media (max-width: 1180px) {
+      .workspace { grid-template-columns: 190px minmax(400px, 1fr); }
+      .code-column { grid-column: 1 / -1; border-top: 1px solid var(--line); border-left: 0; }
+      .code-inner { position: relative; top: 0; max-height: none; }
+      #code-panel { max-height: 520px; }
+      .coverage-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 760px) {
+      .topbar { position: relative; grid-template-columns: 1fr; padding: 14px; }
+      .controls { position: sticky; z-index: 30; bottom: 8px; max-width: 100%; flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; padding: 7px; border: 1px solid var(--line); border-radius: 10px; background: rgba(11,13,18,.94); box-shadow: var(--shadow); }
+      .control { min-height: 34px; padding: 6px 9px; font-size: 11px; }
+      .workspace { display: block; width: 100%; overflow: hidden; }
+      .story-rail { border-right: 0; border-bottom: 1px solid var(--line); }
+      .rail-inner { position: relative; top: 0; max-height: none; padding: 12px 14px; }
+      #story-list { display: flex; overflow-x: auto; }
+      .story-step { flex: 0 0 190px; }
+      .story-column { width: 100%; overflow: hidden; padding: 28px 16px; }
+      #diagram-stage { min-height: 330px; }
+      #diagram-stage svg, #diagram-stage canvas { height: 330px; }
+      .lower-panels { padding: 0 16px 28px; }
+      .coverage-grid { grid-template-columns: 1fr; }
+      .finding dl { grid-template-columns: 1fr; }
+      .finding dt { margin-top: 4px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .001ms !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="identity">
+      <div class="eyebrow">PR review buddy</div>
+      <h1 id="page-title"></h1>
+      <div class="refs" id="page-refs"></div>
+    </div>
+    <div class="controls" aria-label="Walkthrough controls">
+      <button class="control" id="previous-step" type="button" aria-label="Previous story step">← Previous</button>
+      <button class="control primary" id="play-story" type="button" aria-pressed="false">▶ Story</button>
+      <button class="control" id="next-step" type="button" aria-label="Next story step">Next →</button>
+      <span id="story-progress" aria-live="polite"></span>
+      <button class="control" id="toggle-findings" type="button" aria-pressed="false">Review lens</button>
+    </div>
+  </header>
+
+  <div class="meta-summary" id="intent-summary"></div>
+
+  <main class="workspace">
+    <nav class="story-rail" aria-label="Walkthrough chapters">
+      <div class="rail-inner">
+        <div class="rail-title">Reviewer story</div>
+        <div id="story-list"></div>
+      </div>
+    </nav>
+
+    <section class="story-column" aria-labelledby="step-title">
+      <article class="story-card">
+        <div id="step-kicker"></div>
+        <h2 id="step-title"></h2>
+        <p id="step-takeaway"></p>
+        <div id="narrative-body"></div>
+        <div id="evidence-links" aria-label="Evidence"></div>
+
+        <section class="visual-card" aria-labelledby="diagram-title">
+          <div class="visual-head">
+            <div class="visual-title">
+              <div id="diagram-title"></div>
+              <div id="diagram-mode"></div>
+            </div>
+            <button class="control" id="reset-view" type="button">Overview / reset</button>
+          </div>
+          <div id="diagram-stage"></div>
+          <div id="diagram-caption"></div>
+          <div id="diagram-detail" aria-live="polite"></div>
+          <div id="diagram-legend" aria-label="Diagram legend"></div>
+        </section>
+      </article>
+    </section>
+
+    <aside class="code-column" aria-labelledby="code-heading">
+      <div class="code-inner">
+        <div class="code-head">
+          <div>
+            <div class="panel-label">Exact source evidence</div>
+            <strong id="code-heading">Code beside the story</strong>
+          </div>
+        </div>
+        <div id="code-tabs" role="tablist" aria-label="Source excerpts"></div>
+        <div id="code-panel"></div>
+      </div>
+    </aside>
+  </main>
+
+  <div class="lower-panels">
+    <section class="lower-card" id="findings-panel" hidden>
+      <div class="panel-label">Secondary, evidence-backed pass</div>
+      <h2>Review lens</h2>
+      <div class="finding-list" id="finding-list"></div>
+    </section>
+
+    <section class="lower-card" id="coverage-panel">
+      <div class="panel-label">What the narrative includes and compresses</div>
+      <h2>Review coverage</h2>
+      <div class="coverage-grid" id="coverage-grid"></div>
+    </section>
+  </div>
+
+  <noscript>This walkthrough requires JavaScript to synchronize the story, diagram, and code excerpts.</noscript>
+  <script id="walkthrough-data" type="application/json">__WALKTHROUGH_DATA__</script>
+  <script>
+    (() => {
+      "use strict";
+
+      const data = JSON.parse(document.getElementById("walkthrough-data").textContent);
+      const colors = {
+        blue: "#70a5ff", green: "#55d69e", amber: "#f3bc67", pink: "#f285c9",
+        purple: "#ad8cff", red: "#ff7575", slate: "#8996ac"
+      };
+      const requestedStep = Number(new URLSearchParams(window.location.search).get("step"));
+      const initialStep = Number.isInteger(requestedStep) && requestedStep > 0 ? Math.min(requestedStep - 1, data.steps.length - 1) : 0;
+      const state = { step: initialStep, code: 0, playing: false, timer: null, visualCleanup: null };
+
+      const byId = (id) => document.getElementById(id);
+      const create = (tag, className, text) => {
+        const node = document.createElement(tag);
+        if (className) node.className = className;
+        if (text !== undefined) node.textContent = text;
+        return node;
+      };
+      const link = (label, url, className) => {
+        const node = create("a", className, label);
+        node.href = url;
+        node.target = "_blank";
+        node.rel = "noreferrer noopener";
+        return node;
+      };
+      const findVisual = (id) => data.visuals.find((item) => item.id === id);
+      const findCode = (id) => data.code.find((item) => item.id === id);
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function renderHeader() {
+        byId("page-title").textContent = data.meta.title;
+        byId("page-refs").textContent = `${data.meta.target} · ${data.meta.base_ref}@${data.meta.base_sha.slice(0, 8)} → ${data.meta.head_ref}@${data.meta.head_sha.slice(0, 8)}`;
+        byId("intent-summary").textContent = data.meta.intent;
+      }
+
+      function renderStoryList() {
+        const list = byId("story-list");
+        list.replaceChildren();
+        data.steps.forEach((step, index) => {
+          const button = create("button", "story-step");
+          button.type = "button";
+          button.dataset.stepId = step.id;
+          button.setAttribute("aria-current", index === state.step ? "step" : "false");
+          button.append(create("span", "step-number", String(index + 1)), create("span", "step-nav-title", step.title));
+          button.addEventListener("click", () => { stopStory(); setStep(index); });
+          list.append(button);
+        });
+      }
+
+      function setStep(index) {
+        state.step = Math.max(0, Math.min(index, data.steps.length - 1));
+        state.code = 0;
+        const step = data.steps[state.step];
+        byId("step-kicker").textContent = step.kicker;
+        byId("step-title").textContent = step.title;
+        byId("step-takeaway").textContent = step.takeaway;
+
+        const narrative = byId("narrative-body");
+        narrative.replaceChildren(...step.narrative.map((paragraph) => create("p", "", paragraph)));
+
+        const evidence = byId("evidence-links");
+        evidence.replaceChildren(...step.evidence.map((item) => link(item.label, item.url, "evidence-link")));
+
+        renderStoryList();
+        renderVisual(step);
+        renderCode(step);
+        byId("story-progress").textContent = `${state.step + 1} / ${data.steps.length}`;
+        byId("previous-step").disabled = state.step === 0;
+        byId("next-step").disabled = state.step === data.steps.length - 1;
+      }
+
+      function svgElement(name, attrs = {}) {
+        const node = document.createElementNS("http://www.w3.org/2000/svg", name);
+        Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, String(value)));
+        return node;
+      }
+
+      function render2D(visual, focusIds) {
+        const stage = byId("diagram-stage");
+        const xs = visual.nodes.map((node) => node.x);
+        const ys = visual.nodes.map((node) => node.y);
+        const minX = Math.min(...xs) - 110;
+        const maxX = Math.max(...xs) + 110;
+        const minY = Math.min(...ys) - 90;
+        const maxY = Math.max(...ys) + 90;
+        const svg = svgElement("svg", {
+          viewBox: `${minX} ${minY} ${Math.max(400, maxX - minX)} ${Math.max(280, maxY - minY)}`,
+          role: "img",
+          "aria-label": visual.caption,
+          preserveAspectRatio: "xMidYMid meet"
+        });
+        const defs = svgElement("defs");
+        const marker = svgElement("marker", { id: "arrow", viewBox: "0 0 10 10", refX: "9", refY: "5", markerWidth: "6", markerHeight: "6", orient: "auto-start-reverse" });
+        marker.append(svgElement("path", { d: "M 0 0 L 10 5 L 0 10 z", fill: "#71809b" }));
+        defs.append(marker);
+        svg.append(defs);
+
+        const nodes = new Map(visual.nodes.map((node) => [node.id, node]));
+        visual.edges.forEach((edge) => {
+          const source = nodes.get(edge.source);
+          const target = nodes.get(edge.target);
+          const focused = focusIds.has(source.id) || focusIds.has(target.id);
+          const dx = target.x - source.x;
+          const dy = target.y - source.y;
+          const length = Math.max(1, Math.hypot(dx, dy));
+          const ux = dx / length;
+          const uy = dy / length;
+          const sourceInset = Math.min(76, 1 / Math.max(Math.abs(ux) / 75, Math.abs(uy) / 32));
+          const targetInset = Math.min(82, 1 / Math.max(Math.abs(ux) / 75, Math.abs(uy) / 32) + 7);
+          const x1 = source.x + ux * sourceInset;
+          const y1 = source.y + uy * sourceInset;
+          const x2 = target.x - ux * targetInset;
+          const y2 = target.y - uy * targetInset;
+          const line = svgElement("line", { x1, y1, x2, y2, class: `edge${focusIds.size && !focused ? " dimmed" : ""}` });
+          if (edge.style === "dashed") line.setAttribute("stroke-dasharray", "7 5");
+          const labelNode = svgElement("text", { x: (x1 + x2) / 2, y: (y1 + y2) / 2 - 7, class: `edge-label${focusIds.size && !focused ? " dimmed" : ""}`, "text-anchor": "middle" });
+          labelNode.textContent = edge.label;
+          svg.append(line, labelNode);
+        });
+
+        visual.nodes.forEach((node) => {
+          const focused = focusIds.has(node.id);
+          const group = svgElement("g", { class: `node${focused ? " focused" : ""}${focusIds.size && !focused ? " dimmed" : ""}`, tabindex: "0", role: "button", "aria-label": `${node.label}: ${node.detail}` });
+          group.dataset.nodeId = node.id;
+          group.append(svgElement("rect", { x: node.x - 75, y: node.y - 32, width: "150", height: "64", fill: colors[node.color] || colors.slate, "fill-opacity": focused ? ".3" : ".17" }));
+          const labelNode = svgElement("text", { x: node.x, y: node.y - 3, "text-anchor": "middle" });
+          labelNode.textContent = node.label;
+          const detailNode = svgElement("text", { x: node.x, y: node.y + 15, class: "node-detail", "text-anchor": "middle" });
+          detailNode.textContent = node.detail;
+          group.append(labelNode, detailNode);
+          const showDetail = () => { byId("diagram-detail").textContent = `${node.label} — ${node.detail}`; };
+          group.addEventListener("click", showDetail);
+          group.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") showDetail(); });
+          svg.append(group);
+        });
+        stage.replaceChildren(svg);
+      }
+
+      function render3D(visual, focusIds, camera = {}) {
+        const stage = byId("diagram-stage");
+        const canvas = create("canvas");
+        canvas.setAttribute("role", "img");
+        canvas.setAttribute("aria-label", `${visual.caption}. Drag to rotate; use the mouse wheel to zoom.`);
+        stage.replaceChildren(canvas);
+        const context = canvas.getContext("2d");
+        const scene = {
+          rotationX: Number(camera.rotation_x ?? -0.16),
+          rotationY: Number(camera.rotation_y ?? 0.38),
+          zoom: Number(camera.zoom ?? 1),
+          dragging: false,
+          lastX: 0,
+          lastY: 0,
+          frame: 0
+        };
+        const target = { rotationX: scene.rotationX, rotationY: scene.rotationY, zoom: scene.zoom };
+        const center = visual.nodes.reduce((sum, node) => ({ x: sum.x + node.x, y: sum.y + node.y, z: sum.z + node.z }), { x: 0, y: 0, z: 0 });
+        center.x /= visual.nodes.length;
+        center.y /= visual.nodes.length;
+        center.z /= visual.nodes.length;
+
+        function project(node, width, height) {
+          const x = node.x - center.x;
+          const y = node.y - center.y;
+          const z = node.z - center.z;
+          const cy = Math.cos(scene.rotationY), sy = Math.sin(scene.rotationY);
+          const cx = Math.cos(scene.rotationX), sx = Math.sin(scene.rotationX);
+          const rx = x * cy - z * sy;
+          const rz = x * sy + z * cy;
+          const ry = y * cx - rz * sx;
+          const depth = y * sx + rz * cx;
+          const scale = Math.min(width / 760, height / 470) * scene.zoom;
+          const perspective = Math.max(.55, 1 + depth / 1200);
+          return { x: width / 2 + rx * scale * perspective, y: height / 2 + ry * scale * perspective, depth, scale: scale * perspective };
+        }
+
+        function roundRect(x, y, width, height, radius) {
+          context.beginPath();
+          context.roundRect(x, y, width, height, radius);
+        }
+
+        function draw() {
+          const ratio = Math.min(window.devicePixelRatio || 1, 2);
+          const width = Math.max(320, canvas.clientWidth);
+          const height = Math.max(300, canvas.clientHeight);
+          if (canvas.width !== width * ratio || canvas.height !== height * ratio) {
+            canvas.width = width * ratio;
+            canvas.height = height * ratio;
+          }
+          context.setTransform(ratio, 0, 0, ratio, 0, 0);
+          context.clearRect(0, 0, width, height);
+
+          if (!reduceMotion && !scene.dragging) {
+            scene.rotationX += (target.rotationX - scene.rotationX) * .08;
+            scene.rotationY += (target.rotationY - scene.rotationY) * .08;
+            scene.zoom += (target.zoom - scene.zoom) * .08;
+          }
+
+          const projected = new Map(visual.nodes.map((node) => [node.id, { node, point: project(node, width, height) }]));
+          visual.edges.forEach((edge) => {
+            const source = projected.get(edge.source);
+            const destination = projected.get(edge.target);
+            const focused = focusIds.has(edge.source) || focusIds.has(edge.target);
+            context.save();
+            context.globalAlpha = focusIds.size && !focused ? .13 : .7;
+            context.strokeStyle = "#71809b";
+            context.lineWidth = 1.5;
+            if (edge.style === "dashed") context.setLineDash([7, 5]);
+            context.beginPath();
+            context.moveTo(source.point.x, source.point.y);
+            const angle = Math.atan2(destination.point.y - source.point.y, destination.point.x - source.point.x);
+            const targetX = destination.point.x - 58 * Math.cos(angle);
+            const targetY = destination.point.y - 58 * Math.sin(angle);
+            context.lineTo(targetX, targetY);
+            context.stroke();
+            context.fillStyle = "#71809b";
+            context.beginPath();
+            context.moveTo(targetX, targetY);
+            context.lineTo(targetX - 8 * Math.cos(angle - .45), targetY - 8 * Math.sin(angle - .45));
+            context.lineTo(targetX - 8 * Math.cos(angle + .45), targetY - 8 * Math.sin(angle + .45));
+            context.fill();
+            context.font = "10px ui-monospace, monospace";
+            context.textAlign = "center";
+            context.fillStyle = "#9eacc1";
+            context.fillText(edge.label, (source.point.x + destination.point.x) / 2, (source.point.y + destination.point.y) / 2 - 8);
+            context.restore();
+          });
+
+          [...projected.values()].sort((a, b) => a.point.depth - b.point.depth).forEach(({ node, point }) => {
+            const focused = focusIds.has(node.id);
+            const widthBox = Math.max(92, 126 * point.scale);
+            const heightBox = Math.max(48, 58 * point.scale);
+            context.save();
+            context.globalAlpha = focusIds.size && !focused ? .2 : 1;
+            context.shadowColor = focused ? "rgba(255,255,255,.45)" : "rgba(0,0,0,.4)";
+            context.shadowBlur = focused ? 18 : 8;
+            roundRect(point.x - widthBox / 2, point.y - heightBox / 2, widthBox, heightBox, 8);
+            context.fillStyle = `${colors[node.color] || colors.slate}33`;
+            context.fill();
+            context.lineWidth = focused ? 3 : 1;
+            context.strokeStyle = focused ? "#ffffff" : (colors[node.color] || colors.slate);
+            context.stroke();
+            context.shadowBlur = 0;
+            context.fillStyle = "#f4f6fb";
+            context.font = "700 12px system-ui, sans-serif";
+            context.textAlign = "center";
+            context.fillText(node.label, point.x, point.y - 3, widthBox - 12);
+            context.fillStyle = "#aeb9ca";
+            context.font = "10px system-ui, sans-serif";
+            context.fillText(node.detail, point.x, point.y + 15, widthBox - 12);
+            context.restore();
+          });
+          scene.frame = requestAnimationFrame(draw);
+        }
+
+        canvas.addEventListener("pointerdown", (event) => {
+          stopStory();
+          scene.dragging = true;
+          scene.lastX = event.clientX;
+          scene.lastY = event.clientY;
+          canvas.setPointerCapture(event.pointerId);
+        });
+        canvas.addEventListener("pointermove", (event) => {
+          if (!scene.dragging) return;
+          scene.rotationY += (event.clientX - scene.lastX) * .008;
+          scene.rotationX += (event.clientY - scene.lastY) * .008;
+          target.rotationY = scene.rotationY;
+          target.rotationX = scene.rotationX;
+          scene.lastX = event.clientX;
+          scene.lastY = event.clientY;
+        });
+        canvas.addEventListener("pointerup", () => { scene.dragging = false; });
+        canvas.addEventListener("wheel", (event) => {
+          event.preventDefault();
+          stopStory();
+          target.zoom = Math.max(.55, Math.min(2.2, target.zoom - event.deltaY * .001));
+        }, { passive: false });
+        draw();
+        state.visualCleanup = () => cancelAnimationFrame(scene.frame);
+      }
+
+      function renderLegend(visual) {
+        const legend = byId("diagram-legend");
+        legend.replaceChildren();
+        const seen = new Set();
+        visual.nodes.forEach((node) => {
+          if (seen.has(node.color)) return;
+          seen.add(node.color);
+          const item = create("span", "legend-item");
+          const dot = create("span", "legend-dot");
+          dot.style.background = colors[node.color] || colors.slate;
+          item.append(dot, create("span", "", node.color));
+          legend.append(item);
+        });
+      }
+
+      function renderVisual(step) {
+        if (state.visualCleanup) state.visualCleanup();
+        state.visualCleanup = null;
+        const visual = findVisual(step.visual_id);
+        const focusIds = new Set(step.focus_node_ids);
+        byId("diagram-title").textContent = visual.title;
+        byId("diagram-mode").textContent = visual.mode === "3d" ? "3D spatial model · drag to rotate · wheel to zoom" : "2D relationship model";
+        byId("diagram-caption").textContent = visual.caption;
+        byId("diagram-detail").textContent = focusIds.size ? `Focused: ${visual.nodes.filter((node) => focusIds.has(node.id)).map((node) => node.label).join(", ")}` : "Complete model";
+        if (visual.mode === "3d") render3D(visual, focusIds, step.camera || {});
+        else render2D(visual, focusIds);
+        renderLegend(visual);
+      }
+
+      function copyText(text, button) {
+        const done = () => { const previous = button.textContent; button.textContent = "Copied"; setTimeout(() => { button.textContent = previous; }, 1200); };
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+        } else fallbackCopy(text, done);
+      }
+
+      function fallbackCopy(text, done) {
+        const area = create("textarea");
+        area.value = text;
+        area.style.position = "fixed";
+        area.style.opacity = "0";
+        document.body.append(area);
+        area.select();
+        document.execCommand("copy");
+        area.remove();
+        done();
+      }
+
+      function renderCode(step) {
+        const excerpts = step.code_ids.map(findCode).filter(Boolean);
+        const tabs = byId("code-tabs");
+        tabs.replaceChildren();
+        if (!excerpts.length) {
+          byId("code-panel").replaceChildren(create("div", "empty-state", "This orientation step does not depend on a source excerpt. Advance to the mechanism or proof step for exact code evidence."));
+          return;
+        }
+        state.code = Math.min(state.code, excerpts.length - 1);
+        excerpts.forEach((excerpt, index) => {
+          const button = create("button", "code-tab", excerpt.label);
+          button.type = "button";
+          button.role = "tab";
+          button.dataset.codeId = excerpt.id;
+          button.setAttribute("aria-selected", index === state.code ? "true" : "false");
+          button.addEventListener("click", () => { state.code = index; renderCode(step); });
+          tabs.append(button);
+        });
+
+        const excerpt = excerpts[state.code];
+        const panel = byId("code-panel");
+        const meta = create("div", "code-meta");
+        meta.append(create("div", "code-path", `${excerpt.path}:${excerpt.start_line}-${excerpt.end_line} · ${excerpt.side}`));
+        const actions = create("div", "code-actions");
+        const copy = create("button", "mini-button", "Copy");
+        copy.type = "button";
+        copy.addEventListener("click", () => copyText(excerpt.content, copy));
+        actions.append(copy);
+        if (excerpt.diff_url) actions.append(link("Open diff ↗", excerpt.diff_url, "mini-button"));
+        meta.append(actions);
+
+        const pre = create("pre");
+        const code = create("code");
+        code.className = `language-${excerpt.language}`;
+        const emphasized = new Set(excerpt.emphasis);
+        excerpt.content.split("\n").forEach((line, index) => {
+          const lineNumber = excerpt.side === "diff" ? "·" : excerpt.start_line + index;
+          const span = create("span", `code-line${emphasized.has(lineNumber) ? " emphasized" : ""}`, line || " ");
+          span.dataset.line = String(lineNumber);
+          code.append(span);
+        });
+        pre.append(code);
+        panel.replaceChildren(meta, pre);
+      }
+
+      function renderFindings() {
+        const list = byId("finding-list");
+        list.replaceChildren();
+        if (!data.findings.length) {
+          list.append(create("div", "empty-state", "No actionable findings were verified. This is not a claim that the change is risk-free."));
+          return;
+        }
+        data.findings.forEach((finding) => {
+          const card = create("article", `finding ${finding.severity}`);
+          card.append(create("div", "finding-meta", `${finding.severity} · ${finding.confidence} confidence`), create("h3", "", finding.title));
+          const details = create("dl");
+          [["Trigger", finding.trigger], ["Impact", finding.impact], ["Evidence", finding.evidence], ["Direction", finding.resolution]].forEach(([term, value]) => {
+            details.append(create("dt", "", term), create("dd", "", value));
+          });
+          card.append(details);
+          if (finding.url) card.append(link("Inspect evidence ↗", finding.url, "evidence-link"));
+          list.append(card);
+        });
+      }
+
+      function renderCoverage() {
+        const coverage = byId("coverage-grid");
+        coverage.replaceChildren();
+        const groups = [
+          ["Represented", data.coverage.represented.map((path) => path)],
+          ["De-emphasized", data.coverage.deemphasized.map((item) => `${item.path} — ${item.reason}`)],
+          ["Unresolved", data.coverage.unresolved],
+          ["Evidence gaps", data.coverage.evidence_gaps]
+        ];
+        groups.forEach(([title, items]) => {
+          const group = create("section", "coverage-group");
+          group.append(create("h3", "", `${title} · ${items.length}`));
+          const list = create("ul");
+          if (!items.length) list.append(create("li", "", "None"));
+          else items.forEach((item) => list.append(create("li", "", item)));
+          group.append(list);
+          coverage.append(group);
+        });
+      }
+
+      function stopStory() {
+        if (state.timer) window.clearInterval(state.timer);
+        state.timer = null;
+        state.playing = false;
+        byId("play-story").textContent = "▶ Story";
+        byId("play-story").setAttribute("aria-pressed", "false");
+      }
+
+      function toggleStory() {
+        if (state.playing) { stopStory(); return; }
+        state.playing = true;
+        byId("play-story").textContent = "❚❚ Pause";
+        byId("play-story").setAttribute("aria-pressed", "true");
+        if (state.step === data.steps.length - 1) setStep(0);
+        state.timer = window.setInterval(() => {
+          if (state.step >= data.steps.length - 1) stopStory();
+          else setStep(state.step + 1);
+        }, reduceMotion ? 7000 : 5200);
+      }
+
+      byId("previous-step").addEventListener("click", () => { stopStory(); setStep(state.step - 1); });
+      byId("next-step").addEventListener("click", () => { stopStory(); setStep(state.step + 1); });
+      byId("play-story").addEventListener("click", toggleStory);
+      byId("reset-view").addEventListener("click", () => { stopStory(); renderVisual(data.steps[state.step]); });
+      byId("toggle-findings").addEventListener("click", () => {
+        const panel = byId("findings-panel");
+        const show = panel.hidden;
+        panel.hidden = !show;
+        byId("toggle-findings").setAttribute("aria-pressed", show ? "true" : "false");
+        if (show) panel.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      });
+      document.addEventListener("keydown", (event) => {
+        if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) return;
+        if (event.key === "ArrowRight" || event.key.toLowerCase() === "n") { stopStory(); setStep(state.step + 1); }
+        if (event.key === "ArrowLeft" || event.key.toLowerCase() === "p") { stopStory(); setStep(state.step - 1); }
+        if (event.key.toLowerCase() === "o") { stopStory(); setStep(0); }
+        if (event.key.toLowerCase() === "r") byId("toggle-findings").click();
+        if (event.key === " ") { event.preventDefault(); toggleStory(); }
+      });
+
+      renderHeader();
+      renderFindings();
+      renderCoverage();
+      setStep(state.step);
+    })();
+  </script>
+</body>
+</html>
