@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "title": "How clamp bounds a value",
+    "intent": "Explain the interval contract, guard, and value transformation.",
+    "target": "Supplied clamp function",
+    "snapshot": {
+      "kind": "snippet",
+      "label": "Supplied function, captured text",
+      "sources": [
+        {
+          "path": "snippet-1",
+          "sha256": "d43e65d52aa2664a873bcd6a4e69c61c23e660f7f5b6251a87432b7dcbf66c0b"
+        }
+      ]
+    },
+    "generated_at": "2026-10-12T13:00:00Z",
+    "code_involved": true
+  },
+  "files": [
+    {
+      "path": "snippet-1",
+      "role": "story-critical",
+      "purpose": "Validate the interval and bound the value",
+      "source_url": ""
+    }
+  ],
+  "code": [
+    {
+      "id": "clamp",
+      "label": "Guard the interval, then bound the value",
+      "path": "snippet-1",
+      "language": "python",
+      "side": "context",
+      "start_line": 1,
+      "end_line": 4,
+      "content": "def clamp(value, lower, upper):\n    if lower > upper:\n        raise ValueError(\"lower exceeds upper\")\n    return max(lower, min(value, upper))",
+      "emphasis": [
+        2,
+        3,
+        4
+      ],
+      "source_url": ""
+    }
+  ],
+  "visuals": [
+    {
+      "id": "bounds",
+      "title": "Validate, then transform",
+      "mode": "2d",
+      "caption": "An inverted interval raises; a valid interval bounds the value.",
+      "nodes": [
+        {
+          "id": "guard",
+          "label": "Check interval",
+          "detail": "Raise if lower exceeds upper",
+          "x": 100,
+          "y": 160,
+          "z": 0,
+          "color": "amber"
+        },
+        {
+          "id": "bound",
+          "label": "Bound value",
+          "detail": "Cap at upper, then floor at lower",
+          "x": 420,
+          "y": 160,
+          "z": 0,
+          "color": "blue"
+        }
+      ],
+      "edges": [
+        {
+          "source": "guard",
+          "target": "bound",
+          "label": "valid interval",
+          "style": "solid"
+        }
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "id": "clamp-flow",
+      "kind": "behavior",
+      "kicker": "Function flow",
+      "title": "A valid interval bounds the value",
+      "takeaway": "The guard rejects inverted bounds before the value is transformed.",
+      "narrative": [
+        "The function raises ValueError when lower exceeds upper. Otherwise, min caps the value at upper and max floors that result at lower.",
+        "Worked example, not a recorded execution: clamp(12, 0, 10) returns 10. Caller behavior and nonnumeric inputs are outside the supplied context."
+      ],
+      "visual_id": "bounds",
+      "focus_node_ids": [
+        "guard",
+        "bound"
+      ],
+      "code_ids": [
+        "clamp"
+      ],
+      "evidence": []
+    }
+  ],
+  "findings": [],
+  "coverage": {
+    "represented": [
+      "snippet-1"
+    ],
+    "deemphasized": [],
+    "unresolved": [],
+    "evidence_gaps": [
+      "No callers, tests, or execution records were supplied."
+    ]
+  }
+}

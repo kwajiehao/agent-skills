@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Walkthrough"
+  short_description: "Evidence-linked visual tours of code at any scale"
+  default_prompt: "Use $code-walkthrough to explain this code from purpose and outcomes down to optional evidence-linked technical details."

@@ -1,7 +1,7 @@
 # Workflow behavioral evaluations
 
 These cases exercise decisions and deliverables from dep-review, ai-fuzzing,
-agent-docs-loop, and walkthrough. They complement runner/recorder/validator tests.
+agent-docs-loop, and pr-walkthrough. They complement runner/recorder/validator tests.
 Passing the Python tests establishes grader and fixture behavior; it does **not**
 establish that an agent followed a skill or that a revised stack is better.
 

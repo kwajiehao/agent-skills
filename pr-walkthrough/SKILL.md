@@ -1,11 +1,13 @@
 ---
-name: walkthrough
+name: pr-walkthrough
 description: Build an author-perspective, evidence-linked visual walkthrough of a pull request or local code change. Use when a reviewer needs to understand intent, architecture, behavior, key code, tests, and review risks through synchronized prose, exact code excerpts, and purposeful 2D or 3D diagrams. Do not use for a findings-only code review or a generic codebase architecture map.
 ---
 
-# PR Review Buddy
+# PR Walkthrough
 
 Create a reviewer aid that makes the change easy to understand before it judges the change. Reconstruct the strongest evidence-supported version of the author's case, show how the changed system works, and keep the exact code beside the explanation and visual focus.
+
+PRs are the primary target; commit ranges and staged or working-tree changes use the same change-focused workflow. For explaining existing code at any scale without a change comparison, use `code-walkthrough`.
 
 The default deliverable is a local interactive site generated under `.walkthrough/`. Remain read-only with respect to product code, GitHub, and other external systems unless the user separately asks for changes or publishing.
 

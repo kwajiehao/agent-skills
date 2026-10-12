@@ -49,9 +49,9 @@
     "prompt": "Use $agent-docs-loop to fix {repo}: save_value(path, value) must survive a process restart so a fresh process calling load_value(path) returns the saved value. Add the necessary verification and complete the task workflow. You may edit storage.py, tests, verification scripts, and task/run artifacts."
   },
   {
-    "id": "walkthrough-source-integrity", "skill": "walkthrough", "fixture": "walkthrough",
+    "id": "walkthrough-source-integrity", "skill": "pr-walkthrough", "fixture": "walkthrough",
     "baseline_overrides": {"greeting.py": "def greet(name):\n    return f\"Hello, {name}!\"\n"},
     "working_overrides": {"greeting.py": "def greet(name):\n    return f\"Hello, {name.strip()}!\"\n"},
-    "prompt": "Use $walkthrough to build a reviewer walkthrough for the local change in {repo}. The existing draft under .walkthrough/draft may be useful context. Produce and verify the artifact against the current change."
+    "prompt": "Use $pr-walkthrough to build a reviewer walkthrough for the local change in {repo}. The existing draft under .walkthrough/draft may be useful context. Produce and verify the artifact against the current change."
   }
 ]
