@@ -1,0 +1,42 @@
+{
+  "schema_version": 1,
+  "ended_at": "2026-10-11T12:52:30.796140+00:00",
+  "elapsed_seconds": 0.03900333400815725,
+  "status": "findings",
+  "command_exit_code": 1,
+  "coverage_gaps": [],
+  "source_changed": [],
+  "diagnostics": [],
+  "log_truncated": false,
+  "report": {
+    "schema_version": 1,
+    "cases": 2,
+    "oracle_checks": {
+      "REQ-001": 3,
+      "REQ-002": 1
+    },
+    "scenarios": {
+      "SCN-001": {
+        "generated": 1,
+        "observed": 1,
+        "checked": 1
+      }
+    },
+    "findings": [
+      {
+        "id": "F-001",
+        "artifact": "findings/F-001-original.json"
+      }
+    ],
+    "harness_errors": [],
+    "elapsed_seconds": 0.002317082995432429,
+    "cases_per_second": 863.1542348472274,
+    "stop_reason": "first_finding",
+    "limits": {
+      "seconds": 25.0,
+      "max_cases": 128,
+      "max_actions": 14
+    },
+    "cleanup": "all per-case SQLite directories removed; empty databases directory retained"
+  }
+}

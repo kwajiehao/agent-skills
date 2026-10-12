@@ -7,11 +7,16 @@ set -euo pipefail
 REPO_URL="${AGENT_SKILLS_REPO:-https://github.com/kwajiehao/agent-skills.git}"
 CLONE_DIR="${AGENT_SKILLS_DIR:-$HOME/.agent-skills}"
 
-# Claude Code always gets a link. Codex and the generic agents path are only
-# populated when their config directory already exists, so we don't scatter
-# empty directories for tools that aren't installed.
-ALWAYS_TARGETS=("$HOME/.claude/skills")
-OPTIONAL_TARGETS=("$HOME/.codex/skills" "$HOME/.agents/skills")
+# The shared discovery path is created even on a first Codex installation.
+ALWAYS_TARGETS=("${AGENT_SKILLS_CLAUDE_DIR:-$HOME/.claude/skills}" "${AGENT_SKILLS_AGENTS_DIR:-$HOME/.agents/skills}")
+OPTIONAL_TARGETS=()
+if [ -n "${AGENT_SKILLS_CODEX_DIR:-}" ]; then
+    ALWAYS_TARGETS+=("$AGENT_SKILLS_CODEX_DIR")
+elif [ -n "${CODEX_HOME:-}" ]; then
+    ALWAYS_TARGETS+=("$CODEX_HOME/skills")
+else
+    OPTIONAL_TARGETS+=("$HOME/.codex/skills")
+fi
 
 die() { printf 'error: %s\n' "$1" >&2; exit 1; }
 
@@ -100,7 +105,7 @@ for target in "${ALWAYS_TARGETS[@]}"; do
     link_into "$target"
 done
 
-for target in "${OPTIONAL_TARGETS[@]}"; do
+for target in ${OPTIONAL_TARGETS[@]+"${OPTIONAL_TARGETS[@]}"}; do
     if [ -d "$(dirname "$target")" ]; then
         printf '\n=== %s ===\n' "$target"
         link_into "$target"

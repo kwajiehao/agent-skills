@@ -1,0 +1,1 @@
+Use $dep-review to review the offline dependency upgrade in /private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo. Upstream release pages are unavailable in this environment. You can read and run local files. Report what the available evidence establishes and anything that remains uncertain.

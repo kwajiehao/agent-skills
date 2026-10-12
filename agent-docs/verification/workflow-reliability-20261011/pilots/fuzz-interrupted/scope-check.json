@@ -1,0 +1,20 @@
+{
+  "scenario_id": "fuzz-interrupted",
+  "fixture_digest": "be1c3ab7e8ad209f02796bfd869a349b9de426f67bcd7b3488412979e977d499",
+  "changed_files": [],
+  "allowed": [],
+  "violations": [],
+  "expected_file_sha256": {
+    "README.md": "d0561567d58dd788282fbcc6da7ab7aa4d3b315451c2ef43f968e14455bd9cfa",
+    "store.py": "7eb5889e0a7663b6099ec36dce8214d00c286ea314cd4661c0fb81f088e06828",
+    "tests/test_store.py": "17e4cd899d0766e3664405c50cbaf017fdf758a00ec3aa633523b9540a35f62f",
+    "latest-run.json": "eeef4bfe211ab629b782b872a492507425e159d9c910cbd18072fe58038ff2ad"
+  },
+  "final_file_sha256": {
+    "README.md": "d0561567d58dd788282fbcc6da7ab7aa4d3b315451c2ef43f968e14455bd9cfa",
+    "latest-run.json": "eeef4bfe211ab629b782b872a492507425e159d9c910cbd18072fe58038ff2ad",
+    "store.py": "7eb5889e0a7663b6099ec36dce8214d00c286ea314cd4661c0fb81f088e06828",
+    "tests/test_store.py": "17e4cd899d0766e3664405c50cbaf017fdf758a00ec3aa633523b9540a35f62f"
+  },
+  "boundary": "Content comparison; runtime caches excluded; no claim about uncaptured external actions"
+}

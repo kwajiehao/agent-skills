@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "scenario_id": "fuzz-mature-native",
+  "fixture_digest": "2f79af29b4716dcf01c2a4e979e5a0f353d96f0bd7eecda5f0078c12b9a2e773",
+  "repo": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-native/repo",
+  "prompt": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-native/prompt.md",
+  "skill": "ai-fuzzing",
+  "initial_head": "44187ab996bb59f4b2e67c2037004e353d0e28e1"
+}

@@ -1,0 +1,59 @@
+{
+  "trial_id": "dep-offline",
+  "execution_kind": "actual_agent",
+  "scenario_id": "dep-unavailable-notes",
+  "arm": "revised",
+  "repeat": 1,
+  "match_id": "dep-offline-1",
+  "fixture_digest": "6dc99b04af6fe0d139fdcdd196c0123ccaf0ef3ae1fe38517cd2a3e126d4b020",
+  "skill_identity": {
+    "name": "dep-review",
+    "revision": "1fefd1a + revised frozen source",
+    "digest": "fdeb135f29b181621e95107a05e4bcdb6d7e2f321a91afd68a4d8300c1bce9a5",
+    "retained_path": "resources/fdeb135f29b181621e95107a05e4bcdb6d7e2f321a91afd68a4d8300c1bce9a5"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python3.13.5/Node22; isolated offline fixtures",
+    "permissions": "Read-only product; local read-only probes for dependency review; no campaign/install/external mutation",
+    "budget": "about 4 minutes per scenario",
+    "limitations": "Partial command transcripts; model exact ID, interactions, latency, tokens unmeasured; prior attempt hit usage limit before work"
+  },
+  "criteria": [
+    {
+      "id": "local-source-fallback",
+      "status": "pass"
+    },
+    {
+      "id": "actual-default-impact",
+      "status": "pass"
+    },
+    {
+      "id": "uncertainty-reported",
+      "status": "pass"
+    },
+    {
+      "id": "supported-verdict",
+      "status": "pass"
+    },
+    {
+      "id": "review-scope",
+      "status": "pass"
+    }
+  ],
+  "accepted_without_correction": null,
+  "metrics": {
+    "unnecessary_questions": null,
+    "human_corrections": null,
+    "false_completion_claims": null,
+    "scope_violations": null,
+    "review_rework": null,
+    "interrupted_recovery": null,
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

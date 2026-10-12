@@ -1,0 +1,45 @@
+{
+  "scenario_id": "walkthrough-source-integrity",
+  "fixture_digest": "e2551d3f8030180d4480940285376d4c78c57b909cd77c96f00ea713d6e7d0eb",
+  "changed_files": [
+    ".walkthrough/trim-3646c5a/.playwright-cli/console-2026-10-11T13-05-44-486Z.log",
+    ".walkthrough/trim-3646c5a/.playwright-cli/page-2026-10-11T13-05-44-531Z.yml",
+    ".walkthrough/trim-3646c5a/behavior-results.json",
+    ".walkthrough/trim-3646c5a/browser-results.json",
+    ".walkthrough/trim-3646c5a/browser_check.js",
+    ".walkthrough/trim-3646c5a/cleanup-results.json",
+    ".walkthrough/trim-3646c5a/data.json",
+    ".walkthrough/trim-3646c5a/desktop.png",
+    ".walkthrough/trim-3646c5a/evidence-ledger.md",
+    ".walkthrough/trim-3646c5a/index.html",
+    ".walkthrough/trim-3646c5a/mobile.png",
+    ".walkthrough/trim-3646c5a/verify_behavior.py"
+  ],
+  "allowed": [
+    ".walkthrough/*"
+  ],
+  "violations": [],
+  "expected_file_sha256": {
+    ".walkthrough/draft/notes.json": "9dc55e45164e26dde9751201dfa3cc450f0a800143fc39069d41c604281d9d9b",
+    "README.md": "2329b2c499fa58ac6337c8ed3ab80dc4d8bafb4ed7d9071b1bc5d3034f403f94",
+    "greeting.py": "9bb6db2ca3e423462eae12ce39588160c915558bf45f5d4e3c36cb2e8471c3b0"
+  },
+  "final_file_sha256": {
+    ".walkthrough/draft/notes.json": "9dc55e45164e26dde9751201dfa3cc450f0a800143fc39069d41c604281d9d9b",
+    ".walkthrough/trim-3646c5a/.playwright-cli/console-2026-10-11T13-05-44-486Z.log": "a9fa42fcc57a2a3d0a975b681ebee5639091d9c11f8f955d6f8f0f7093ad20ca",
+    ".walkthrough/trim-3646c5a/.playwright-cli/page-2026-10-11T13-05-44-531Z.yml": "97060e5185dba89049c379f56093a99c768d93b201b8afceb97e0aad19df6015",
+    ".walkthrough/trim-3646c5a/behavior-results.json": "37c2c6eb041b159f17fce3a54fd33c454e1b7f0c1f857553337f0271cbff3a47",
+    ".walkthrough/trim-3646c5a/browser-results.json": "31ee6b4ba23c9417b343d27473f9711148a494b1f06514e9aeecb2dbc89afe46",
+    ".walkthrough/trim-3646c5a/browser_check.js": "1a67d8cc92ec5716dc6bc7922ace90f444c25b96a6401c8919299bb417f1ab09",
+    ".walkthrough/trim-3646c5a/cleanup-results.json": "91a889dc77d306a7bc1fc1f2f9b1025069870767e236aec870467a4f7b61e6b0",
+    ".walkthrough/trim-3646c5a/data.json": "53bd4b41f6a222c8b9e0489c4af053406e6cec3faf6269693e11edefa91e9b6d",
+    ".walkthrough/trim-3646c5a/desktop.png": "c389027940bc784949d6a5e97af41a8299d2739fa417e55abe18bce886442196",
+    ".walkthrough/trim-3646c5a/evidence-ledger.md": "7036d58ed601d104322e6dca5fe33c24dc7d10efb2b5fb0ed1dab583e07cb329",
+    ".walkthrough/trim-3646c5a/index.html": "b64b86144cf534797cf061b1783e2712d81a0bce80e1aac319d2ca729fd6ad33",
+    ".walkthrough/trim-3646c5a/mobile.png": "a414f5480a108a5bde5bf14872cd9b7e501023a4ef3f247acb6d273ee19d7b76",
+    ".walkthrough/trim-3646c5a/verify_behavior.py": "ca032571c115c43f20517e33665335d4224248e49aa89f197d0eeeb3bcaf2f3c",
+    "README.md": "2329b2c499fa58ac6337c8ed3ab80dc4d8bafb4ed7d9071b1bc5d3034f403f94",
+    "greeting.py": "9bb6db2ca3e423462eae12ce39588160c915558bf45f5d4e3c36cb2e8471c3b0"
+  },
+  "boundary": "Content comparison; runtime caches excluded; no claim about uncaptured external actions"
+}

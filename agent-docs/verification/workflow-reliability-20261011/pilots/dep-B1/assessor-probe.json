@@ -1,0 +1,18 @@
+[
+  {
+    "command": "NODE_PATH=/private/tmp/workflow-pilots-20261011.jYJEET/dep-B1/repo/evidence/1.4.0 node -e 'const assert=require(\"node:assert\");const {importCount}=require(\"./app\");try{const actual=importCount({count:\"007\"});assert.equal(process.argv[1],\"number\");assert.equal(actual,7);console.log(actual)}catch(error){if(error.name===\"AssertionError\")throw error;assert.equal(process.argv[1],\"TypeError\");assert.equal(error.name,\"TypeError\");console.log(error.name)}' number",
+    "chunk_id": "d92619",
+    "wall_time_seconds": 0.000006125,
+    "exit_code": 0,
+    "original_token_count": 1,
+    "output": "7\n"
+  },
+  {
+    "command": "NODE_PATH=/private/tmp/workflow-pilots-20261011.jYJEET/dep-B1/repo/evidence/1.6.0 node -e 'const assert=require(\"node:assert\");const {importCount}=require(\"./app\");try{const actual=importCount({count:\"007\"});assert.equal(process.argv[1],\"number\");assert.equal(actual,7);console.log(actual)}catch(error){if(error.name===\"AssertionError\")throw error;assert.equal(process.argv[1],\"TypeError\");assert.equal(error.name,\"TypeError\");console.log(error.name)}' TypeError",
+    "chunk_id": "1d629e",
+    "wall_time_seconds": 0.000006542,
+    "exit_code": 0,
+    "original_token_count": 3,
+    "output": "TypeError\n"
+  }
+]

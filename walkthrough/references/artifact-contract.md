@@ -35,7 +35,7 @@ Required fields:
 }
 ```
 
-Use an empty `pr_url` for local-only changes. Immutable SHAs remain required; for an uncommitted target, use the current HEAD for `head_sha` and describe staged/working-tree scope in `target` and `coverage.evidence_gaps`.
+Use an empty `pr_url` for local-only changes. Immutable SHAs remain required; for an uncommitted target, use the current HEAD for `head_sha` and collect staged/working fingerprints as described below. Keep `base_ref` and `head_ref` from collection so validation can detect moved refs. For intentionally immutable historical targets, pass the full SHAs as refs.
 
 ## `files`
 
@@ -58,7 +58,7 @@ Each changed file record requires `path`, `status`, `additions`, `deletions`, `r
 }
 ```
 
-`side` is `old`, `new`, `diff`, or `context`. The line range must match the excerpt for old/new/context sides. `emphasis` contains source line numbers; for a diff excerpt it may be empty.
+`side` is `old`, `new`, `diff`, or `context`. The line range must match the excerpt. Diff ranges index the collector's per-file unified diff, including `---`/`+++` headers and newline markers. `context` also requires `revision` equal to the full base or head SHA. `emphasis` contains source line numbers; for a diff excerpt it may be empty. Content is exact selected text with line separators normalized to `\n` and no terminal separator.
 
 ## `visuals`
 
@@ -92,16 +92,19 @@ Each changed file record requires `path`, `status`, `additions`, `deletions`, `r
   "visual_id": "retry-flow",
   "focus_node_ids": ["worker", "scheduler"],
   "code_ids": ["retry-loop"],
-  "evidence": [{"label": "Changed retry loop", "url": "https://github.com/..."}],
+  "claim_status": "demonstrated",
+  "evidence": [{"label": "Changed retry loop", "code_id": "retry-loop"}],
   "camera": {"rotation_x": -0.15, "rotation_y": 0.35, "zoom": 1.15}
 }
 ```
 
 `kind` is `intent`, `architecture`, `mechanism`, `behavior`, `proof`, `risk`, or `coverage`. Every step needs a valid visual. Code-bearing changes need code attached to the relevant architecture/mechanism/behavior/proof/risk steps. `camera` is optional and primarily useful for 3D scenes.
 
+Source-bound validation requires `claim_status`: `stated`, `demonstrated`, `inferred`, `disputed`, or `unknown`. Stated/demonstrated/disputed claims need nonempty typed evidence. Inferred/unknown claims without evidence require a nonempty `evidence_gap`, rendered beside the claim. Each evidence record has a `label` and exactly one of `code_id` (an existing source-verified excerpt) or `url` (absolute HTTP(S)). URL records require `source_kind`: `spec`, `issue`, `pr`, `comment`, `check`, `benchmark`, or `manual`. URL contents and semantic entailment remain manual checks; a source link is not execution proof.
+
 ## `findings`
 
-Each finding requires `severity`, `confidence`, `title`, `trigger`, `impact`, `evidence`, `resolution`, and `url`. Severity is `blocking`, `important`, or `optional`; confidence is `high`, `medium`, or `low`. Use an empty array when no actionable findings were verified.
+Each finding requires `severity`, `confidence`, `title`, `trigger`, `impact`, `evidence`, `resolution`, and `url`. Source-bound findings use the same `claim_status`, typed evidence records, and gap policy as steps. Severity is `blocking`, `important`, or `optional`; confidence is `high`, `medium`, or `low`. Use an empty array when no actionable findings were verified. Legacy string evidence can still render but does not pass source-bound validation.
 
 ## `coverage`
 
@@ -126,7 +129,21 @@ Render and validate:
 
 ```bash
 python3 scripts/render_walkthrough.py --data data.json --output .walkthrough/change/index.html
-python3 scripts/validate_walkthrough.py --html .walkthrough/change/index.html
+python3 scripts/validate_walkthrough.py --html .walkthrough/change/index.html --repo <repo-root>
 ```
 
-The validator checks schema references, line ranges, coverage accounting, required UI contracts, inline data, and unpinned/external runtime dependencies. Browser QA remains required for layout and interaction confidence.
+Without `--repo`, validation checks structure only: schema references, line ranges, coverage accounting, required UI contracts, inline data, and unpinned/external runtime dependencies. It prints an explicit warning and does not verify source text or freshness. Browser QA remains required for layout and interaction confidence. The bundled example is synthetic renderer data and is not a source-verified review.
+
+## Source-bound verification
+
+Run `scripts/source_evidence.py --repo <repo-root> --base <ref> --head <ref> --mode committed` and preserve returned `meta.source_snapshot` unchanged. `--mode staged` compares base to the index; `--mode working` compares base to tracked working contents and untracked source, and independently fingerprints the index. Collection is read-only and fails on Git errors, merge conflicts, changed files during collection, and dirty submodules rather than presenting incomplete evidence as verified.
+
+The manifest contains version, mode, base/head SHAs, base/target tree digests, local index digest when relevant, explicit untracked output exclusions, and a SHA-256 digest of those fields. Fingerprints cover file content and modes. They establish freshness relative to collection, not authenticity against someone intentionally rewriting both evidence and digests.
+
+Default untracked exclusion: `.walkthrough`. Override with repeatable `--exclude-untracked <relative-path>` when an explicitly selected output directory should not be reviewed. Tracked files are never excluded. Preserve this list in the snapshot and disclose any additional exclusion in coverage. Avoid excluding product sources to make validation pass.
+
+The collector derives inventory from complete Git endpoint entries and reports renames as added/deleted paths. Text counts and diff excerpts use Git's Myers diff over observed bytes in an isolated temporary directory, without repository textconv/clean filters. Binary changes receive zero text counts and `binary: true`; account for their effect separately. Text line endings are normalized in excerpts; blob fingerprints still detect byte differences. SHA-1 Git repositories and UTF-8 paths/text are supported; source blobs larger than 16 MiB fail explicitly rather than silently truncating evidence. Symlinks are inventoried by link text and cannot be used as source excerpts. Context reads are limited to immutable endpoint SHAs; paths cannot escape the repository.
+
+`--repo` validation checks source snapshots, current target refs, exact source/diff excerpts, full inventory and counts, and evidence-link targets. It does not claim to judge whether prose follows logically from code, whether linked external records exist, whether tests executed, or whether a visual accurately models behavior. Inspect those separately and label execution gaps.
+
+To collect an excerpt, add `--path src/file.py --side new --start 10 --end 18` with the same collection arguments. Add its returned fields to a code record plus editorial id/label/language/emphasis/link. Use `--side old` for base, `--side diff` for the collector's unified diff, or `--side context --revision <full-base-or-head-sha>` for unchanged context.

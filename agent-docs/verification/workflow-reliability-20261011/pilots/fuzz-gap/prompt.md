@@ -1,0 +1,1 @@
+Use $ai-fuzzing to assess /private/tmp/workflow-pilots-20261011.jYJEET/fuzz-gap/repo. Existing smoke checks run successfully and latest-run.json contains the latest campaign summary. Recommend the next useful action.

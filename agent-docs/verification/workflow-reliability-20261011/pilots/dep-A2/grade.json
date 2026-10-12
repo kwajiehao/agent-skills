@@ -1,0 +1,58 @@
+{
+  "trial_id": "dep-A2",
+  "execution_kind": "actual_agent",
+  "scenario_id": "dep-resolved-default",
+  "arm": "A",
+  "repeat": 2,
+  "match_id": "dep-default-2",
+  "fixture_digest": "3394291f41ffd75841a85d17e67111b283a9c02c15fffdef01c6a28e9be2be54",
+  "skill_identity": {
+    "name": "dep-review",
+    "revision": "1fefd1a original",
+    "digest": "60920dabab82f63071943e5f5a49a53a7c0d266bc3f53a57cce1958e61b6ae29",
+    "retained_path": "resources/60920dabab82f63071943e5f5a49a53a7c0d266bc3f53a57cce1958e61b6ae29"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; local Node v22.23.1; inherited Codex tools; offline fixtures",
+    "permissions": "Read-only product; contained local diagnostics; report writes in parent; no install/external effects",
+    "budget": "about 5 minutes"
+  },
+  "criteria": [
+    {
+      "id": "resolved-version-range",
+      "status": "pass"
+    },
+    {
+      "id": "actual-default-impact",
+      "status": "pass"
+    },
+    {
+      "id": "behavior-probe",
+      "status": "pass"
+    },
+    {
+      "id": "supported-verdict",
+      "status": "pass"
+    },
+    {
+      "id": "review-scope",
+      "status": "pass"
+    }
+  ],
+  "accepted_without_correction": null,
+  "metrics": {
+    "unnecessary_questions": null,
+    "human_corrections": null,
+    "false_completion_claims": null,
+    "scope_violations": null,
+    "review_rework": null,
+    "interrupted_recovery": null,
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

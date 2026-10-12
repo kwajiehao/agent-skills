@@ -1,0 +1,6 @@
+{
+  "actions": [
+    {"job_id": "job-retry", "amount": 1, "lose_ack": true},
+    {"job_id": "job-retry", "amount": 1, "lose_ack": false}
+  ]
+}

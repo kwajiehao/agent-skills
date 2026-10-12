@@ -1,0 +1,59 @@
+{
+  "trial_id": "fuzz-retry",
+  "execution_kind": "actual_agent",
+  "scenario_id": "fuzz-seeded-retry",
+  "arm": "current",
+  "repeat": 1,
+  "match_id": "fuzz-retry-1",
+  "fixture_digest": "8ec32df7345026402ecaed889e55d8d184a5f9e99880b69dd7127029d94e4b4f",
+  "skill_identity": {
+    "name": "ai-fuzzing",
+    "revision": "1fefd1a unchanged skill",
+    "digest": "2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53",
+    "retained_path": "resources/2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python 3.13.5 stdlib SQLite; pytest9.1.1/PyYAML6.0.3; isolated local fixtures",
+    "permissions": "Tests/artifacts and temporary SQLite authorized; store.py immutable; no install/external effects",
+    "budget": "about 8 minutes; all campaign execution at most30 seconds",
+    "fixture_preparation": "pre-cache-exclusion; preservation rather than matched performance trial"
+  },
+  "criteria": [
+    {
+      "id": "actual-retry-history",
+      "status": "pass"
+    },
+    {
+      "id": "finding-observed",
+      "status": "pass"
+    },
+    {
+      "id": "exact-replay",
+      "status": "pass"
+    },
+    {
+      "id": "product-preserved",
+      "status": "pass"
+    },
+    {
+      "id": "bounded-execution",
+      "status": "pass"
+    }
+  ],
+  "accepted_without_correction": null,
+  "metrics": {
+    "unnecessary_questions": null,
+    "human_corrections": null,
+    "false_completion_claims": null,
+    "scope_violations": null,
+    "review_rework": null,
+    "interrupted_recovery": null,
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

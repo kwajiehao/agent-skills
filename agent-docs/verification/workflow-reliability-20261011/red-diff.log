@@ -1,0 +1,55 @@
+test_context_revision_must_be_endpoint_not_arbitrary_ref (test_source_verification.SourceVerificationTests.test_context_revision_must_be_endpoint_not_arbitrary_ref) ... ok
+test_demonstrated_claim_without_evidence_is_rejected (test_source_verification.SourceVerificationTests.test_demonstrated_claim_without_evidence_is_rejected) ... ok
+test_diff_excerpt_is_exact_and_anchored (test_source_verification.SourceVerificationTests.test_diff_excerpt_is_exact_and_anchored) ... ok
+test_diff_retains_no_final_newline_evidence (test_source_verification.SourceVerificationTests.test_diff_retains_no_final_newline_evidence) ... ERROR
+test_diff_uses_git_counts_for_literal_diff_marker_source_lines (test_source_verification.SourceVerificationTests.test_diff_uses_git_counts_for_literal_diff_marker_source_lines) ... FAIL
+test_evidence_cannot_point_to_nonexistent_code (test_source_verification.SourceVerificationTests.test_evidence_cannot_point_to_nonexistent_code) ... ok
+test_exact_pinned_source_passes_and_does_not_mutate_repo (test_source_verification.SourceVerificationTests.test_exact_pinned_source_passes_and_does_not_mutate_repo) ... ok
+test_fabricated_excerpt_is_rejected (test_source_verification.SourceVerificationTests.test_fabricated_excerpt_is_rejected) ... ok
+test_index_fingerprint_changes_even_when_working_content_is_restored (test_source_verification.SourceVerificationTests.test_index_fingerprint_changes_even_when_working_content_is_restored) ... ok
+test_inventory_fabricated_counts_are_rejected (test_source_verification.SourceVerificationTests.test_inventory_fabricated_counts_are_rejected) ... ok
+test_inventory_omission_is_rejected_even_when_coverage_agrees (test_source_verification.SourceVerificationTests.test_inventory_omission_is_rejected_even_when_coverage_agrees) ... ok
+test_path_escape_and_symlink_escape_are_rejected (test_source_verification.SourceVerificationTests.test_path_escape_and_symlink_escape_are_rejected) ... ok
+test_staged_change_stales_without_head_change (test_source_verification.SourceVerificationTests.test_staged_change_stales_without_head_change) ... ok
+test_unknown_claim_with_explicit_gap_is_valid (test_source_verification.SourceVerificationTests.test_unknown_claim_with_explicit_gap_is_valid) ... ok
+test_untracked_source_is_included_and_fingerprinted (test_source_verification.SourceVerificationTests.test_untracked_source_is_included_and_fingerprinted) ... ok
+test_working_change_stales_without_head_change (test_source_verification.SourceVerificationTests.test_working_change_stales_without_head_change) ... ok
+test_example_data_satisfies_contract (test_walkthrough.WalkthroughValidationTests.test_example_data_satisfies_contract) ... ok
+test_incomplete_coverage_is_rejected (test_walkthrough.WalkthroughValidationTests.test_incomplete_coverage_is_rejected) ... ok
+test_rendered_html_contains_valid_inline_data (test_walkthrough.WalkthroughValidationTests.test_rendered_html_contains_valid_inline_data) ... ok
+test_unknown_focus_node_is_rejected (test_walkthrough.WalkthroughValidationTests.test_unknown_focus_node_is_rejected) ... ok
+
+======================================================================
+ERROR: test_diff_retains_no_final_newline_evidence (test_source_verification.SourceVerificationTests.test_diff_retains_no_final_newline_evidence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 169, in test_diff_retains_no_final_newline_evidence
+    piece = source.excerpt(self.repo, meta, "main.py", "diff", 1, 8)
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py", line 257, in excerpt
+    raise ValueError(f"excerpt line range is outside source: {path}")
+ValueError: excerpt line range is outside source: main.py
+
+======================================================================
+FAIL: test_diff_uses_git_counts_for_literal_diff_marker_source_lines (test_source_verification.SourceVerificationTests.test_diff_uses_git_counts_for_literal_diff_marker_source_lines)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 163, in test_diff_uses_git_counts_for_literal_diff_marker_source_lines
+    self.assertEqual((actual["additions"], actual["deletions"]), (2, 2))
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Tuples differ: (1, 2) != (2, 2)
+
+First differing element 0:
+1
+2
+
+- (1, 2)
+?  ^
+
++ (2, 2)
+?  ^
+
+
+----------------------------------------------------------------------
+Ran 20 tests in 7.328s
+
+FAILED (failures=1, errors=1)

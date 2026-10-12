@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "scenario_id": "dep-resolved-default",
+  "fixture_digest": "3394291f41ffd75841a85d17e67111b283a9c02c15fffdef01c6a28e9be2be54",
+  "repo": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-B1/repo",
+  "prompt": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-B1/prompt.md",
+  "skill": "dep-review",
+  "initial_head": "dcf0b9517fb4ccb627d1ad22b92f9c05f51cab95"
+}

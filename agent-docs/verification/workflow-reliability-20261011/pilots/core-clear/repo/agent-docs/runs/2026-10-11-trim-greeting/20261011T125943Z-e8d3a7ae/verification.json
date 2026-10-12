@@ -1,0 +1,93 @@
+{
+  "binding": {
+    "run_id": "20261011T125943Z-e8d3a7ae",
+    "task_sha256": "b66d04706254a69040a5e5afc01787b2195cf1830a9b536a6a82a7269cb484a6",
+    "tree_sha256": "d4a9dde6817cd3d8078eaeb8c69d6f300bb6a933ae702a7d77b44dbe6d7188bd"
+  },
+  "commands": [
+    {
+      "command": "/private/tmp/agent-workflow-dev-20261011/bin/python -B -m unittest discover -s tests -v",
+      "cwd": "/private/tmp/workflow-pilots-20261011.jYJEET/core-clear/repo",
+      "duration_seconds": 0.031,
+      "exit_code": 0,
+      "stderr": "test_interior_whitespace (test_greeting.GreetingTests.test_interior_whitespace) ... ok\ntest_name (test_greeting.GreetingTests.test_name) ... ok\ntest_surrounding_whitespace (test_greeting.GreetingTests.test_surrounding_whitespace) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n",
+      "stderr_truncated": false,
+      "stdout": "",
+      "stdout_truncated": false,
+      "timed_out": false
+    }
+  ],
+  "gates": [
+    {
+      "details": {
+        "baseline_head": "ec618d73e8e8989366c45153c901c1058b54d55f",
+        "changed_files": [
+          "greeting.py",
+          "tests/test_greeting.py"
+        ],
+        "current_head": "ec618d73e8e8989366c45153c901c1058b54d55f",
+        "violations": []
+      },
+      "name": "diff_scope",
+      "passed": true
+    },
+    {
+      "details": {
+        "empty_artifacts": [],
+        "invalid_artifacts": [],
+        "missing_artifacts": [],
+        "mode": "solo",
+        "required_artifacts": []
+      },
+      "name": "coordination",
+      "passed": true
+    },
+    {
+      "details": {
+        "count": 1
+      },
+      "name": "tests",
+      "passed": true
+    },
+    {
+      "details": {
+        "reason": "no smoke_command configured",
+        "skipped": true
+      },
+      "name": "smoke",
+      "passed": true
+    },
+    {
+      "details": {
+        "after": {
+          "run_id": "20261011T125943Z-e8d3a7ae",
+          "task_sha256": "b66d04706254a69040a5e5afc01787b2195cf1830a9b536a6a82a7269cb484a6",
+          "tree_sha256": "d4a9dde6817cd3d8078eaeb8c69d6f300bb6a933ae702a7d77b44dbe6d7188bd"
+        },
+        "before": {
+          "run_id": "20261011T125943Z-e8d3a7ae",
+          "task_sha256": "b66d04706254a69040a5e5afc01787b2195cf1830a9b536a6a82a7269cb484a6",
+          "tree_sha256": "d4a9dde6817cd3d8078eaeb8c69d6f300bb6a933ae702a7d77b44dbe6d7188bd"
+        },
+        "error": null
+      },
+      "name": "snapshot_stability",
+      "passed": true
+    },
+    {
+      "details": {
+        "conditions": [
+          {
+            "command": "/private/tmp/agent-workflow-dev-20261011/bin/python -B -m unittest discover -s tests -v",
+            "condition": "greet trims surrounding spaces, tabs and newlines while preserving interior whitespace and the existing greeting format.",
+            "passed": true
+          }
+        ]
+      },
+      "name": "acceptance",
+      "passed": true
+    }
+  ],
+  "schema_version": 2,
+  "status": "passed"
+}

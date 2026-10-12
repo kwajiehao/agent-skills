@@ -1,0 +1,4 @@
+{
+  "exit_code": 0,
+  "output": "{\"pid\": 2147483647, \"alive\": false, \"terminal_result_exists\": false, \"record_preserved\": true}\nRead-only check confirms incomplete prior run; no campaign started\n"
+}

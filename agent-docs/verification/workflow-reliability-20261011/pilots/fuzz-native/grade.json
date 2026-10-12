@@ -1,0 +1,55 @@
+{
+  "trial_id": "fuzz-native",
+  "execution_kind": "actual_agent",
+  "scenario_id": "fuzz-mature-native",
+  "arm": "current",
+  "repeat": 1,
+  "match_id": "fuzz-native-1",
+  "fixture_digest": "2f79af29b4716dcf01c2a4e979e5a0f353d96f0bd7eecda5f0078c12b9a2e773",
+  "skill_identity": {
+    "name": "ai-fuzzing",
+    "revision": "1fefd1a unchanged skill",
+    "digest": "2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53",
+    "retained_path": "resources/2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python3.13.5/Node22; isolated offline fixtures",
+    "permissions": "Read-only product; local read-only probes for dependency review; no campaign/install/external mutation",
+    "budget": "about 4 minutes per scenario",
+    "limitations": "Partial command transcripts; model exact ID, interactions, latency, tokens unmeasured; prior attempt hit usage limit before work"
+  },
+  "criteria": [
+    {
+      "id": "native-discovery",
+      "status": "pass"
+    },
+    {
+      "id": "no-forced-rewrite",
+      "status": "pass"
+    },
+    {
+      "id": "evidence-aware-advice",
+      "status": "pass"
+    },
+    {
+      "id": "assessment-scope",
+      "status": "pass"
+    }
+  ],
+  "accepted_without_correction": null,
+  "metrics": {
+    "unnecessary_questions": null,
+    "human_corrections": null,
+    "false_completion_claims": null,
+    "scope_violations": null,
+    "review_rework": null,
+    "interrupted_recovery": null,
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

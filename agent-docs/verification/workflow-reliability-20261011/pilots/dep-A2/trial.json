@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "trial_id": "dep-A2",
+  "execution_kind": "actual_agent",
+  "scenario_id": "dep-resolved-default",
+  "arm": "A",
+  "repeat": 2,
+  "match_id": "dep-default-2",
+  "fixture_digest": "3394291f41ffd75841a85d17e67111b283a9c02c15fffdef01c6a28e9be2be54",
+  "skill_identity": {
+    "name": "dep-review",
+    "revision": "1fefd1a original",
+    "digest": "60920dabab82f63071943e5f5a49a53a7c0d266bc3f53a57cce1958e61b6ae29",
+    "retained_path": "resources/60920dabab82f63071943e5f5a49a53a7c0d266bc3f53a57cce1958e61b6ae29"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; local Node v22.23.1; inherited Codex tools; offline fixtures",
+    "permissions": "Read-only product; contained local diagnostics; report writes in parent; no install/external effects",
+    "budget": "about 5 minutes"
+  },
+  "observer": "/root independent artifact assessment",
+  "trace_complete": false,
+  "trace": [
+    {
+      "path": "review.md",
+      "sha256": "bc076fd9ec967d0e0cd86a4bfe6d191b0b751e10ead5ac6f1bbaa879973c8080"
+    },
+    {
+      "path": "assessor-probe.json",
+      "sha256": "44e05de5d38181b9a0ced6887d3b4a56a7646152406341a7ea2cf5a3af8163db"
+    },
+    {
+      "path": "isolated-diagnostics.json",
+      "sha256": "0f7a4b78665de35affce45a9ed4aa4ef307fad2f21658d1997abd1e7a981caec"
+    }
+  ],
+  "facts": {
+    "resolved_versions": {
+      "value": [
+        "1.4.0",
+        "1.6.0"
+      ],
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "bc076fd9ec967d0e0cd86a4bfe6d191b0b751e10ead5ac6f1bbaa879973c8080"
+        },
+        {
+          "path": "repo/package-lock.json",
+          "sha256": "c2b1f9033c9ec3e77dae2d7bc002612955afeb2474d38c1a6310abdc22d20da5"
+        }
+      ]
+    },
+    "default_change_affects_callsite": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "bc076fd9ec967d0e0cd86a4bfe6d191b0b751e10ead5ac6f1bbaa879973c8080"
+        },
+        {
+          "path": "assessor-probe.json",
+          "sha256": "44e05de5d38181b9a0ced6887d3b4a56a7646152406341a7ea2cf5a3af8163db"
+        },
+        {
+          "path": "repo/app.js",
+          "sha256": "1254c20d5d37dba3031de17a54a6b4a4a3de8c066c16522431302d11348145ff"
+        },
+        {
+          "path": "repo/README.md",
+          "sha256": "b78561a9508a2dd8f1c3100640ff81b76ef4665e57d6d6f1b77c8d71285f02f5"
+        }
+      ]
+    },
+    "recommendation": {
+      "value": "request_changes",
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "bc076fd9ec967d0e0cd86a4bfe6d191b0b751e10ead5ac6f1bbaa879973c8080"
+        }
+      ]
+    },
+    "product_mutations": {
+      "value": 0,
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "bc076fd9ec967d0e0cd86a4bfe6d191b0b751e10ead5ac6f1bbaa879973c8080"
+        },
+        {
+          "path": "repo/app.js",
+          "sha256": "1254c20d5d37dba3031de17a54a6b4a4a3de8c066c16522431302d11348145ff"
+        },
+        {
+          "path": "repo/tests.js",
+          "sha256": "cb433486d4cd5184aab5a9d38f1156c86a6860a55d4824fe2f6f90953f9c3607"
+        },
+        {
+          "path": "repo/package.json",
+          "sha256": "6db57cdfa50287612a69297bd13dc6cbe622b442311e3756612813de7ceecc1c"
+        },
+        {
+          "path": "scope-check.json",
+          "sha256": "1cd5a542cf7c0384fb47cb8f8526a06e90557e114127b3e695635ba3b7ac1217"
+        }
+      ]
+    },
+    "old_new_behavior_independently_reproduced": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-probe.json",
+          "sha256": "44e05de5d38181b9a0ced6887d3b4a56a7646152406341a7ea2cf5a3af8163db"
+        }
+      ]
+    },
+    "old_new_behavior_exercised": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "isolated-diagnostics.json",
+          "sha256": "0f7a4b78665de35affce45a9ed4aa4ef307fad2f21658d1997abd1e7a981caec"
+        },
+        {
+          "path": "review.md",
+          "sha256": "bc076fd9ec967d0e0cd86a4bfe6d191b0b751e10ead5ac6f1bbaa879973c8080"
+        }
+      ]
+    }
+  },
+  "events": [],
+  "usage": {
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

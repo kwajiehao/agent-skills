@@ -1,0 +1,59 @@
+{
+  "trial_id": "walkthrough",
+  "execution_kind": "actual_agent",
+  "scenario_id": "walkthrough-source-integrity",
+  "arm": "revised",
+  "repeat": 1,
+  "match_id": "walkthrough-1",
+  "fixture_digest": "e2551d3f8030180d4480940285376d4c78c57b909cd77c96f00ea713d6e7d0eb",
+  "skill_identity": {
+    "name": "walkthrough",
+    "revision": "1fefd1a + source-bound frozen resource",
+    "digest": "905942d47de368161bc3377bcf10bcd24027f376da4acfc657ea1cf3466261c3",
+    "retained_path": "resources/905942d47de368161bc3377bcf10bcd24027f376da4acfc657ea1cf3466261c3"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python3.13.5; Node22; local playwright Chromium desktop/mobile",
+    "permissions": "Read-only product/source; new local walkthrough artifacts and loopback QA only; no publishing/install",
+    "budget": "about 10 minutes; browser QA exceeded intended budget; no timing claim",
+    "limitations": "Partial reports/raw artifact results only; actor scheduling and tool setup overhead not measured"
+  },
+  "criteria": [
+    {
+      "id": "real-excerpts",
+      "status": "pass"
+    },
+    {
+      "id": "local-freshness",
+      "status": "pass"
+    },
+    {
+      "id": "rendered-artifact",
+      "status": "pass"
+    },
+    {
+      "id": "coverage",
+      "status": "pass"
+    },
+    {
+      "id": "source-preserved",
+      "status": "pass"
+    }
+  ],
+  "accepted_without_correction": null,
+  "metrics": {
+    "unnecessary_questions": null,
+    "human_corrections": null,
+    "false_completion_claims": null,
+    "scope_violations": null,
+    "review_rework": null,
+    "interrupted_recovery": null,
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

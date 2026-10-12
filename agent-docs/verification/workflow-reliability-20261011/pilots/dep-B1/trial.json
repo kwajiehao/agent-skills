@@ -1,0 +1,125 @@
+{
+  "schema_version": 1,
+  "trial_id": "dep-B1",
+  "execution_kind": "actual_agent",
+  "scenario_id": "dep-resolved-default",
+  "arm": "B",
+  "repeat": 1,
+  "match_id": "dep-default-1",
+  "fixture_digest": "3394291f41ffd75841a85d17e67111b283a9c02c15fffdef01c6a28e9be2be54",
+  "skill_identity": {
+    "name": "dep-review",
+    "revision": "1fefd1a + revised frozen source",
+    "digest": "fdeb135f29b181621e95107a05e4bcdb6d7e2f321a91afd68a4d8300c1bce9a5",
+    "retained_path": "resources/fdeb135f29b181621e95107a05e4bcdb6d7e2f321a91afd68a4d8300c1bce9a5"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; local Node v22.23.1; inherited Codex tools; offline fixtures",
+    "permissions": "Read-only product; contained local diagnostics; report writes in parent; no install/external effects",
+    "budget": "about 5 minutes"
+  },
+  "observer": "/root independent artifact assessment",
+  "trace_complete": false,
+  "trace": [
+    {
+      "path": "review.md",
+      "sha256": "09d5f3fdfd79dd5a2ba8e0160dc8377d7835d30d24bfa2ac56fc0996977a3b08"
+    },
+    {
+      "path": "assessor-probe.json",
+      "sha256": "300b5e663fe388633a7c23eb5faf8685c70ada0ab58a8f02a2aca3d4120e053d"
+    }
+  ],
+  "facts": {
+    "resolved_versions": {
+      "value": [
+        "1.4.0",
+        "1.6.0"
+      ],
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "09d5f3fdfd79dd5a2ba8e0160dc8377d7835d30d24bfa2ac56fc0996977a3b08"
+        },
+        {
+          "path": "repo/package-lock.json",
+          "sha256": "c2b1f9033c9ec3e77dae2d7bc002612955afeb2474d38c1a6310abdc22d20da5"
+        }
+      ]
+    },
+    "default_change_affects_callsite": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "09d5f3fdfd79dd5a2ba8e0160dc8377d7835d30d24bfa2ac56fc0996977a3b08"
+        },
+        {
+          "path": "assessor-probe.json",
+          "sha256": "300b5e663fe388633a7c23eb5faf8685c70ada0ab58a8f02a2aca3d4120e053d"
+        },
+        {
+          "path": "repo/app.js",
+          "sha256": "1254c20d5d37dba3031de17a54a6b4a4a3de8c066c16522431302d11348145ff"
+        },
+        {
+          "path": "repo/README.md",
+          "sha256": "b78561a9508a2dd8f1c3100640ff81b76ef4665e57d6d6f1b77c8d71285f02f5"
+        }
+      ]
+    },
+    "recommendation": {
+      "value": "request_changes",
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "09d5f3fdfd79dd5a2ba8e0160dc8377d7835d30d24bfa2ac56fc0996977a3b08"
+        }
+      ]
+    },
+    "product_mutations": {
+      "value": 0,
+      "evidence": [
+        {
+          "path": "review.md",
+          "sha256": "09d5f3fdfd79dd5a2ba8e0160dc8377d7835d30d24bfa2ac56fc0996977a3b08"
+        },
+        {
+          "path": "repo/app.js",
+          "sha256": "1254c20d5d37dba3031de17a54a6b4a4a3de8c066c16522431302d11348145ff"
+        },
+        {
+          "path": "repo/tests.js",
+          "sha256": "cb433486d4cd5184aab5a9d38f1156c86a6860a55d4824fe2f6f90953f9c3607"
+        },
+        {
+          "path": "repo/package.json",
+          "sha256": "6db57cdfa50287612a69297bd13dc6cbe622b442311e3756612813de7ceecc1c"
+        },
+        {
+          "path": "scope-check.json",
+          "sha256": "1cd5a542cf7c0384fb47cb8f8526a06e90557e114127b3e695635ba3b7ac1217"
+        }
+      ]
+    },
+    "old_new_behavior_independently_reproduced": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-probe.json",
+          "sha256": "300b5e663fe388633a7c23eb5faf8685c70ada0ab58a8f02a2aca3d4120e053d"
+        }
+      ]
+    }
+  },
+  "events": [],
+  "usage": {
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

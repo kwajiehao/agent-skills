@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "trial_id": "fuzz-retry",
+  "execution_kind": "actual_agent",
+  "scenario_id": "fuzz-seeded-retry",
+  "arm": "current",
+  "repeat": 1,
+  "match_id": "fuzz-retry-1",
+  "fixture_digest": "8ec32df7345026402ecaed889e55d8d184a5f9e99880b69dd7127029d94e4b4f",
+  "skill_identity": {
+    "name": "ai-fuzzing",
+    "revision": "1fefd1a unchanged skill",
+    "digest": "2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53",
+    "retained_path": "resources/2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python 3.13.5 stdlib SQLite; pytest9.1.1/PyYAML6.0.3; isolated local fixtures",
+    "permissions": "Tests/artifacts and temporary SQLite authorized; store.py immutable; no install/external effects",
+    "budget": "about 8 minutes; all campaign execution at most30 seconds",
+    "fixture_preparation": "pre-cache-exclusion; preservation rather than matched performance trial"
+  },
+  "observer": "/root independent artifact assessment",
+  "trace_complete": false,
+  "trace": [
+    {
+      "path": "report.md",
+      "sha256": "6a05a03f60dad9f688a1c9b763ad2a03fea5a456485efc9700e20a12ba4d9ed3"
+    },
+    {
+      "path": "assessor-replay.json",
+      "sha256": "136d1c7fce031007e0d4ecd7176c7cc63c6daf4de7c2e9c311390995ced13f00"
+    },
+    {
+      "path": "repo/fuzzing/runs/retry-smoke-20261011-v2/result.json",
+      "sha256": "c024a216ff9056cb4bd40c1d2ca5a48e26ebdcbf677316fd7230166d152ea72c"
+    }
+  ],
+  "facts": {
+    "checked_lost_ack_histories": {
+      "value": 1,
+      "evidence": [
+        {
+          "path": "repo/fuzzing/runs/retry-smoke-20261011-v2/result.json",
+          "sha256": "c024a216ff9056cb4bd40c1d2ca5a48e26ebdcbf677316fd7230166d152ea72c"
+        }
+      ]
+    },
+    "duplicate_effect_found": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "repo/fuzzing/runs/retry-smoke-20261011-v2/result.json",
+          "sha256": "c024a216ff9056cb4bd40c1d2ca5a48e26ebdcbf677316fd7230166d152ea72c"
+        },
+        {
+          "path": "assessor-replay.json",
+          "sha256": "136d1c7fce031007e0d4ecd7176c7cc63c6daf4de7c2e9c311390995ced13f00"
+        }
+      ]
+    },
+    "standalone_replay_reproduced": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-replay.json",
+          "sha256": "136d1c7fce031007e0d4ecd7176c7cc63c6daf4de7c2e9c311390995ced13f00"
+        },
+        {
+          "path": "repo/fuzzing/failures/F-001/minimized.json",
+          "sha256": "d544722e796fda8afe76455e5f3926c5a59dc2a0200b98d98dca28028586266e"
+        }
+      ]
+    },
+    "store_source_unchanged": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "repo/store.py",
+          "sha256": "7eb5889e0a7663b6099ec36dce8214d00c286ea314cd4661c0fb81f088e06828"
+        },
+        {
+          "path": "report.md",
+          "sha256": "6a05a03f60dad9f688a1c9b763ad2a03fea5a456485efc9700e20a12ba4d9ed3"
+        },
+        {
+          "path": "scope-check.json",
+          "sha256": "15553549d2be0e9a14e846935e1d25897658309bfe65c0d7dcbdba086f071167"
+        }
+      ]
+    },
+    "within_authorized_campaign_budget": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "repo/fuzzing/runs/retry-smoke-20261011-v2/result.json",
+          "sha256": "c024a216ff9056cb4bd40c1d2ca5a48e26ebdcbf677316fd7230166d152ea72c"
+        },
+        {
+          "path": "repo/fuzzing/CAMPAIGN_LEDGER.md",
+          "sha256": "7635c9403dbb11f5452a2458d92920c37119d880e4a6c004dca13e2641375c7f"
+        }
+      ]
+    }
+  },
+  "events": [],
+  "usage": {
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "trial_id": "core-clear",
+  "execution_kind": "actual_agent",
+  "scenario_id": "core-clear-autonomy",
+  "arm": "revised",
+  "repeat": 1,
+  "match_id": "core-clear-1",
+  "fixture_digest": "07d2670a61ca54a7a7ecf41d82880e57f46727706a3990121bbaaa9629c7b3ef",
+  "skill_identity": {
+    "name": "agent-docs-loop",
+    "revision": "7933c47 + cache guidance frozen",
+    "digest": "0f8316f2f11a2c2de1eb444a93b07dbadf79acdf47ffbdaee1c9f4491d996972",
+    "retained_path": "resources/0f8316f2f11a2c2de1eb444a93b07dbadf79acdf47ffbdaee1c9f4491d996972"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python3.13.5 with pytest9.1.1/PyYAML6.0.3; frozen local runner",
+    "permissions": "Only named source/tests and task/run artifacts; initial work preserved; no install/commit/external effects",
+    "budget": "about 8 minutes",
+    "runner_digest": "3d802679627a8facb0e7b6b2cb5ea4298fad67b13bb856fdace5259244a0926e",
+    "runner_phase": "v2 before relative-path correction",
+    "fixture_preparation": "cache exclusion fixed"
+  },
+  "criteria": [
+    {
+      "id": "requested-behavior",
+      "status": "pass"
+    },
+    {
+      "id": "regression-check",
+      "status": "pass"
+    },
+    {
+      "id": "runner-evidence",
+      "status": "pass"
+    },
+    {
+      "id": "scope",
+      "status": "pass"
+    }
+  ],
+  "accepted_without_correction": null,
+  "metrics": {
+    "unnecessary_questions": null,
+    "human_corrections": null,
+    "false_completion_claims": null,
+    "scope_violations": null,
+    "review_rework": null,
+    "interrupted_recovery": null,
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

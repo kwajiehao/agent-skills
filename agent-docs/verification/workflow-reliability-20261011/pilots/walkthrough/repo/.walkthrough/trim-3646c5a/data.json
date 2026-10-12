@@ -1,0 +1,58 @@
+{
+  "meta": {
+    "title": "Trim name whitespace before greeting",
+    "intent": "The README states that the local patch trims name whitespace; greet now applies strip() before interpolation.",
+    "target": "Local working change (HEAD to working contents; index fingerprinted)",
+    "pr_url": "",
+    "base_ref": "HEAD", "head_ref": "HEAD",
+    "base_sha": "3646c5a141d310d990ebbb9cf062c67156968290",
+    "head_sha": "3646c5a141d310d990ebbb9cf062c67156968290",
+    "generated_at": "2026-10-11T13:03:16Z",
+    "code_involved": true,
+    "source_snapshot": {
+      "version": 1, "mode": "working",
+      "base_sha": "3646c5a141d310d990ebbb9cf062c67156968290",
+      "head_sha": "3646c5a141d310d990ebbb9cf062c67156968290",
+      "exclude_untracked": [".walkthrough"],
+      "base_tree_digest": "fd0a8758348d97ef568732df934e173af2059165741a1157d9ddc5d941136628",
+      "index_digest": "fd0a8758348d97ef568732df934e173af2059165741a1157d9ddc5d941136628",
+      "target_tree_digest": "faf6638da666aba65dc180352fd4eb1aedbe1efefb8c8edc2504055a13e694c4",
+      "digest": "a037bd81cb0cb76ce7245d1da6ba6c74fc43312b08701fd7d6d8c4a73f76c643"
+    }
+  },
+  "files": [{"path":"greeting.py","status":"modified","additions":1,"deletions":1,"binary":false,"role":"story-critical","diff_url":""}],
+  "code": [
+    {"id":"intent-source","label":"README intent","path":"README.md","language":"markdown","side":"context","revision":"3646c5a141d310d990ebbb9cf062c67156968290","start_line":1,"end_line":4,"content":"# Greeting change\n\nThe local patch trims name whitespace. Review artifact drafts live under\n`.walkthrough/`; compare their source evidence with the current working tree.","emphasis":[3],"diff_url":""},
+    {"id":"before","label":"Before: interpolate directly","path":"greeting.py","language":"python","side":"old","start_line":1,"end_line":2,"content":"def greet(name):\n    return f\"Hello, {name}!\"","emphasis":[2],"diff_url":""},
+    {"id":"after","label":"After: strip then interpolate","path":"greeting.py","language":"python","side":"new","start_line":1,"end_line":2,"content":"def greet(name):\n    return f\"Hello, {name.strip()}!\"","emphasis":[2],"diff_url":""}
+  ],
+  "visuals": [{
+    "id":"comparison","title":"Same greeting wrapper, one added normalization step","mode":"2d",
+    "caption":"Matched lanes show the old direct interpolation and new strip() call. Blue is the unchanged input/formatting role; green is the added operation; slate is the returned string. Node sizes carry no quantitative meaning.",
+    "nodes":[
+      {"id":"old-input","label":"Before: name","detail":"Caller-supplied value","x":100,"y":90,"z":0,"color":"blue"},
+      {"id":"old-format","label":"Interpolate","detail":"Hello, {name}!","x":330,"y":90,"z":0,"color":"blue"},
+      {"id":"old-output","label":"Return string","detail":"Boundary spaces remain","x":570,"y":90,"z":0,"color":"slate"},
+      {"id":"new-input","label":"After: name","detail":"Caller-supplied value","x":100,"y":300,"z":0,"color":"blue"},
+      {"id":"strip","label":"name.strip()","detail":"Trim both string ends","x":330,"y":300,"z":0,"color":"green"},
+      {"id":"new-output","label":"Return string","detail":"Hello, {trimmed}!","x":570,"y":300,"z":0,"color":"slate"}
+    ],
+    "edges":[
+      {"source":"old-input","target":"old-format","label":"direct value","style":"solid"},
+      {"source":"old-format","target":"old-output","label":"format","style":"solid"},
+      {"source":"new-input","target":"strip","label":"call strip","style":"solid"},
+      {"source":"strip","target":"new-output","label":"format result","style":"solid"}
+    ]
+  }],
+  "steps": [
+    {"id":"intent","kind":"intent","kicker":"Why / contract","title":"Names are trimmed at the greeting boundary","takeaway":"The declared intent is whitespace trimming; the patch changes one expression in greet.","narrative":["The README describes trimming name whitespace. The implementation applies that normalization inside greet, immediately before formatting the returned greeting.","This local change is one file, with one added and one removed line. The existing tracked draft describes title-casing and is inconsistent with the current source; it is context only, not evidence for this walkthrough."],"visual_id":"comparison","focus_node_ids":[],"code_ids":["intent-source","after"],"claim_status":"stated","evidence":[{"label":"Declared trimming intent","code_id":"intent-source"},{"label":"Current implementation","code_id":"after"}]},
+    {"id":"mechanism","kind":"mechanism","kicker":"Before → after","title":"strip() runs before string interpolation","takeaway":"The greeting wrapper remains Hello, …!; only the value inserted into it changes.","narrative":["Previously the f-string interpolated name directly. The new expression first invokes name.strip(), then interpolates that result into the same greeting wrapper.","For string inputs, strip() removes leading and trailing whitespace while preserving interior spaces and letter case. No title-casing occurs."],"visual_id":"comparison","focus_node_ids":["old-format","strip","new-output"],"code_ids":["after","before"],"claim_status":"demonstrated","evidence":[{"label":"Current strip expression","code_id":"after"},{"label":"Previous direct interpolation","code_id":"before"}]},
+    {"id":"proof","kind":"proof","kicker":"Behavior and validation","title":"Padded names normalize; interior spacing remains","takeaway":"A direct probe confirms eight string cases and the observed non-string boundary.","narrative":["The local verification script compiles the pinned old source and current working source without importing or writing product files. It checks plain names, padded names, tabs/newlines, empty and whitespace-only strings, mixed case, interior spacing, and Unicode boundary whitespace.","For example, '  Ada  ' changes from 'Hello,   Ada  !' to 'Hello, Ada!'. 'Ada  Lovelace' retains its two interior spaces. Empty or whitespace-only inputs produce 'Hello, !'. Execution results are recorded in behavior-results.json beside this artifact; these are manual probes, not repository tests or CI."],"visual_id":"comparison","focus_node_ids":["new-input","strip","new-output"],"code_ids":["after","before"],"claim_status":"demonstrated","evidence":[{"label":"Probed current expression","code_id":"after"},{"label":"Probed baseline expression","code_id":"before"}],"evidence_gap":"No repository tests or CI exist in this fixture. Exact source evidence establishes the mechanism; execution is separately recorded by the local probe."},
+    {"id":"review","kind":"risk","kicker":"Review lens / coverage","title":"Clarify the accepted input type","takeaway":"The new call requires a strip() method; the intended caller contract is undocumented.","narrative":["The baseline accepts None and 42 through f-string conversion. The new expression raises AttributeError for both because they lack strip(). This is an observed compatibility boundary, but the repository has no callers, types, tests, or explicit non-string support requirement, so it is a reviewer question rather than an actionable defect finding.","Review attention: should greet be string-only, and should blank names remain valid? The entire changed file is represented. No additional changes or mechanical paths are hidden; source freshness is established by working-tree and index digests, not by the unchanged HEAD alone."],"visual_id":"comparison","focus_node_ids":["new-input","strip"],"code_ids":["after","before"],"claim_status":"demonstrated","evidence":[{"label":"New method requirement","code_id":"after"},{"label":"Old conversion behavior","code_id":"before"}],"evidence_gap":"No evidence establishes which non-string or blank inputs callers are promised. No actionable findings were verified."}
+  ],
+  "findings": [],
+  "coverage": {
+    "represented":["greeting.py"],"deemphasized":[],"unresolved":[],
+    "evidence_gaps":["No repository tests or CI; manual probes recorded separately.","No callers, type annotations, or documented non-string/blank-input contract.","No PR discussion or remote is available; intent comes from README.","Tracked draft is stale (title() versus current strip()); it remains untouched."]
+  }
+}

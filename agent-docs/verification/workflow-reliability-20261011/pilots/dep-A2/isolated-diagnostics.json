@@ -1,0 +1,22 @@
+[
+  {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "3c88bc",
+      "wall_time_seconds": 0.32963675,
+      "exit_code": 0,
+      "original_token_count": 116,
+      "output": "Node v22.23.1 package /private/tmp/workflow-pilots-20261011.jYJEET/dep-A2/repo/evidence/1.4.0/parse-number/index.js\n{\"count\":\"7\",\"result\":7}\n{\"count\":\"007\",\"result\":7}\n{\"count\":\"0\",\"result\":0}\n{\"count\":\"00\",\"result\":0}\n{\"count\":\"12\",\"result\":12}\n{\"count\":\"012\",\"result\":12}\n{\"count\":\"\",\"error\":\"TypeError\",\"message\":\"invalid decimal\"}\n{\"count\":\"-1\",\"error\":\"TypeError\",\"message\":\"invalid decimal\"}\n{\"count\":\"1.2\",\"error\":\"TypeError\",\"message\":\"invalid decimal\"}\n"
+    }
+  },
+  {
+    "status": "fulfilled",
+    "value": {
+      "chunk_id": "373e7e",
+      "wall_time_seconds": 0.333952667,
+      "exit_code": 1,
+      "original_token_count": 351,
+      "output": "Node v22.23.1 package /private/tmp/workflow-pilots-20261011.jYJEET/dep-A2/repo/evidence/1.6.0/parse-number/index.js\n{\"count\":\"7\",\"result\":7}\n{\"count\":\"007\",\"error\":\"TypeError\",\"message\":\"invalid decimal\"}\n{\"count\":\"0\",\"result\":0}\n{\"count\":\"00\",\"error\":\"TypeError\",\"message\":\"invalid decimal\"}\n{\"count\":\"12\",\"result\":12}\n{\"count\":\"012\",\"error\":\"TypeError\",\"message\":\"invalid decimal\"}\n{\"count\":\"\",\"error\":\"TypeError\",\"message\":\"invalid decimal\"}\n{\"count\":\"-1\",\"error\":\"TypeError\",\"message\":\"invalid decimal\"}\n{\"count\":\"1.2\",\"error\":\"TypeError\",\"message\":\"invalid decimal\"}\n/private/tmp/workflow-pilots-20261011.jYJEET/dep-A2/repo/evidence/1.6.0/parse-number/index.js:3\n  if (!pattern.test(value)) throw new TypeError('invalid decimal');\n                            ^\n\nTypeError: invalid decimal\n    at parseNumber (/private/tmp/workflow-pilots-20261011.jYJEET/dep-A2/repo/evidence/1.6.0/parse-number/index.js:3:35)\n    at importCount (/private/tmp/workflow-pilots-20261011.jYJEET/dep-A2/repo/app.js:4:10)\n    at [eval]:1:427\n    at runScriptInThisContext (node:internal/vm:209:10)\n    at node:internal/process/execution:446:12\n    at [eval]-wrapper:6:24\n    at runScriptInContext (node:internal/process/execution:444:60)\n    at evalFunction (node:internal/process/execution:279:30)\n    at evalTypeScript (node:internal/process/execution:291:3)\n    at node:internal/main/eval_string:74:3\n\nNode.js v22.23.1\n"
+    }
+  }
+]

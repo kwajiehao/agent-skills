@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "scenario_id": "dep-unavailable-notes",
+  "fixture_digest": "6dc99b04af6fe0d139fdcdd196c0123ccaf0ef3ae1fe38517cd2a3e126d4b020",
+  "repo": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo",
+  "prompt": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/prompt.md",
+  "skill": "dep-review",
+  "initial_head": "0088070f74756dc9462dc913bf59f7be68c47479"
+}

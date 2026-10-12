@@ -1,0 +1,13 @@
+[
+  {
+    "command": "/private/tmp/agent-workflow-dev-20261011/bin/python -B -m unittest discover -s tests -v",
+    "cwd": "/private/tmp/workflow-pilots-20261011.jYJEET/core-runtime/repo",
+    "duration_seconds": 0.115,
+    "exit_code": 0,
+    "stderr": "test_missing_path (test_storage.StorageTests.test_missing_path) ... ok\ntest_path_objects_and_json_values (test_storage.StorageTests.test_path_objects_and_json_values) ... ok\ntest_save_and_load (test_storage.StorageTests.test_save_and_load) ... ok\ntest_survives_process_restart_and_overwrite (test_storage.StorageTests.test_survives_process_restart_and_overwrite) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.080s\n\nOK\n",
+    "stderr_truncated": false,
+    "stdout": "",
+    "stdout_truncated": false,
+    "timed_out": false
+  }
+]

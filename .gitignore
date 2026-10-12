@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+# Generated run artifacts are local; task/evaluation specifications are versioned.
+agent-docs/runs/

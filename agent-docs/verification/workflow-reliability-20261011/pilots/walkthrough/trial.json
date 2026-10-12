@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "trial_id": "walkthrough",
+  "execution_kind": "actual_agent",
+  "scenario_id": "walkthrough-source-integrity",
+  "arm": "revised",
+  "repeat": 1,
+  "match_id": "walkthrough-1",
+  "fixture_digest": "e2551d3f8030180d4480940285376d4c78c57b909cd77c96f00ea713d6e7d0eb",
+  "skill_identity": {
+    "name": "walkthrough",
+    "revision": "1fefd1a + source-bound frozen resource",
+    "digest": "905942d47de368161bc3377bcf10bcd24027f376da4acfc657ea1cf3466261c3",
+    "retained_path": "resources/905942d47de368161bc3377bcf10bcd24027f376da4acfc657ea1cf3466261c3"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python3.13.5; Node22; local playwright Chromium desktop/mobile",
+    "permissions": "Read-only product/source; new local walkthrough artifacts and loopback QA only; no publishing/install",
+    "budget": "about 10 minutes; browser QA exceeded intended budget; no timing claim",
+    "limitations": "Partial reports/raw artifact results only; actor scheduling and tool setup overhead not measured"
+  },
+  "observer": "/root independent artifact assessment",
+  "trace_complete": false,
+  "trace": [
+    {
+      "path": "report.md",
+      "sha256": "fd8769805df6649c0101a48a0f180621cd9ae4542e9e5fc8acb34c80e116a408"
+    },
+    {
+      "path": "assessor-source-check.json",
+      "sha256": "c189c00710b93165918384dc62cad2ad2e82fddb3fbd50d46402197fbe2372d7"
+    },
+    {
+      "path": "repo/.walkthrough/trim-3646c5a/browser-results.json",
+      "sha256": "31ee6b4ba23c9417b343d27473f9711148a494b1f06514e9aeecb2dbc89afe46"
+    },
+    {
+      "path": "repo/.walkthrough/trim-3646c5a/cleanup-results.json",
+      "sha256": "91a889dc77d306a7bc1fc1f2f9b1025069870767e236aec870467a4f7b61e6b0"
+    }
+  ],
+  "facts": {
+    "all_excerpts_match_pinned_source": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-source-check.json",
+          "sha256": "c189c00710b93165918384dc62cad2ad2e82fddb3fbd50d46402197fbe2372d7"
+        },
+        {
+          "path": "repo/.walkthrough/trim-3646c5a/data.json",
+          "sha256": "53bd4b41f6a222c8b9e0489c4af053406e6cec3faf6269693e11edefa91e9b6d"
+        }
+      ]
+    },
+    "local_patch_fingerprint_current": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-source-check.json",
+          "sha256": "c189c00710b93165918384dc62cad2ad2e82fddb3fbd50d46402197fbe2372d7"
+        },
+        {
+          "path": "repo/.walkthrough/trim-3646c5a/data.json",
+          "sha256": "53bd4b41f6a222c8b9e0489c4af053406e6cec3faf6269693e11edefa91e9b6d"
+        }
+      ]
+    },
+    "html_browser_check_passed": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "repo/.walkthrough/trim-3646c5a/browser-results.json",
+          "sha256": "31ee6b4ba23c9417b343d27473f9711148a494b1f06514e9aeecb2dbc89afe46"
+        },
+        {
+          "path": "repo/.walkthrough/trim-3646c5a/browser_check.js",
+          "sha256": "1a67d8cc92ec5716dc6bc7922ace90f444c25b96a6401c8919299bb417f1ab09"
+        }
+      ]
+    },
+    "actual_changed_file_covered": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-source-check.json",
+          "sha256": "c189c00710b93165918384dc62cad2ad2e82fddb3fbd50d46402197fbe2372d7"
+        },
+        {
+          "path": "repo/.walkthrough/trim-3646c5a/data.json",
+          "sha256": "53bd4b41f6a222c8b9e0489c4af053406e6cec3faf6269693e11edefa91e9b6d"
+        },
+        {
+          "path": "repo/greeting.py",
+          "sha256": "9bb6db2ca3e423462eae12ce39588160c915558bf45f5d4e3c36cb2e8471c3b0"
+        }
+      ]
+    },
+    "product_mutations": {
+      "value": 0,
+      "evidence": [
+        {
+          "path": "report.md",
+          "sha256": "fd8769805df6649c0101a48a0f180621cd9ae4542e9e5fc8acb34c80e116a408"
+        },
+        {
+          "path": "repo/greeting.py",
+          "sha256": "9bb6db2ca3e423462eae12ce39588160c915558bf45f5d4e3c36cb2e8471c3b0"
+        },
+        {
+          "path": "scope-check.json",
+          "sha256": "8ef0b42512c30e965d105c5b10981253ac02bb51595c894b0e9430af6db472a3"
+        }
+      ]
+    }
+  },
+  "events": [],
+  "usage": {
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "scenario_id": "fuzz-mature-native",
+  "fixture_digest": "2f79af29b4716dcf01c2a4e979e5a0f353d96f0bd7eecda5f0078c12b9a2e773",
+  "changed_files": [],
+  "allowed": [],
+  "violations": [],
+  "expected_file_sha256": {
+    "README.md": "7a63fd03d1095cfdbe4ebe278a7a19097db8b340cd30be388e0e77c3c0b29bd2",
+    "queue.py": "c4f7d35be782a4a7f3ffa9b712688755d9e648efe2413b17aa96226aefdc113f",
+    "tests/test_properties.py": "76024c400757eef49570458557f61474a5039e97e5d59f580524934eb0f0ea51"
+  },
+  "final_file_sha256": {
+    "README.md": "7a63fd03d1095cfdbe4ebe278a7a19097db8b340cd30be388e0e77c3c0b29bd2",
+    "queue.py": "c4f7d35be782a4a7f3ffa9b712688755d9e648efe2413b17aa96226aefdc113f",
+    "tests/test_properties.py": "76024c400757eef49570458557f61474a5039e97e5d59f580524934eb0f0ea51"
+  },
+  "boundary": "Content comparison; runtime caches excluded; no claim about uncaptured external actions"
+}

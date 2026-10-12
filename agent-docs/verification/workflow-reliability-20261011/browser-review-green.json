@@ -1,0 +1,11 @@
+{
+  "command": "playwright-cli -s=walkthrough-final run-code --filename /Users/kwajiehao/Documents/agent-skills/walkthrough/tests/browser_walkthrough.js",
+  "tested_url": "http://127.0.0.1:8767/index.html",
+  "render_command": "python3 walkthrough/scripts/render_walkthrough.py --data walkthrough/assets/example-data.json --output /private/tmp/walkthrough-source-tdd/index.html",
+  "result": {
+    "status": "passed",
+    "checks": ["desktop", "source links", "claim labels", "evidence gaps", "navigation", "play/pause", "review lens", "mobile", "3D interaction", "reduced motion", "finding demonstrated/inferred/unknown labels"],
+    "errors": []
+  },
+  "provenance": "Actual Playwright CLI Result from root-owned final review regression; no actor interaction/performance metrics inferred."
+}

@@ -1,0 +1,5 @@
+{
+  "command": "python tests/retry_fuzz.py --replay fuzzing/failures/F-001/minimized.json",
+  "exit_code": 1,
+  "output": "{\"case\": {\"actions\": [{\"amount\": 2147483647, \"job_id\": \"job-20261011-0\", \"lose_ack\": true}, {\"amount\": 2147483647, \"job_id\": \"job-20261011-0\", \"lose_ack\": false}], \"seed\": 20261011}, \"oracle_checks\": {\"REQ-001\": 2, \"REQ-002\": 1}, \"scenario_checked\": true, \"scenario_observed\": true, \"trace\": [{\"action\": {\"amount\": 2147483647, \"job_id\": \"job-20261011-0\", \"lose_ack\": true}, \"durable_rows\": [[\"job-20261011-0\", 2147483647]], \"outcome\": \"timeout\", \"step\": 0, \"violations\": []}, {\"action\": {\"amount\": 2147483647, \"job_id\": \"job-20261011-0\", \"lose_ack\": false}, \"durable_rows\": [[\"job-20261011-0\", 2147483647], [\"job-20261011-0\", 2147483647]], \"outcome\": \"returned\", \"step\": 1, \"violations\": [{\"actual\": 2, \"expected\": 1, \"job_id\": \"job-20261011-0\", \"requirement\": \"REQ-001\"}]}], \"violations\": [{\"actual\": 2, \"expected\": 1, \"job_id\": \"job-20261011-0\", \"requirement\": \"REQ-001\", \"step\": 1}]}\n"
+}

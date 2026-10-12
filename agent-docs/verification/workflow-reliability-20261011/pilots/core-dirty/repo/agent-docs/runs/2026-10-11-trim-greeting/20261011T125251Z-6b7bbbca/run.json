@@ -1,0 +1,38 @@
+{
+  "baseline": {
+    "files": {
+      "CODING.md": "41be05ce67de9339d1e18b7ff8fa38bbc73a035a9e42e98ed32de54ab059ab11",
+      "README.md": "a3bd2aaff0258a929cc40ee66ddb20ff787046ea4e1b49961b3e7e78d2077f59",
+      "TESTING.md": "c9531dde0e64d9cfb27a55beb99f4c42359bb3172154500375824d5cf355f618",
+      "agent-docs/MEMORY.md": "919e47892bfff8fea96dc9eb175ad32afb8a5252c8b55cefa22ad924c604cbfb",
+      "agent-docs/skills/README.md": "52423de167741712f37fd02a73a257e7c448e6b9fb880db674c96446d3b8643e",
+      "agent-docs/tasks/2026-10-11-trim-greeting-trim-surrounding-whitespace-from-greeting-names.md": "0217f0a0a14af5219262bdbb9af20f99ec33d29436b4994d8056a3fb5e649d5e",
+      "greeting.py": "c47bc5952014294a31f292f29c807fbea05295ce3cf149dc4a2823d9acd22587",
+      "notes.txt": "44cc69bf2dee9a2c4b81d85d9d143e607d0c825ca6de60d040ac13c6c330a723",
+      "tests/__pycache__/test_greeting.cpython-313-pytest-9.1.1.pyc": "01cf85afa36f9d32d125aa0c81b1e335c2d2a9bb1975f269e86b9906ef510c46",
+      "tests/test_greeting.py": "e0dc8fd0206b7530ae5896e33e5eca9a2f1c66dac197c9bd8b65ff026003e913"
+    },
+    "head": "cce4682816c7c4adc8fb69c66ad17b85af536202"
+  },
+  "coordination": {
+    "maker_characterization": null,
+    "mode": "solo",
+    "reviewer_characterization": null
+  },
+  "created_at": "2026-10-11T12:52:51.942414+00:00",
+  "handoff": "/private/tmp/workflow-pilots-20261011.jYJEET/core-dirty/repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/handoff.md",
+  "repo_root": "/private/tmp/workflow-pilots-20261011.jYJEET/core-dirty/repo",
+  "run_id": "20261011T125251Z-6b7bbbca",
+  "schema_version": 2,
+  "status": "prepared",
+  "subagents_dir": "/private/tmp/workflow-pilots-20261011.jYJEET/core-dirty/repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/subagents",
+  "task_id": "2026-10-11-trim-greeting",
+  "task_path": "/private/tmp/workflow-pilots-20261011.jYJEET/core-dirty/repo/agent-docs/tasks/2026-10-11-trim-greeting-trim-surrounding-whitespace-from-greeting-names.md",
+  "task_sha256": "6d9f09e293f728c0f066566ceb13e4bf7a1df1b75239dbefb880cd58cb6beb19",
+  "verification": {
+    "smoke_command": null,
+    "test_commands": [
+      "/private/tmp/agent-workflow-dev-20261011/bin/python -m unittest discover -s tests -v"
+    ]
+  }
+}

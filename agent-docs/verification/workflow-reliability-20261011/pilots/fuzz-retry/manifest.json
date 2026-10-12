@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "scenario_id": "fuzz-seeded-retry",
+  "fixture_digest": "8ec32df7345026402ecaed889e55d8d184a5f9e99880b69dd7127029d94e4b4f",
+  "repo": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-retry/repo",
+  "prompt": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-retry/prompt.md",
+  "skill": "ai-fuzzing",
+  "initial_head": "78af9806e734d92d42a83f1aabbd000e94705fd2"
+}

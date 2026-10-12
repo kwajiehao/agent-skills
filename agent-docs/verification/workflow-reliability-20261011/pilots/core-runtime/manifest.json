@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "scenario_id": "core-runtime-verifier",
+  "fixture_digest": "fa15b5511100cd1e8515a9658bd78d626c1b2e013290ed8e0a7d7532669c794e",
+  "repo": "/private/tmp/workflow-pilots-20261011.jYJEET/core-runtime/repo",
+  "prompt": "/private/tmp/workflow-pilots-20261011.jYJEET/core-runtime/prompt.md",
+  "skill": "agent-docs-loop",
+  "initial_head": "84e6fabbca62b98c1f452a9bdd5da79c72690430"
+}

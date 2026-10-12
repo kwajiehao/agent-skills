@@ -1,0 +1,67 @@
+FFF                                                                      [100%]
+=================================== FAILURES ===================================
+___ TrialTests.test_archive_verification_keeps_partial_trace_metrics_unknown ___
+
+self = <test_trials.TrialTests testMethod=test_archive_verification_keeps_partial_trace_metrics_unknown>
+
+    def test_archive_verification_keeps_partial_trace_metrics_unknown(self):
+        self.trial.update(execution_kind="actual_agent", trace_complete=False)
+>       summary = self.archive()
+                  ^^^^^^^^^^^^^^
+
+evals/tests/test_trials.py:126: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_trials.TrialTests testMethod=test_archive_verification_keeps_partial_trace_metrics_unknown>
+
+    def archive(self):
+        (self.root / "trial.json").write_text(json.dumps(self.trial))
+>       return evals.verify_archive(self.root, ["sample"], {"sample": self.rubric})
+               ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'run_evals' has no attribute 'verify_archive'
+
+evals/tests/test_trials.py:122: AttributeError
+_ TrialTests.test_archive_verification_rejects_fixture_only_and_failed_records _
+
+self = <test_trials.TrialTests testMethod=test_archive_verification_rejects_fixture_only_and_failed_records>
+
+    def test_archive_verification_rejects_fixture_only_and_failed_records(self):
+        with self.assertRaises(evals.InvalidTrial):
+>           self.archive()
+
+evals/tests/test_trials.py:132: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+    def archive(self):
+        (self.root / "trial.json").write_text(json.dumps(self.trial))
+>       return evals.verify_archive(self.root, ["sample"], {"sample": self.rubric})
+               ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'run_evals' has no attribute 'verify_archive'
+
+evals/tests/test_trials.py:122: AttributeError
+_ TrialTests.test_archive_verification_requires_requested_scenario_and_actual_evidence _
+
+self = <test_trials.TrialTests testMethod=test_archive_verification_requires_requested_scenario_and_actual_evidence>
+
+    def test_archive_verification_requires_requested_scenario_and_actual_evidence(self):
+        self.trial["execution_kind"] = "actual_agent"
+>       self.archive()
+
+evals/tests/test_trials.py:140: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <test_trials.TrialTests testMethod=test_archive_verification_requires_requested_scenario_and_actual_evidence>
+
+    def archive(self):
+        (self.root / "trial.json").write_text(json.dumps(self.trial))
+>       return evals.verify_archive(self.root, ["sample"], {"sample": self.rubric})
+               ^^^^^^^^^^^^^^^^^^^^
+E       AttributeError: module 'run_evals' has no attribute 'verify_archive'
+
+evals/tests/test_trials.py:122: AttributeError
+=========================== short test summary info ============================
+FAILED evals/tests/test_trials.py::TrialTests::test_archive_verification_keeps_partial_trace_metrics_unknown
+FAILED evals/tests/test_trials.py::TrialTests::test_archive_verification_rejects_fixture_only_and_failed_records
+FAILED evals/tests/test_trials.py::TrialTests::test_archive_verification_requires_requested_scenario_and_actual_evidence
+3 failed, 16 deselected in 0.02s
+

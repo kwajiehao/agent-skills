@@ -1,0 +1,98 @@
+{
+  "binding": {
+    "run_id": "20261011T125251Z-6b7bbbca",
+    "task_sha256": "6d9f09e293f728c0f066566ceb13e4bf7a1df1b75239dbefb880cd58cb6beb19",
+    "tree_sha256": "b33b7271dc9b60cf295a12a8ede75d7e4fd6b1b889638f0737e76424ee2d9e28"
+  },
+  "commands": [
+    {
+      "command": "/private/tmp/agent-workflow-dev-20261011/bin/python -m unittest discover -s tests -v",
+      "cwd": "/private/tmp/workflow-pilots-20261011.jYJEET/core-dirty/repo",
+      "duration_seconds": 0.057,
+      "exit_code": 0,
+      "stderr": "test_internal_whitespace (test_greeting.GreetingTests.test_internal_whitespace) ... ok\ntest_name (test_greeting.GreetingTests.test_name) ... ok\ntest_surrounding_whitespace (test_greeting.GreetingTests.test_surrounding_whitespace) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n",
+      "stderr_truncated": false,
+      "stdout": "",
+      "stdout_truncated": false,
+      "timed_out": false
+    }
+  ],
+  "gates": [
+    {
+      "details": {
+        "baseline_head": "cce4682816c7c4adc8fb69c66ad17b85af536202",
+        "changed_files": [
+          "greeting.py",
+          "tests/test_greeting.py"
+        ],
+        "current_head": "cce4682816c7c4adc8fb69c66ad17b85af536202",
+        "violations": []
+      },
+      "name": "diff_scope",
+      "passed": true
+    },
+    {
+      "details": {
+        "empty_artifacts": [],
+        "invalid_artifacts": [],
+        "missing_artifacts": [],
+        "mode": "solo",
+        "required_artifacts": []
+      },
+      "name": "coordination",
+      "passed": true
+    },
+    {
+      "details": {
+        "count": 1
+      },
+      "name": "tests",
+      "passed": true
+    },
+    {
+      "details": {
+        "reason": "no smoke_command configured",
+        "skipped": true
+      },
+      "name": "smoke",
+      "passed": true
+    },
+    {
+      "details": {
+        "after": {
+          "run_id": "20261011T125251Z-6b7bbbca",
+          "task_sha256": "6d9f09e293f728c0f066566ceb13e4bf7a1df1b75239dbefb880cd58cb6beb19",
+          "tree_sha256": "b33b7271dc9b60cf295a12a8ede75d7e4fd6b1b889638f0737e76424ee2d9e28"
+        },
+        "before": {
+          "run_id": "20261011T125251Z-6b7bbbca",
+          "task_sha256": "6d9f09e293f728c0f066566ceb13e4bf7a1df1b75239dbefb880cd58cb6beb19",
+          "tree_sha256": "b33b7271dc9b60cf295a12a8ede75d7e4fd6b1b889638f0737e76424ee2d9e28"
+        },
+        "error": null
+      },
+      "name": "snapshot_stability",
+      "passed": true
+    },
+    {
+      "details": {
+        "conditions": [
+          {
+            "command": "/private/tmp/agent-workflow-dev-20261011/bin/python -m unittest discover -s tests -v",
+            "condition": "Greeting names omit leading and trailing spaces, tabs, and newlines.",
+            "passed": true
+          },
+          {
+            "command": "/private/tmp/agent-workflow-dev-20261011/bin/python -m unittest discover -s tests -v",
+            "condition": "Existing greeting punctuation and internal name whitespace are preserved.",
+            "passed": true
+          }
+        ]
+      },
+      "name": "acceptance",
+      "passed": true
+    }
+  ],
+  "schema_version": 2,
+  "status": "passed"
+}

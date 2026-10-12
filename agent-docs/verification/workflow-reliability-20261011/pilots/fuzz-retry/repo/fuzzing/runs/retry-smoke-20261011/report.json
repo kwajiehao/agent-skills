@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "cases": 2,
+  "oracle_checks": {
+    "REQ-001": 3,
+    "REQ-002": 1
+  },
+  "scenarios": {
+    "SCN-001": {
+      "generated": 1,
+      "observed": 1,
+      "checked": 1
+    }
+  },
+  "findings": [
+    {
+      "id": "F-001",
+      "artifact": "findings/F-001-original.json"
+    }
+  ],
+  "harness_errors": [],
+  "elapsed_seconds": 0.0022486249945359305,
+  "cases_per_second": 889.4324330912983,
+  "stop_reason": "first_finding",
+  "limits": {
+    "seconds": 25.0,
+    "max_cases": 128,
+    "max_actions": 14
+  },
+  "cleanup": "all per-case SQLite directories removed; empty databases directory retained"
+}

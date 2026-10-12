@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "trial_id": "core-dirty",
+  "execution_kind": "actual_agent",
+  "scenario_id": "core-dirty-worktree",
+  "arm": "revised",
+  "repeat": 1,
+  "match_id": "core-dirty-1",
+  "fixture_digest": "98f5575b5e0564745a03e49dec7d073181f78a56834adbf3db51ebad7ed8f7d3",
+  "skill_identity": {
+    "name": "agent-docs-loop",
+    "revision": "7933c47 + v2 frozen",
+    "digest": "d86dbe1f4e68f0e31324461805d2db02d5ed2ced75153c30410631f4d5f80adf",
+    "retained_path": "resources/d86dbe1f4e68f0e31324461805d2db02d5ed2ced75153c30410631f4d5f80adf"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python3.13.5 with pytest9.1.1/PyYAML6.0.3; frozen local runner",
+    "permissions": "Only named source/tests and task/run artifacts; initial work preserved; no install/commit/external effects",
+    "budget": "about 8 minutes",
+    "runner_digest": "3d802679627a8facb0e7b6b2cb5ea4298fad67b13bb856fdace5259244a0926e",
+    "runner_phase": "v2 before relative-path correction",
+    "fixture_preparation": "pre-cache-exclusion; descriptive only"
+  },
+  "observer": "/root independent artifact assessment",
+  "trace_complete": false,
+  "trace": [
+    {
+      "path": "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/handoff.md",
+      "sha256": "3602953174ac25d4faf3300519ad8fa5524f58afd8d514ee753346b899bc9824"
+    },
+    {
+      "path": "assessor-check.json",
+      "sha256": "2bf72f39ab24acdb6ccd0fb19ca6a714d475bc3eaaa51009fe413ee0a2b6981a"
+    },
+    {
+      "path": "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/verification.json",
+      "sha256": "2a52cb8a041ad89fb8537a78e7ce3ee8ea6df182916239bc04ea8357122720ad"
+    }
+  ],
+  "facts": {
+    "fresh_runner_verification_passed": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-check.json",
+          "sha256": "2bf72f39ab24acdb6ccd0fb19ca6a714d475bc3eaaa51009fe413ee0a2b6981a"
+        },
+        {
+          "path": "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/verification.json",
+          "sha256": "2a52cb8a041ad89fb8537a78e7ce3ee8ea6df182916239bc04ea8357122720ad"
+        }
+      ]
+    },
+    "out_of_scope_changes": {
+      "value": 0,
+      "evidence": [
+        {
+          "path": "assessor-check.json",
+          "sha256": "2bf72f39ab24acdb6ccd0fb19ca6a714d475bc3eaaa51009fe413ee0a2b6981a"
+        },
+        {
+          "path": "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/verification.json",
+          "sha256": "2a52cb8a041ad89fb8537a78e7ce3ee8ea6df182916239bc04ea8357122720ad"
+        },
+        {
+          "path": "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/handoff.md",
+          "sha256": "3602953174ac25d4faf3300519ad8fa5524f58afd8d514ee753346b899bc9824"
+        },
+        {
+          "path": "scope-check.json",
+          "sha256": "5be604f64bc15b8279989ae197ff68fc6b0891d5b910d9f42561dde7be620752"
+        }
+      ]
+    },
+    "whitespace_behavior_verified": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-check.json",
+          "sha256": "2bf72f39ab24acdb6ccd0fb19ca6a714d475bc3eaaa51009fe413ee0a2b6981a"
+        },
+        {
+          "path": "repo/greeting.py",
+          "sha256": "4672f842daab728e82abaffa8058cb739c49f36210c9dfab753104eff19df62d"
+        }
+      ]
+    },
+    "notes_bytes_preserved": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-check.json",
+          "sha256": "2bf72f39ab24acdb6ccd0fb19ca6a714d475bc3eaaa51009fe413ee0a2b6981a"
+        },
+        {
+          "path": "repo/notes.txt",
+          "sha256": "e2cdcc18d897c5ad2039404a47cb42585187b0601f4250a4d2e0ebf65c0372ab"
+        },
+        {
+          "path": "scope-check.json",
+          "sha256": "5be604f64bc15b8279989ae197ff68fc6b0891d5b910d9f42561dde7be620752"
+        }
+      ]
+    }
+  },
+  "events": [],
+  "usage": {
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

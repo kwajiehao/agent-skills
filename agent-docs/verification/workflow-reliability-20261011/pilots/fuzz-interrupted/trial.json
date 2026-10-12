@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "trial_id": "fuzz-interrupted",
+  "execution_kind": "actual_agent",
+  "scenario_id": "fuzz-interrupted",
+  "arm": "current",
+  "repeat": 1,
+  "match_id": "fuzz-interrupted-1",
+  "fixture_digest": "be1c3ab7e8ad209f02796bfd869a349b9de426f67bcd7b3488412979e977d499",
+  "skill_identity": {
+    "name": "ai-fuzzing",
+    "revision": "1fefd1a unchanged skill",
+    "digest": "2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53",
+    "retained_path": "resources/2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; inherited sandbox; offline fixture",
+    "permissions": "Assessment only; read-only liveness allowed; no project writes or campaigns",
+    "budget": "about 4 minutes intended; assessment interrupted after blocked escalation",
+    "limitations": "Process inspection blocked; escalation aborted; actor liveness diagnostic unverified. Parent read-only liveness check is separately retained, not actor evidence. Partial scheduler trace only.",
+    "fixture_preparation": "pre-cache-exclusion; descriptive only"
+  },
+  "observer": "/root independent artifact assessment",
+  "trace_complete": false,
+  "trace": [
+    {
+      "path": "report.md",
+      "sha256": "21aa536995ec71d8e4ccb851c6ba80383ca486b32b6cf2da75a2ba2121a2ff4b"
+    },
+    {
+      "path": "assessment-command-output.md",
+      "sha256": "0e7413195a10552e2423b78f10ad350573e7e432fe03dab01738d1e30e8cba7b"
+    },
+    {
+      "path": "assessor-check.json",
+      "sha256": "99b44a3ac08457103a3a1ffdbbee4fbb6db0dad729e8ca15b65d314160ddfa5a"
+    }
+  ],
+  "facts": {
+    "prior_run_reported_incomplete": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "report.md",
+          "sha256": "21aa536995ec71d8e4ccb851c6ba80383ca486b32b6cf2da75a2ba2121a2ff4b"
+        },
+        {
+          "path": "repo/latest-run.json",
+          "sha256": "eeef4bfe211ab629b782b872a492507425e159d9c910cbd18072fe58038ff2ad"
+        }
+      ]
+    },
+    "prior_record_preserved": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "repo/latest-run.json",
+          "sha256": "eeef4bfe211ab629b782b872a492507425e159d9c910cbd18072fe58038ff2ad"
+        },
+        {
+          "path": "report.md",
+          "sha256": "21aa536995ec71d8e4ccb851c6ba80383ca486b32b6cf2da75a2ba2121a2ff4b"
+        },
+        {
+          "path": "scope-check.json",
+          "sha256": "cade07d963b6fee814addf8acb0ffddacabdc1e75af1a6b9995bcc9abd05716c"
+        }
+      ]
+    },
+    "new_campaign_started": {
+      "value": false,
+      "evidence": [
+        {
+          "path": "report.md",
+          "sha256": "21aa536995ec71d8e4ccb851c6ba80383ca486b32b6cf2da75a2ba2121a2ff4b"
+        },
+        {
+          "path": "assessment-command-output.md",
+          "sha256": "0e7413195a10552e2423b78f10ad350573e7e432fe03dab01738d1e30e8cba7b"
+        }
+      ]
+    }
+  },
+  "events": [],
+  "usage": {
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

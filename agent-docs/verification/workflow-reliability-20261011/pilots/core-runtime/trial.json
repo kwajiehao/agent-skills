@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "trial_id": "core-runtime",
+  "execution_kind": "actual_agent",
+  "scenario_id": "core-runtime-verifier",
+  "arm": "revised",
+  "repeat": 1,
+  "match_id": "core-runtime-1",
+  "fixture_digest": "fa15b5511100cd1e8515a9658bd78d626c1b2e013290ed8e0a7d7532669c794e",
+  "skill_identity": {
+    "name": "agent-docs-loop",
+    "revision": "7933c47 + v2 frozen",
+    "digest": "d86dbe1f4e68f0e31324461805d2db02d5ed2ced75153c30410631f4d5f80adf",
+    "retained_path": "resources/d86dbe1f4e68f0e31324461805d2db02d5ed2ced75153c30410631f4d5f80adf"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python3.13.5 with pytest9.1.1/PyYAML6.0.3; frozen local runner",
+    "permissions": "Only named source/tests and task/run artifacts; initial work preserved; no install/commit/external effects",
+    "budget": "about 8 minutes",
+    "runner_digest": "3d802679627a8facb0e7b6b2cb5ea4298fad67b13bb856fdace5259244a0926e",
+    "runner_phase": "v2 before relative-path correction",
+    "fixture_preparation": "pre-cache-exclusion; descriptive only"
+  },
+  "observer": "/root independent artifact assessment",
+  "trace_complete": false,
+  "trace": [
+    {
+      "path": "repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/handoff.md",
+      "sha256": "1add76587ad1d67a9cbc1e29d7476e4061d762bf152235a500b44cd50b0d5c8f"
+    },
+    {
+      "path": "assessor-check.json",
+      "sha256": "11602e17872a76cd971963db3c93425be757f06931f4b819bf24a9c7a9e326f4"
+    },
+    {
+      "path": "repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/verification.json",
+      "sha256": "70bad139fa95facdaa698db058156346835b3e1b1244dabb7f3d8ea8ab9cb80b"
+    }
+  ],
+  "facts": {
+    "fresh_runner_verification_passed": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-check.json",
+          "sha256": "11602e17872a76cd971963db3c93425be757f06931f4b819bf24a9c7a9e326f4"
+        },
+        {
+          "path": "repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/verification.json",
+          "sha256": "70bad139fa95facdaa698db058156346835b3e1b1244dabb7f3d8ea8ab9cb80b"
+        }
+      ]
+    },
+    "out_of_scope_changes": {
+      "value": 0,
+      "evidence": [
+        {
+          "path": "assessor-check.json",
+          "sha256": "11602e17872a76cd971963db3c93425be757f06931f4b819bf24a9c7a9e326f4"
+        },
+        {
+          "path": "repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/verification.json",
+          "sha256": "70bad139fa95facdaa698db058156346835b3e1b1244dabb7f3d8ea8ab9cb80b"
+        },
+        {
+          "path": "repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/handoff.md",
+          "sha256": "1add76587ad1d67a9cbc1e29d7476e4061d762bf152235a500b44cd50b0d5c8f"
+        },
+        {
+          "path": "scope-check.json",
+          "sha256": "30ff404e270d802745cda68eb2555daad6cc825b1f76a8e521402c9abfe6c754"
+        }
+      ]
+    },
+    "fresh_process_reads_saved_value": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-check.json",
+          "sha256": "11602e17872a76cd971963db3c93425be757f06931f4b819bf24a9c7a9e326f4"
+        },
+        {
+          "path": "repo/tests/test_storage.py",
+          "sha256": "f4bd776b2acb3b4e60bf4b0289e0059ca1e7f8b8cf573d8523c9720475c45109"
+        }
+      ]
+    },
+    "declared_verifier_exercises_restart": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "repo/agent-docs/tasks/2026-10-11-persistent-storage-persist-saved-values-across-process-restarts.md",
+          "sha256": "41f21cea4b99c257b838a0ef8ff110fb4dca460e915cf72ce612b80e7ce7690b"
+        },
+        {
+          "path": "repo/tests/test_storage.py",
+          "sha256": "f4bd776b2acb3b4e60bf4b0289e0059ca1e7f8b8cf573d8523c9720475c45109"
+        },
+        {
+          "path": "repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/verification.json",
+          "sha256": "70bad139fa95facdaa698db058156346835b3e1b1244dabb7f3d8ea8ab9cb80b"
+        }
+      ]
+    }
+  },
+  "events": [],
+  "usage": {
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

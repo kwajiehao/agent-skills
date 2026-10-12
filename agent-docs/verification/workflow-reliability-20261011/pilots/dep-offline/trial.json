@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "trial_id": "dep-offline",
+  "execution_kind": "actual_agent",
+  "scenario_id": "dep-unavailable-notes",
+  "arm": "revised",
+  "repeat": 1,
+  "match_id": "dep-offline-1",
+  "fixture_digest": "6dc99b04af6fe0d139fdcdd196c0123ccaf0ef3ae1fe38517cd2a3e126d4b020",
+  "skill_identity": {
+    "name": "dep-review",
+    "revision": "1fefd1a + revised frozen source",
+    "digest": "fdeb135f29b181621e95107a05e4bcdb6d7e2f321a91afd68a4d8300c1bce9a5",
+    "retained_path": "resources/fdeb135f29b181621e95107a05e4bcdb6d7e2f321a91afd68a4d8300c1bce9a5"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python3.13.5/Node22; isolated offline fixtures",
+    "permissions": "Read-only product; local read-only probes for dependency review; no campaign/install/external mutation",
+    "budget": "about 4 minutes per scenario",
+    "limitations": "Partial command transcripts; model exact ID, interactions, latency, tokens unmeasured; prior attempt hit usage limit before work"
+  },
+  "observer": "/root independent artifact assessment",
+  "trace_complete": false,
+  "trace": [
+    {
+      "path": "report.md",
+      "sha256": "76b038790581f65829a7ccd7941f78e6e43f3e8e7605846de69b8fdf554392b4"
+    },
+    {
+      "path": "diagnostics.json",
+      "sha256": "b16bca063f2d7c595e02c560c1a1f5bb398257e4c7cdc9199b96254c1ba6da31"
+    }
+  ],
+  "facts": {
+    "compared_available_package_sources": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "report.md",
+          "sha256": "76b038790581f65829a7ccd7941f78e6e43f3e8e7605846de69b8fdf554392b4"
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "b16bca063f2d7c595e02c560c1a1f5bb398257e4c7cdc9199b96254c1ba6da31"
+        }
+      ]
+    },
+    "default_change_affects_callsite": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "report.md",
+          "sha256": "76b038790581f65829a7ccd7941f78e6e43f3e8e7605846de69b8fdf554392b4"
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "b16bca063f2d7c595e02c560c1a1f5bb398257e4c7cdc9199b96254c1ba6da31"
+        },
+        {
+          "path": "repo/app.js",
+          "sha256": "1254c20d5d37dba3031de17a54a6b4a4a3de8c066c16522431302d11348145ff"
+        },
+        {
+          "path": "repo/README.md",
+          "sha256": "b78561a9508a2dd8f1c3100640ff81b76ef4665e57d6d6f1b77c8d71285f02f5"
+        }
+      ]
+    },
+    "release_evidence_limits_reported": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "report.md",
+          "sha256": "76b038790581f65829a7ccd7941f78e6e43f3e8e7605846de69b8fdf554392b4"
+        }
+      ]
+    },
+    "recommendation": {
+      "value": "request_changes",
+      "evidence": [
+        {
+          "path": "report.md",
+          "sha256": "76b038790581f65829a7ccd7941f78e6e43f3e8e7605846de69b8fdf554392b4"
+        }
+      ]
+    },
+    "product_mutations": {
+      "value": 0,
+      "evidence": [
+        {
+          "path": "diagnostics.json",
+          "sha256": "b16bca063f2d7c595e02c560c1a1f5bb398257e4c7cdc9199b96254c1ba6da31"
+        },
+        {
+          "path": "report.md",
+          "sha256": "76b038790581f65829a7ccd7941f78e6e43f3e8e7605846de69b8fdf554392b4"
+        },
+        {
+          "path": "scope-check.json",
+          "sha256": "1dbf9a33dd35aadbaf609104333d99fbf4b3311065844b920d109505890b65c6"
+        }
+      ]
+    }
+  },
+  "events": [],
+  "usage": {
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

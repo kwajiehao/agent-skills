@@ -1,0 +1,37 @@
+test_committed_branch_movement_is_stale (test_source_verification.SourceVerificationTests.test_committed_branch_movement_is_stale) ... FAIL
+test_committed_pinned_sha_remains_valid_after_unrelated_head_movement (test_source_verification.SourceVerificationTests.test_committed_pinned_sha_remains_valid_after_unrelated_head_movement) ... ok
+test_context_revision_must_be_endpoint_not_arbitrary_ref (test_source_verification.SourceVerificationTests.test_context_revision_must_be_endpoint_not_arbitrary_ref) ... ok
+test_demonstrated_claim_without_evidence_is_rejected (test_source_verification.SourceVerificationTests.test_demonstrated_claim_without_evidence_is_rejected) ... ok
+test_diff_excerpt_is_exact_and_anchored (test_source_verification.SourceVerificationTests.test_diff_excerpt_is_exact_and_anchored) ... ok
+test_diff_retains_no_final_newline_evidence (test_source_verification.SourceVerificationTests.test_diff_retains_no_final_newline_evidence) ... ok
+test_diff_uses_git_counts_for_literal_diff_marker_source_lines (test_source_verification.SourceVerificationTests.test_diff_uses_git_counts_for_literal_diff_marker_source_lines) ... ok
+test_evidence_cannot_point_to_nonexistent_code (test_source_verification.SourceVerificationTests.test_evidence_cannot_point_to_nonexistent_code) ... ok
+test_exact_pinned_source_passes_and_does_not_mutate_repo (test_source_verification.SourceVerificationTests.test_exact_pinned_source_passes_and_does_not_mutate_repo) ... ok
+test_fabricated_excerpt_is_rejected (test_source_verification.SourceVerificationTests.test_fabricated_excerpt_is_rejected) ... ok
+test_index_fingerprint_changes_even_when_working_content_is_restored (test_source_verification.SourceVerificationTests.test_index_fingerprint_changes_even_when_working_content_is_restored) ... ok
+test_inventory_fabricated_counts_are_rejected (test_source_verification.SourceVerificationTests.test_inventory_fabricated_counts_are_rejected) ... ok
+test_inventory_omission_is_rejected_even_when_coverage_agrees (test_source_verification.SourceVerificationTests.test_inventory_omission_is_rejected_even_when_coverage_agrees) ... ok
+test_path_escape_and_symlink_escape_are_rejected (test_source_verification.SourceVerificationTests.test_path_escape_and_symlink_escape_are_rejected) ... ok
+test_staged_change_stales_without_head_change (test_source_verification.SourceVerificationTests.test_staged_change_stales_without_head_change) ... ok
+test_tracked_generated_output_is_not_silently_excluded (test_source_verification.SourceVerificationTests.test_tracked_generated_output_is_not_silently_excluded) ... ok
+test_unknown_claim_with_explicit_gap_is_valid (test_source_verification.SourceVerificationTests.test_unknown_claim_with_explicit_gap_is_valid) ... ok
+test_untracked_source_is_included_and_fingerprinted (test_source_verification.SourceVerificationTests.test_untracked_source_is_included_and_fingerprinted) ... ok
+test_working_change_stales_without_head_change (test_source_verification.SourceVerificationTests.test_working_change_stales_without_head_change) ... ok
+test_example_data_satisfies_contract (test_walkthrough.WalkthroughValidationTests.test_example_data_satisfies_contract) ... ok
+test_incomplete_coverage_is_rejected (test_walkthrough.WalkthroughValidationTests.test_incomplete_coverage_is_rejected) ... ok
+test_rendered_html_contains_valid_inline_data (test_walkthrough.WalkthroughValidationTests.test_rendered_html_contains_valid_inline_data) ... ok
+test_unknown_focus_node_is_rejected (test_walkthrough.WalkthroughValidationTests.test_unknown_focus_node_is_rejected) ... ok
+
+======================================================================
+FAIL: test_committed_branch_movement_is_stale (test_source_verification.SourceVerificationTests.test_committed_branch_movement_is_stale)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 177, in test_committed_branch_movement_is_stale
+    self.assertTrue(any("target ref is stale" in e for e in self.validate(data)))
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 23 tests in 9.818s
+
+FAILED (failures=1)

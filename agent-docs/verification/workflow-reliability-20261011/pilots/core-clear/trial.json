@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "trial_id": "core-clear",
+  "execution_kind": "actual_agent",
+  "scenario_id": "core-clear-autonomy",
+  "arm": "revised",
+  "repeat": 1,
+  "match_id": "core-clear-1",
+  "fixture_digest": "07d2670a61ca54a7a7ecf41d82880e57f46727706a3990121bbaaa9629c7b3ef",
+  "skill_identity": {
+    "name": "agent-docs-loop",
+    "revision": "7933c47 + cache guidance frozen",
+    "digest": "0f8316f2f11a2c2de1eb444a93b07dbadf79acdf47ffbdaee1c9f4491d996972",
+    "retained_path": "resources/0f8316f2f11a2c2de1eb444a93b07dbadf79acdf47ffbdaee1c9f4491d996972"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python3.13.5 with pytest9.1.1/PyYAML6.0.3; frozen local runner",
+    "permissions": "Only named source/tests and task/run artifacts; initial work preserved; no install/commit/external effects",
+    "budget": "about 8 minutes",
+    "runner_digest": "3d802679627a8facb0e7b6b2cb5ea4298fad67b13bb856fdace5259244a0926e",
+    "runner_phase": "v2 before relative-path correction",
+    "fixture_preparation": "cache exclusion fixed"
+  },
+  "observer": "/root independent artifact assessment",
+  "trace_complete": false,
+  "trace": [
+    {
+      "path": "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/handoff.md",
+      "sha256": "b00859592073e1d5bf877ad765faa2b26c281c05237cd0367b97f0c1a15f2575"
+    },
+    {
+      "path": "assessor-check.json",
+      "sha256": "41b9b211eee037a2d2f5babae867d6e024b2c55dd51b1792086a0015811fd760"
+    },
+    {
+      "path": "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/verification.json",
+      "sha256": "9daaa2261128b5ad0ad9c569388367c8988af898b5c521e692ec1cdac6d5a397"
+    }
+  ],
+  "facts": {
+    "fresh_runner_verification_passed": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-check.json",
+          "sha256": "41b9b211eee037a2d2f5babae867d6e024b2c55dd51b1792086a0015811fd760"
+        },
+        {
+          "path": "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/verification.json",
+          "sha256": "9daaa2261128b5ad0ad9c569388367c8988af898b5c521e692ec1cdac6d5a397"
+        }
+      ]
+    },
+    "out_of_scope_changes": {
+      "value": 0,
+      "evidence": [
+        {
+          "path": "assessor-check.json",
+          "sha256": "41b9b211eee037a2d2f5babae867d6e024b2c55dd51b1792086a0015811fd760"
+        },
+        {
+          "path": "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/verification.json",
+          "sha256": "9daaa2261128b5ad0ad9c569388367c8988af898b5c521e692ec1cdac6d5a397"
+        },
+        {
+          "path": "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/handoff.md",
+          "sha256": "b00859592073e1d5bf877ad765faa2b26c281c05237cd0367b97f0c1a15f2575"
+        },
+        {
+          "path": "scope-check.json",
+          "sha256": "2c37c6f68e42dd48f615b71e2a40420e8ff235db8303e695a86766c76aa22176"
+        }
+      ]
+    },
+    "whitespace_behavior_verified": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "assessor-check.json",
+          "sha256": "41b9b211eee037a2d2f5babae867d6e024b2c55dd51b1792086a0015811fd760"
+        },
+        {
+          "path": "repo/greeting.py",
+          "sha256": "4672f842daab728e82abaffa8058cb739c49f36210c9dfab753104eff19df62d"
+        }
+      ]
+    },
+    "regression_test_present_and_passes": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "repo/tests/test_greeting.py",
+          "sha256": "e2f71157e54f539bfac25559be00b3aa4875f94e8ca088c891c46789ec17816e"
+        },
+        {
+          "path": "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/verification.json",
+          "sha256": "9daaa2261128b5ad0ad9c569388367c8988af898b5c521e692ec1cdac6d5a397"
+        },
+        {
+          "path": "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/regression-red.txt",
+          "sha256": "0cf54de0fbc59ce26940b886de5bdf1c80121095cebf55840c4934d09e130c84"
+        }
+      ]
+    }
+  },
+  "events": [],
+  "usage": {
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

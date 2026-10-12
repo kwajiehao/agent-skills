@@ -1,0 +1,19 @@
+Command: /private/tmp/agent-workflow-dev-20261011/bin/python -m unittest discover -s tests -v
+Exit code: 1
+Pre-fix output excerpts (captured from actual execution):
+
+test_internal_whitespace (test_greeting.GreetingTests.test_internal_whitespace) ... FAIL
+test_name (test_greeting.GreetingTests.test_name) ... ok
+test_surrounding_whitespace (test_greeting.GreetingTests.test_surrounding_whitespace) (name='  Ada  ') ... FAIL
+test_surrounding_whitespace (test_greeting.GreetingTests.test_surrounding_whitespace) (name='\tAda\t') ... FAIL
+test_surrounding_whitespace (test_greeting.GreetingTests.test_surrounding_whitespace) (name='\nAda\n') ... FAIL
+test_surrounding_whitespace (test_greeting.GreetingTests.test_surrounding_whitespace) (name=' \t\nAda\n\t ') ... FAIL
+
+AssertionError: 'Hello,   Ada  Lovelace  !' != 'Hello, Ada  Lovelace!'
+AssertionError: 'Hello,   Ada  !' != 'Hello, Ada!'
+AssertionError: 'Hello, \tAda\t!' != 'Hello, Ada!'
+AssertionError: 'Hello, \nAda\n!' != 'Hello, Ada!'
+AssertionError: 'Hello,  \t\nAda\n\t !' != 'Hello, Ada!'
+
+Ran 3 tests in 0.001s
+FAILED (failures=5)

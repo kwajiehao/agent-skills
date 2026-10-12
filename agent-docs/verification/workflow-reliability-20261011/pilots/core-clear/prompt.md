@@ -1,0 +1,1 @@
+Use $agent-docs-loop to implement this in /private/tmp/workflow-pilots-20261011.jYJEET/core-clear/repo: greet(name) should trim surrounding whitespace before returning its greeting. Add a regression check, follow the repository's task workflow, and verify the change. You may edit greeting.py, tests, and task/run artifacts.

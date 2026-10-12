@@ -1,0 +1,11 @@
+{
+  "details": {
+    "empty_artifacts": [],
+    "invalid_artifacts": [],
+    "missing_artifacts": [],
+    "mode": "solo",
+    "required_artifacts": []
+  },
+  "name": "coordination",
+  "passed": true
+}

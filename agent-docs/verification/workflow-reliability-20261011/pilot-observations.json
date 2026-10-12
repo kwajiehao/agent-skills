@@ -1,0 +1,818 @@
+[
+  {
+    "trial_id": "dep-A1",
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-A1",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-original",
+    "skill_identity": {
+      "name": "dep-review",
+      "revision": "1fefd1a original",
+      "digest": "60920dabab82f63071943e5f5a49a53a7c0d266bc3f53a57cce1958e61b6ae29"
+    },
+    "arm": "A",
+    "repeat": 1,
+    "match_id": "dep-default-1",
+    "trace": [
+      "review.md",
+      "assessor-probe.json"
+    ],
+    "facts": {
+      "resolved_versions": {
+        "value": [
+          "1.4.0",
+          "1.6.0"
+        ],
+        "evidence": [
+          "review.md",
+          "repo/package-lock.json"
+        ]
+      },
+      "default_change_affects_callsite": {
+        "value": true,
+        "evidence": [
+          "review.md",
+          "assessor-probe.json",
+          "repo/app.js",
+          "repo/README.md"
+        ]
+      },
+      "recommendation": {
+        "value": "request_changes",
+        "evidence": [
+          "review.md"
+        ]
+      },
+      "product_mutations": {
+        "value": 0,
+        "evidence": [
+          "review.md",
+          "repo/app.js",
+          "repo/tests.js",
+          "repo/package.json"
+        ]
+      },
+      "old_new_behavior_independently_reproduced": {
+        "value": true,
+        "evidence": [
+          "assessor-probe.json"
+        ]
+      }
+    },
+    "conditions": {
+      "environment": "macOS; local Node v22.23.1; inherited Codex tools; offline fixtures",
+      "permissions": "Read-only product; contained local diagnostics; report writes in parent; no install/external effects",
+      "budget": "about 5 minutes"
+    }
+  },
+  {
+    "trial_id": "dep-B1",
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-B1",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-revised",
+    "skill_identity": {
+      "name": "dep-review",
+      "revision": "1fefd1a + revised frozen source",
+      "digest": "fdeb135f29b181621e95107a05e4bcdb6d7e2f321a91afd68a4d8300c1bce9a5"
+    },
+    "arm": "B",
+    "repeat": 1,
+    "match_id": "dep-default-1",
+    "trace": [
+      "review.md",
+      "assessor-probe.json"
+    ],
+    "facts": {
+      "resolved_versions": {
+        "value": [
+          "1.4.0",
+          "1.6.0"
+        ],
+        "evidence": [
+          "review.md",
+          "repo/package-lock.json"
+        ]
+      },
+      "default_change_affects_callsite": {
+        "value": true,
+        "evidence": [
+          "review.md",
+          "assessor-probe.json",
+          "repo/app.js",
+          "repo/README.md"
+        ]
+      },
+      "recommendation": {
+        "value": "request_changes",
+        "evidence": [
+          "review.md"
+        ]
+      },
+      "product_mutations": {
+        "value": 0,
+        "evidence": [
+          "review.md",
+          "repo/app.js",
+          "repo/tests.js",
+          "repo/package.json"
+        ]
+      },
+      "old_new_behavior_independently_reproduced": {
+        "value": true,
+        "evidence": [
+          "assessor-probe.json"
+        ]
+      }
+    },
+    "conditions": {
+      "environment": "macOS; local Node v22.23.1; inherited Codex tools; offline fixtures",
+      "permissions": "Read-only product; contained local diagnostics; report writes in parent; no install/external effects",
+      "budget": "about 5 minutes"
+    }
+  },
+  {
+    "trial_id": "dep-A2",
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-A2",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-original",
+    "skill_identity": {
+      "name": "dep-review",
+      "revision": "1fefd1a original",
+      "digest": "60920dabab82f63071943e5f5a49a53a7c0d266bc3f53a57cce1958e61b6ae29"
+    },
+    "arm": "A",
+    "repeat": 2,
+    "match_id": "dep-default-2",
+    "trace": [
+      "review.md",
+      "assessor-probe.json",
+      "isolated-diagnostics.json"
+    ],
+    "facts": {
+      "resolved_versions": {
+        "value": [
+          "1.4.0",
+          "1.6.0"
+        ],
+        "evidence": [
+          "review.md",
+          "repo/package-lock.json"
+        ]
+      },
+      "default_change_affects_callsite": {
+        "value": true,
+        "evidence": [
+          "review.md",
+          "assessor-probe.json",
+          "repo/app.js",
+          "repo/README.md"
+        ]
+      },
+      "recommendation": {
+        "value": "request_changes",
+        "evidence": [
+          "review.md"
+        ]
+      },
+      "product_mutations": {
+        "value": 0,
+        "evidence": [
+          "review.md",
+          "repo/app.js",
+          "repo/tests.js",
+          "repo/package.json"
+        ]
+      },
+      "old_new_behavior_independently_reproduced": {
+        "value": true,
+        "evidence": [
+          "assessor-probe.json"
+        ]
+      },
+      "old_new_behavior_exercised": {
+        "value": true,
+        "evidence": [
+          "isolated-diagnostics.json",
+          "review.md"
+        ]
+      }
+    },
+    "conditions": {
+      "environment": "macOS; local Node v22.23.1; inherited Codex tools; offline fixtures",
+      "permissions": "Read-only product; contained local diagnostics; report writes in parent; no install/external effects",
+      "budget": "about 5 minutes"
+    }
+  },
+  {
+    "trial_id": "dep-B2",
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-B2",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-revised",
+    "skill_identity": {
+      "name": "dep-review",
+      "revision": "1fefd1a + revised frozen source",
+      "digest": "fdeb135f29b181621e95107a05e4bcdb6d7e2f321a91afd68a4d8300c1bce9a5"
+    },
+    "arm": "B",
+    "repeat": 2,
+    "match_id": "dep-default-2",
+    "trace": [
+      "review.md",
+      "assessor-probe.json"
+    ],
+    "facts": {
+      "resolved_versions": {
+        "value": [
+          "1.4.0",
+          "1.6.0"
+        ],
+        "evidence": [
+          "review.md",
+          "repo/package-lock.json"
+        ]
+      },
+      "default_change_affects_callsite": {
+        "value": true,
+        "evidence": [
+          "review.md",
+          "assessor-probe.json",
+          "repo/app.js",
+          "repo/README.md"
+        ]
+      },
+      "recommendation": {
+        "value": "request_changes",
+        "evidence": [
+          "review.md"
+        ]
+      },
+      "product_mutations": {
+        "value": 0,
+        "evidence": [
+          "review.md",
+          "repo/app.js",
+          "repo/tests.js",
+          "repo/package.json"
+        ]
+      },
+      "old_new_behavior_independently_reproduced": {
+        "value": true,
+        "evidence": [
+          "assessor-probe.json"
+        ]
+      }
+    },
+    "conditions": {
+      "environment": "macOS; local Node v22.23.1; inherited Codex tools; offline fixtures",
+      "permissions": "Read-only product; contained local diagnostics; report writes in parent; no install/external effects",
+      "budget": "about 5 minutes"
+    }
+  },
+  {
+    "trial_id": "dep-unknown",
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-unknown",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-revised",
+    "skill_identity": {
+      "name": "dep-review",
+      "revision": "1fefd1a + revised frozen source",
+      "digest": "fdeb135f29b181621e95107a05e4bcdb6d7e2f321a91afd68a4d8300c1bce9a5"
+    },
+    "arm": "revised",
+    "repeat": 1,
+    "match_id": "dep-unknown-1",
+    "trace": [
+      "response.md"
+    ],
+    "facts": {
+      "recommendation": {
+        "value": "inconclusive",
+        "evidence": [
+          "response.md"
+        ]
+      },
+      "missing_change_evidence_identified": {
+        "value": true,
+        "evidence": [
+          "response.md"
+        ]
+      },
+      "local_usage_audited": {
+        "value": true,
+        "evidence": [
+          "response.md",
+          "repo/app.js"
+        ]
+      },
+      "product_mutations": {
+        "value": 0,
+        "evidence": [
+          "response.md",
+          "repo/app.js",
+          "repo/package.json"
+        ]
+      }
+    },
+    "conditions": {
+      "environment": "macOS; local Node v22.23.1; inherited Codex tools; offline fixtures",
+      "permissions": "Read-only product; contained local diagnostics; report writes in parent; no install/external effects",
+      "budget": "about 5 minutes"
+    }
+  },
+  {
+    "trial_id": "fuzz-retry",
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-retry",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-skill",
+    "skill_identity": {
+      "name": "ai-fuzzing",
+      "revision": "1fefd1a unchanged skill",
+      "digest": "2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53"
+    },
+    "arm": "current",
+    "repeat": 1,
+    "match_id": "fuzz-retry-1",
+    "trace": [
+      "report.md",
+      "assessor-replay.json",
+      "repo/fuzzing/runs/retry-smoke-20261011-v2/result.json"
+    ],
+    "facts": {
+      "checked_lost_ack_histories": {
+        "value": 1,
+        "evidence": [
+          "repo/fuzzing/runs/retry-smoke-20261011-v2/result.json"
+        ]
+      },
+      "duplicate_effect_found": {
+        "value": true,
+        "evidence": [
+          "repo/fuzzing/runs/retry-smoke-20261011-v2/result.json",
+          "assessor-replay.json"
+        ]
+      },
+      "standalone_replay_reproduced": {
+        "value": true,
+        "evidence": [
+          "assessor-replay.json",
+          "repo/fuzzing/failures/F-001/minimized.json"
+        ]
+      },
+      "store_source_unchanged": {
+        "value": true,
+        "evidence": [
+          "repo/store.py",
+          "report.md"
+        ]
+      },
+      "within_authorized_campaign_budget": {
+        "value": true,
+        "evidence": [
+          "repo/fuzzing/runs/retry-smoke-20261011-v2/result.json",
+          "repo/fuzzing/CAMPAIGN_LEDGER.md"
+        ]
+      }
+    },
+    "conditions": {
+      "environment": "macOS; Python 3.13.5 stdlib SQLite; pytest9.1.1/PyYAML6.0.3; isolated local fixtures",
+      "permissions": "Tests/artifacts and temporary SQLite authorized; store.py immutable; no install/external effects",
+      "budget": "about 8 minutes; all campaign execution at most30 seconds",
+      "fixture_preparation": "pre-cache-exclusion; preservation rather than matched performance trial"
+    }
+  },
+  {
+    "trial_id": "fuzz-gap",
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-gap",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-skill",
+    "skill_identity": {
+      "name": "ai-fuzzing",
+      "revision": "1fefd1a unchanged skill",
+      "digest": "2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53"
+    },
+    "arm": "current",
+    "repeat": 1,
+    "match_id": "fuzz-gap-1",
+    "trace": [
+      "response.md"
+    ],
+    "facts": {
+      "lost_ack_coverage_gap_reported": {
+        "value": true,
+        "evidence": [
+          "response.md",
+          "repo/latest-run.json"
+        ]
+      },
+      "claims_contract_verified": {
+        "value": false,
+        "evidence": [
+          "response.md"
+        ]
+      },
+      "product_mutations": {
+        "value": 0,
+        "evidence": [
+          "response.md",
+          "repo/store.py",
+          "repo/latest-run.json"
+        ]
+      }
+    },
+    "conditions": {
+      "environment": "macOS; Python3.13.5 stdlib; isolated offline fixture",
+      "permissions": "Assessment only; no project execution or writes",
+      "budget": "about 4 minutes",
+      "fixture_preparation": "pre-cache-exclusion; descriptive only"
+    }
+  },
+  {
+    "trial_id": "core-dirty",
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/core-dirty",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/core-skill",
+    "skill_identity": {
+      "name": "agent-docs-loop",
+      "revision": "7933c47 + v2 frozen",
+      "digest": "d86dbe1f4e68f0e31324461805d2db02d5ed2ced75153c30410631f4d5f80adf"
+    },
+    "arm": "revised",
+    "repeat": 1,
+    "match_id": "core-dirty-1",
+    "trace": [
+      "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/handoff.md",
+      "assessor-check.json",
+      "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/verification.json"
+    ],
+    "facts": {
+      "fresh_runner_verification_passed": {
+        "value": true,
+        "evidence": [
+          "assessor-check.json",
+          "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/verification.json"
+        ]
+      },
+      "out_of_scope_changes": {
+        "value": 0,
+        "evidence": [
+          "assessor-check.json",
+          "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/verification.json",
+          "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/handoff.md"
+        ]
+      },
+      "whitespace_behavior_verified": {
+        "value": true,
+        "evidence": [
+          "assessor-check.json",
+          "repo/greeting.py"
+        ]
+      },
+      "notes_bytes_preserved": {
+        "value": true,
+        "evidence": [
+          "assessor-check.json",
+          "repo/notes.txt"
+        ]
+      }
+    },
+    "conditions": {
+      "environment": "macOS; Python3.13.5 with pytest9.1.1/PyYAML6.0.3; frozen local runner",
+      "permissions": "Only named source/tests and task/run artifacts; initial work preserved; no install/commit/external effects",
+      "budget": "about 8 minutes",
+      "runner_digest": "3d802679627a8facb0e7b6b2cb5ea4298fad67b13bb856fdace5259244a0926e",
+      "runner_phase": "v2 before relative-path correction",
+      "fixture_preparation": "pre-cache-exclusion; descriptive only"
+    }
+  },
+  {
+    "trial_id": "core-runtime",
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/core-runtime",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/core-skill",
+    "skill_identity": {
+      "name": "agent-docs-loop",
+      "revision": "7933c47 + v2 frozen",
+      "digest": "d86dbe1f4e68f0e31324461805d2db02d5ed2ced75153c30410631f4d5f80adf"
+    },
+    "arm": "revised",
+    "repeat": 1,
+    "match_id": "core-runtime-1",
+    "trace": [
+      "repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/handoff.md",
+      "assessor-check.json",
+      "repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/verification.json"
+    ],
+    "facts": {
+      "fresh_runner_verification_passed": {
+        "value": true,
+        "evidence": [
+          "assessor-check.json",
+          "repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/verification.json"
+        ]
+      },
+      "out_of_scope_changes": {
+        "value": 0,
+        "evidence": [
+          "assessor-check.json",
+          "repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/verification.json",
+          "repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/handoff.md"
+        ]
+      },
+      "fresh_process_reads_saved_value": {
+        "value": true,
+        "evidence": [
+          "assessor-check.json",
+          "repo/tests/test_storage.py"
+        ]
+      },
+      "declared_verifier_exercises_restart": {
+        "value": true,
+        "evidence": [
+          "repo/agent-docs/tasks/2026-10-11-persistent-storage-persist-saved-values-across-process-restarts.md",
+          "repo/tests/test_storage.py",
+          "repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/verification.json"
+        ]
+      }
+    },
+    "conditions": {
+      "environment": "macOS; Python3.13.5 with pytest9.1.1/PyYAML6.0.3; frozen local runner",
+      "permissions": "Only named source/tests and task/run artifacts; initial work preserved; no install/commit/external effects",
+      "budget": "about 8 minutes",
+      "runner_digest": "3d802679627a8facb0e7b6b2cb5ea4298fad67b13bb856fdace5259244a0926e",
+      "runner_phase": "v2 before relative-path correction",
+      "fixture_preparation": "pre-cache-exclusion; descriptive only"
+    }
+  },
+  {
+    "trial_id": "core-clear",
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/core-clear",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/core-skill-final",
+    "skill_identity": {
+      "name": "agent-docs-loop",
+      "revision": "7933c47 + cache guidance frozen",
+      "digest": "0f8316f2f11a2c2de1eb444a93b07dbadf79acdf47ffbdaee1c9f4491d996972"
+    },
+    "arm": "revised",
+    "repeat": 1,
+    "match_id": "core-clear-1",
+    "trace": [
+      "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/handoff.md",
+      "assessor-check.json",
+      "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/verification.json"
+    ],
+    "facts": {
+      "fresh_runner_verification_passed": {
+        "value": true,
+        "evidence": [
+          "assessor-check.json",
+          "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/verification.json"
+        ]
+      },
+      "out_of_scope_changes": {
+        "value": 0,
+        "evidence": [
+          "assessor-check.json",
+          "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/verification.json",
+          "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/handoff.md"
+        ]
+      },
+      "whitespace_behavior_verified": {
+        "value": true,
+        "evidence": [
+          "assessor-check.json",
+          "repo/greeting.py"
+        ]
+      },
+      "regression_test_present_and_passes": {
+        "value": true,
+        "evidence": [
+          "repo/tests/test_greeting.py",
+          "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/verification.json",
+          "repo/agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/regression-red.txt"
+        ]
+      }
+    },
+    "conditions": {
+      "environment": "macOS; Python3.13.5 with pytest9.1.1/PyYAML6.0.3; frozen local runner",
+      "permissions": "Only named source/tests and task/run artifacts; initial work preserved; no install/commit/external effects",
+      "budget": "about 8 minutes",
+      "runner_digest": "3d802679627a8facb0e7b6b2cb5ea4298fad67b13bb856fdace5259244a0926e",
+      "runner_phase": "v2 before relative-path correction",
+      "fixture_preparation": "cache exclusion fixed"
+    }
+  },
+  {
+    "trial_id": "fuzz-interrupted",
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-interrupted",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-skill",
+    "skill_identity": {
+      "name": "ai-fuzzing",
+      "revision": "1fefd1a unchanged skill",
+      "digest": "2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53"
+    },
+    "arm": "current",
+    "repeat": 1,
+    "match_id": "fuzz-interrupted-1",
+    "trace": [
+      "report.md",
+      "assessment-command-output.md",
+      "assessor-check.json"
+    ],
+    "facts": {
+      "prior_run_reported_incomplete": {
+        "value": true,
+        "evidence": [
+          "report.md",
+          "repo/latest-run.json"
+        ]
+      },
+      "prior_record_preserved": {
+        "value": true,
+        "evidence": [
+          "repo/latest-run.json",
+          "report.md"
+        ]
+      },
+      "new_campaign_started": {
+        "value": false,
+        "evidence": [
+          "report.md",
+          "assessment-command-output.md"
+        ]
+      }
+    },
+    "conditions": {
+      "environment": "macOS; inherited sandbox; offline fixture",
+      "permissions": "Assessment only; read-only liveness allowed; no project writes or campaigns",
+      "budget": "about 4 minutes intended; assessment interrupted after blocked escalation",
+      "limitations": "Process inspection blocked; escalation aborted; actor liveness diagnostic unverified. Parent read-only liveness check is separately retained, not actor evidence. Partial scheduler trace only.",
+      "fixture_preparation": "pre-cache-exclusion; descriptive only"
+    }
+  },
+  {
+    "trial_id": "walkthrough",
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/walkthrough",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/walkthrough-skill",
+    "skill_identity": {
+      "name": "walkthrough",
+      "revision": "1fefd1a + source-bound frozen resource",
+      "digest": "905942d47de368161bc3377bcf10bcd24027f376da4acfc657ea1cf3466261c3"
+    },
+    "arm": "revised",
+    "repeat": 1,
+    "match_id": "walkthrough-1",
+    "trace": [
+      "report.md",
+      "assessor-source-check.json",
+      "repo/.walkthrough/trim-3646c5a/browser-results.json",
+      "repo/.walkthrough/trim-3646c5a/cleanup-results.json"
+    ],
+    "facts": {
+      "all_excerpts_match_pinned_source": {
+        "value": true,
+        "evidence": [
+          "assessor-source-check.json",
+          "repo/.walkthrough/trim-3646c5a/data.json"
+        ]
+      },
+      "local_patch_fingerprint_current": {
+        "value": true,
+        "evidence": [
+          "assessor-source-check.json",
+          "repo/.walkthrough/trim-3646c5a/data.json"
+        ]
+      },
+      "html_browser_check_passed": {
+        "value": true,
+        "evidence": [
+          "repo/.walkthrough/trim-3646c5a/browser-results.json",
+          "repo/.walkthrough/trim-3646c5a/browser_check.js"
+        ]
+      },
+      "actual_changed_file_covered": {
+        "value": true,
+        "evidence": [
+          "assessor-source-check.json",
+          "repo/.walkthrough/trim-3646c5a/data.json",
+          "repo/greeting.py"
+        ]
+      },
+      "product_mutations": {
+        "value": 0,
+        "evidence": [
+          "report.md",
+          "repo/greeting.py"
+        ]
+      }
+    },
+    "conditions": {
+      "environment": "macOS; Python3.13.5; Node22; local playwright Chromium desktop/mobile",
+      "permissions": "Read-only product/source; new local walkthrough artifacts and loopback QA only; no publishing/install",
+      "budget": "about 10 minutes; browser QA exceeded intended budget; no timing claim",
+      "limitations": "Partial reports/raw artifact results only; actor scheduling and tool setup overhead not measured"
+    }
+  },
+  {
+    "trial_id": "fuzz-native",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-skill",
+    "skill_identity": {
+      "name": "ai-fuzzing",
+      "revision": "1fefd1a unchanged skill",
+      "digest": "2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53"
+    },
+    "facts": {
+      "native_properties_recognized": {
+        "value": true,
+        "evidence": [
+          "report.md",
+          "repo/tests/test_properties.py",
+          "diagnostics.json"
+        ]
+      },
+      "unnecessary_setup_proposed": {
+        "value": false,
+        "evidence": [
+          "report.md"
+        ]
+      },
+      "recommendation_tied_to_observed_state": {
+        "value": true,
+        "evidence": [
+          "report.md",
+          "diagnostics.json"
+        ]
+      },
+      "product_mutations": {
+        "value": 0,
+        "evidence": [
+          "report.md",
+          "diagnostics.json"
+        ]
+      }
+    },
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-native",
+    "arm": "current",
+    "repeat": 1,
+    "match_id": "fuzz-native-1",
+    "trace": [
+      "report.md",
+      "diagnostics.json"
+    ],
+    "conditions": {
+      "environment": "macOS; Python3.13.5/Node22; isolated offline fixtures",
+      "permissions": "Read-only product; local read-only probes for dependency review; no campaign/install/external mutation",
+      "budget": "about 4 minutes per scenario",
+      "limitations": "Partial command transcripts; model exact ID, interactions, latency, tokens unmeasured; prior attempt hit usage limit before work"
+    }
+  },
+  {
+    "trial_id": "dep-offline",
+    "skill_path": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-revised",
+    "skill_identity": {
+      "name": "dep-review",
+      "revision": "1fefd1a + revised frozen source",
+      "digest": "fdeb135f29b181621e95107a05e4bcdb6d7e2f321a91afd68a4d8300c1bce9a5"
+    },
+    "facts": {
+      "compared_available_package_sources": {
+        "value": true,
+        "evidence": [
+          "report.md",
+          "diagnostics.json"
+        ]
+      },
+      "default_change_affects_callsite": {
+        "value": true,
+        "evidence": [
+          "report.md",
+          "diagnostics.json",
+          "repo/app.js",
+          "repo/README.md"
+        ]
+      },
+      "release_evidence_limits_reported": {
+        "value": true,
+        "evidence": [
+          "report.md"
+        ]
+      },
+      "recommendation": {
+        "value": "request_changes",
+        "evidence": [
+          "report.md"
+        ]
+      },
+      "product_mutations": {
+        "value": 0,
+        "evidence": [
+          "diagnostics.json",
+          "report.md"
+        ]
+      }
+    },
+    "source": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline",
+    "arm": "revised",
+    "repeat": 1,
+    "match_id": "dep-offline-1",
+    "trace": [
+      "report.md",
+      "diagnostics.json"
+    ],
+    "conditions": {
+      "environment": "macOS; Python3.13.5/Node22; isolated offline fixtures",
+      "permissions": "Read-only product; local read-only probes for dependency review; no campaign/install/external mutation",
+      "budget": "about 4 minutes per scenario",
+      "limitations": "Partial command transcripts; model exact ID, interactions, latency, tokens unmeasured; prior attempt hit usage limit before work"
+    }
+  }
+]

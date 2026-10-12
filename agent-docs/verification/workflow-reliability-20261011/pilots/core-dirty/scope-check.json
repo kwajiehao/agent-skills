@@ -1,0 +1,62 @@
+{
+  "scenario_id": "core-dirty-worktree",
+  "fixture_digest": "98f5575b5e0564745a03e49dec7d073181f78a56834adbf3db51ebad7ed8f7d3",
+  "changed_files": [
+    "agent-docs/MEMORY.md",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/.verification.lock",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/coordination.json",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/handoff.md",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/prompt.md",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/regression-red.txt",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/run.json",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/smoke.json",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/subagents/README.md",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/task.snapshot.md",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/tests.json",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/verification-first-failed.json",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/verification.json",
+    "agent-docs/skills/README.md",
+    "agent-docs/tasks/2026-10-11-trim-greeting-trim-surrounding-whitespace-from-greeting-names.md",
+    "greeting.py",
+    "tests/test_greeting.py"
+  ],
+  "allowed": [
+    "tests/*",
+    "agent-docs/*",
+    "scripts/*",
+    "greeting.py"
+  ],
+  "violations": [],
+  "expected_file_sha256": {
+    "CODING.md": "52781b4b18564f3784fed20a2c9c5a947ceeb821072b9ca2d89c5a5c4488270a",
+    "README.md": "170b09217f6480d46a1e37bb2a676511120ef967e50a53fb56295ba2de8e4534",
+    "TESTING.md": "b3f2b0b16bdec5a1a60fb6ca8355f08a5ee870c902950482da76173335aafb50",
+    "greeting.py": "a55c14346b5c0e11da873793db175efd28d4840a330a5edba18d03d7d7310626",
+    "notes.txt": "e2cdcc18d897c5ad2039404a47cb42585187b0601f4250a4d2e0ebf65c0372ab",
+    "tests/test_greeting.py": "ed20ce5b046c3ab397963851cd0c4d84824200017c7a4dceaddff76b7ee279c9"
+  },
+  "final_file_sha256": {
+    "CODING.md": "52781b4b18564f3784fed20a2c9c5a947ceeb821072b9ca2d89c5a5c4488270a",
+    "README.md": "170b09217f6480d46a1e37bb2a676511120ef967e50a53fb56295ba2de8e4534",
+    "TESTING.md": "b3f2b0b16bdec5a1a60fb6ca8355f08a5ee870c902950482da76173335aafb50",
+    "agent-docs/MEMORY.md": "62991f1cdb0daa21b698e2139483252000aed98df4c016de497595bddcc2aec0",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/.verification.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/coordination.json": "90f8127b4392b276daeca66c332e92ef93dfcaa19ed6b2d0d7aeca50be8c6c57",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/handoff.md": "3602953174ac25d4faf3300519ad8fa5524f58afd8d514ee753346b899bc9824",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/prompt.md": "ecd914d4869ea927e1c11f828f7b3214ebe39e58a66040cb587416296001d0b4",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/regression-red.txt": "2e49aa6659c0e6056ef82122e136328b0a05f0576b28bdf9c533ffc22e33ad47",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/run.json": "df5ff6abfa870fc3bec2d89658c1a3a639d50bcf7d65a7004d11cba48b2492c9",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/smoke.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/subagents/README.md": "967d7495e5dc1a26dffe82beb241708745c4346908bc3c0c26fc303ad101048a",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/task.snapshot.md": "6d9f09e293f728c0f066566ceb13e4bf7a1df1b75239dbefb880cd58cb6beb19",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/tests.json": "c680e989261e72bf9384cdcf6ab3fdb25ea2def19cabc77a1df8b1c2f92ced55",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/verification-first-failed.json": "d46393e6505a62629d4f17dfe810132b20c7a7b696b3d7cb41cf6a76be311946",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125251Z-6b7bbbca/verification.json": "2a52cb8a041ad89fb8537a78e7ce3ee8ea6df182916239bc04ea8357122720ad",
+    "agent-docs/skills/README.md": "37b046176d7fb7f89116399dfa91ecc6d98f4f8eb5cf0adc1d42e8d2bf5453d0",
+    "agent-docs/tasks/2026-10-11-trim-greeting-trim-surrounding-whitespace-from-greeting-names.md": "6d9f09e293f728c0f066566ceb13e4bf7a1df1b75239dbefb880cd58cb6beb19",
+    "greeting.py": "4672f842daab728e82abaffa8058cb739c49f36210c9dfab753104eff19df62d",
+    "notes.txt": "e2cdcc18d897c5ad2039404a47cb42585187b0601f4250a4d2e0ebf65c0372ab",
+    "tests/test_greeting.py": "12b352ff53849b598035143fd3c5c4e83821161f44706cd362f52fef1afb2f66"
+  },
+  "boundary": "Content comparison; runtime caches excluded; no claim about uncaptured external actions"
+}

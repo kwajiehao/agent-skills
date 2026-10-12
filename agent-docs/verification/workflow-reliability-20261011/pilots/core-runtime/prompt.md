@@ -1,0 +1,1 @@
+Use $agent-docs-loop to fix /private/tmp/workflow-pilots-20261011.jYJEET/core-runtime/repo: save_value(path, value) must survive a process restart so a fresh process calling load_value(path) returns the saved value. Add the necessary verification and complete the task workflow. You may edit storage.py, tests, verification scripts, and task/run artifacts.

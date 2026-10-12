@@ -1,0 +1,25 @@
+{
+  "schema_version": 1,
+  "target": "store-retry",
+  "profile": "smoke",
+  "command": ["/private/tmp/agent-workflow-dev-20261011/bin/python", "tests/retry_fuzz.py", "--campaign", "--seconds", "25", "--max-cases", "128", "--seed", "20261011"],
+  "timeout_seconds": 30,
+  "requirements": ["REQ-001", "REQ-002"],
+  "required_scenarios": {"SCN-001": 1},
+  "source_files": ["store.py", "README.md", "tests/test_store.py", "tests/retry_fuzz.py", "tests/test_retry_property.py", "tests/test_retry_harness.py", "fuzzing/FUZZING_SPEC.md", "fuzzing/corpus/lost-ack-retry.json", "fuzzing/targets/retry.smoke.json"],
+  "revisions": {
+    "product": "78af9806e734d92d42a83f1aabbd000e94705fd2; exact selected bytes snapshotted",
+    "harness": "uncommitted v2; explicit reader closure and empirical controls; exact selected bytes snapshotted",
+    "specification": "README accepted retry contract; fuzzing specification v1",
+    "dependencies": "Python 3.13.5; SQLite 3.50.1; stdlib only",
+    "corpus": "fuzzing/corpus/lost-ack-retry.json; exact bytes snapshotted"
+  },
+  "environment": {"TZ": "UTC", "LC_ALL": "C", "PYTHONDONTWRITEBYTECODE": "1"},
+  "policy": {
+    "authorization": "Assigned task: replayable retry fuzz/property test and at most 30-second local campaign; no product changes",
+    "isolation": "owned per-history SQLite files inside the run's databases directory; standalone tests use tempfile.TemporaryDirectory",
+    "artifact_policy": "synthetic inputs and local exact source snapshots; no credentials or external services",
+    "owner": "fuzz-retry task owner",
+    "triage_seconds": 120
+  }
+}

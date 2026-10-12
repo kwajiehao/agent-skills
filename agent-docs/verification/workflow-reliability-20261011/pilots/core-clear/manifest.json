@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "scenario_id": "core-clear-autonomy",
+  "fixture_digest": "07d2670a61ca54a7a7ecf41d82880e57f46727706a3990121bbaaa9629c7b3ef",
+  "repo": "/private/tmp/workflow-pilots-20261011.jYJEET/core-clear/repo",
+  "prompt": "/private/tmp/workflow-pilots-20261011.jYJEET/core-clear/prompt.md",
+  "skill": "agent-docs-loop",
+  "initial_head": "ec618d73e8e8989366c45153c901c1058b54d55f"
+}

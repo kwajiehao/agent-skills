@@ -1,0 +1,13 @@
+[
+  {
+    "command": "/private/tmp/agent-workflow-dev-20261011/bin/python -B -m unittest discover -s tests -v",
+    "cwd": "/private/tmp/workflow-pilots-20261011.jYJEET/core-clear/repo",
+    "duration_seconds": 0.031,
+    "exit_code": 0,
+    "stderr": "test_interior_whitespace (test_greeting.GreetingTests.test_interior_whitespace) ... ok\ntest_name (test_greeting.GreetingTests.test_name) ... ok\ntest_surrounding_whitespace (test_greeting.GreetingTests.test_surrounding_whitespace) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n",
+    "stderr_truncated": false,
+    "stdout": "",
+    "stdout_truncated": false,
+    "timed_out": false
+  }
+]

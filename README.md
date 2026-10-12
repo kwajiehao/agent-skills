@@ -34,9 +34,12 @@ Already have the repo cloned? Just run it from the root:
 |---|---|
 | `~/.claude/skills/` | always |
 | `~/.codex/skills/` | only if `~/.codex` exists |
-| `~/.agents/skills/` | only if `~/.agents` exists |
+| `~/.agents/skills/` | always; canonical shared/Codex discovery path |
 
-The optional paths are skipped when the tool isn't installed, so you don't collect empty config directories.
+The legacy Codex path is skipped when its configuration directory is absent.
+An explicit `CODEX_HOME` creates its configured skills path. For isolated or
+custom installations, `AGENT_SKILLS_CLAUDE_DIR`, `AGENT_SKILLS_AGENTS_DIR` and
+`AGENT_SKILLS_CODEX_DIR` override the individual destinations.
 
 Existing entries are left untouched: a skill already linked is skipped, a real directory or a symlink pointing somewhere else is reported and left alone. Only a *dangling* symlink — from a clone you moved or deleted — gets repaired automatically.
 
@@ -67,3 +70,16 @@ Instructions for the agent...
 ## Requirements
 
 `bash` and `git`. Symlink creation needs no special privileges on macOS, Linux, or WSL; on native Windows use WSL or Git Bash with Developer Mode enabled.
+
+## Verification and behavioral evaluations
+
+Run tooling regressions with `python -m pytest -q` in an environment containing
+pytest. The fuzz recorder and walkthrough suites also support stdlib unittest.
+Tests exercise actual subprocess, Git, source-validation and effect boundaries;
+skill-following quality needs independent agent trials as well.
+
+Use [evals](evals/README.md) to prepare isolated project fixtures and organic
+requests, record observed actions/artifacts, and grade against hidden outcome
+criteria. Trial records identify the skill snapshot and execution environment.
+Missing measurements remain unmeasured. Compare matched repeated trials before
+claiming higher success or lower cost. Keep failed trials as regression evidence.

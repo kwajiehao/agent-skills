@@ -1,0 +1,148 @@
+{
+  "scope": "read-only offline review; actual local package probes; no installs",
+  "skill": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-revised/SKILL.md",
+  "commands": [
+    {
+      "command": {
+        "cmd": "pwd; rg --files -g 'AGENTS.md' -g '!eval*' /private/tmp/workflow-pilots-20261011.jYJEET/fuzz-native/repo /private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo",
+        "login": false,
+        "max_output_tokens": 2000
+      },
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "0278fb",
+          "wall_time_seconds": 0.000004292,
+          "exit_code": 1,
+          "original_token_count": 7,
+          "output": "/Users/kwajiehao/Documents\n"
+        }
+      }
+    },
+    {
+      "command": {
+        "cmd": "git status --short; git log -4 --oneline; rg --files",
+        "workdir": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo",
+        "login": false,
+        "max_output_tokens": 6000
+      },
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "de8f07",
+          "wall_time_seconds": 0.00000575,
+          "exit_code": 0,
+          "original_token_count": 77,
+          "output": " M evidence/releases.md\n M package-lock.json\n0088070 evaluation fixture\napp.js\npackage.json\npackage-lock.json\ntests.js\nREADME.md\nevidence/1.6.0/parse-number/package.json\nevidence/1.6.0/parse-number/index.js\nevidence/1.4.0/parse-number/package.json\nevidence/1.4.0/parse-number/index.js\nevidence/releases.md\n"
+        }
+      }
+    },
+    {
+      "command": {
+        "cmd": "git rev-parse HEAD; git diff -- package.json package-lock.json evidence/releases.md; git show HEAD:package.json; git show HEAD:package-lock.json; sed -n '1,240p' README.md; sed -n '1,240p' app.js; sed -n '1,240p' tests.js; sed -n '1,200p' evidence/releases.md; sed -n '1,200p' evidence/1.4.0/parse-number/package.json; sed -n '1,240p' evidence/1.4.0/parse-number/index.js; sed -n '1,200p' evidence/1.6.0/parse-number/package.json; sed -n '1,240p' evidence/1.6.0/parse-number/index.js",
+        "workdir": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo",
+        "login": false,
+        "max_output_tokens": 10000
+      },
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "6aef29",
+          "wall_time_seconds": 0.000004625,
+          "exit_code": 0,
+          "original_token_count": 586,
+          "output": "0088070f74756dc9462dc913bf59f7be68c47479\ndiff --git a/evidence/releases.md b/evidence/releases.md\nindex af37753..ee01d21 100644\n--- a/evidence/releases.md\n+++ b/evidence/releases.md\n@@ -1,5 +1 @@\n-# parse-number releases\n-\n-1.5.0: strict syntax option introduced, disabled by default.\n-1.6.0: strict syntax enabled by default. Callers accepting padded decimal\n-strings must explicitly pass `{strict: false}`.\n+Release notes and the upstream repository are unavailable offline. The package tarball extracts remain available in evidence/.\ndiff --git a/package-lock.json b/package-lock.json\nindex ca09500..a70374a 100644\n--- a/package-lock.json\n+++ b/package-lock.json\n@@ -1 +1 @@\n-{\"lockfileVersion\": 3, \"packages\": {\"node_modules/parse-number\": {\"version\": \"1.4.0\"}}}\n+{\"lockfileVersion\": 3, \"packages\": {\"node_modules/parse-number\": {\"version\": \"1.6.0\"}}}\n{\"name\":\"invoice-import\",\"private\":true,\"dependencies\":{\"parse-number\":\"^1.4.0\"}}\n{\"lockfileVersion\": 3, \"packages\": {\"node_modules/parse-number\": {\"version\": \"1.4.0\"}}}\n# Invoice imports\n\nThis import adapter consumes counts from CSV rows. Our documented supported\ninputs include decimal strings with leading zeroes, e.g. `007` means seven.\nRun `node tests.js` against an installed dependency. Offline package extracts\nare in `evidence/`; set up an isolated module search path to exercise either\nversion without modifying the review worktree.\nconst {parseNumber} = require('parse-number');\n\nfunction importCount(row) {\n  return parseNumber(row.count);\n}\n\nmodule.exports = {importCount};\nconst assert = require('node:assert/strict');\nconst {importCount} = require('./app');\nassert.equal(importCount({count: '7'}), 7);\nRelease notes and the upstream repository are unavailable offline. The package tarball extracts remain available in evidence/.\n{\"name\":\"parse-number\",\"version\":\"1.4.0\",\"main\":\"index.js\",\"engines\":{\"node\":\">=18\"}}\nexports.parseNumber = function parseNumber(value) {\n  if (!/^\\d+$/.test(value)) throw new TypeError('invalid decimal');\n  return Number(value);\n};\n{\"name\":\"parse-number\",\"version\":\"1.6.0\",\"main\":\"index.js\",\"engines\":{\"node\":\">=18\"}}\nexports.parseNumber = function parseNumber(value, {strict = true} = {}) {\n  const pattern = strict ? /^(0|[1-9]\\d*)$/ : /^\\d+$/;\n  if (!pattern.test(value)) throw new TypeError('invalid decimal');\n  return Number(value);\n};\n"
+        }
+      }
+    },
+    {
+      "command": {
+        "cmd": "for p in /AGENTS.md /private/AGENTS.md /private/tmp/AGENTS.md /private/tmp/workflow-pilots-20261011.jYJEET/AGENTS.md /private/tmp/workflow-pilots-20261011.jYJEET/fuzz-native/AGENTS.md /private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/AGENTS.md; do if test -f \"$p\"; then sed -n '1,240p' \"$p\"; fi; done",
+        "login": false,
+        "max_output_tokens": 4000
+      },
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "b7ee7e",
+          "wall_time_seconds": 0.000005917,
+          "exit_code": 0,
+          "original_token_count": 0,
+          "output": ""
+        }
+      }
+    },
+    {
+      "command": {
+        "cmd": "node --version; nl -ba app.js; nl -ba README.md; nl -ba tests.js; nl -ba package.json; nl -ba package-lock.json; nl -ba evidence/1.4.0/parse-number/index.js; nl -ba evidence/1.6.0/parse-number/index.js; shasum -a 256 package.json package-lock.json app.js tests.js evidence/1.4.0/parse-number/package.json evidence/1.4.0/parse-number/index.js evidence/1.6.0/parse-number/package.json evidence/1.6.0/parse-number/index.js; git ls-files",
+        "workdir": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo",
+        "login": false,
+        "max_output_tokens": 5000
+      },
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "3eff88",
+          "wall_time_seconds": 0.000005,
+          "exit_code": 0,
+          "original_token_count": 590,
+          "output": "v22.23.1\n     1\tconst {parseNumber} = require('parse-number');\n     2\t\n     3\tfunction importCount(row) {\n     4\t  return parseNumber(row.count);\n     5\t}\n     6\t\n     7\tmodule.exports = {importCount};\n     1\t# Invoice imports\n     2\t\n     3\tThis import adapter consumes counts from CSV rows. Our documented supported\n     4\tinputs include decimal strings with leading zeroes, e.g. `007` means seven.\n     5\tRun `node tests.js` against an installed dependency. Offline package extracts\n     6\tare in `evidence/`; set up an isolated module search path to exercise either\n     7\tversion without modifying the review worktree.\n     1\tconst assert = require('node:assert/strict');\n     2\tconst {importCount} = require('./app');\n     3\tassert.equal(importCount({count: '7'}), 7);\n     1\t{\"name\":\"invoice-import\",\"private\":true,\"dependencies\":{\"parse-number\":\"^1.4.0\"}}\n     1\t{\"lockfileVersion\": 3, \"packages\": {\"node_modules/parse-number\": {\"version\": \"1.6.0\"}}}\n     1\texports.parseNumber = function parseNumber(value) {\n     2\t  if (!/^\\d+$/.test(value)) throw new TypeError('invalid decimal');\n     3\t  return Number(value);\n     4\t};\n     1\texports.parseNumber = function parseNumber(value, {strict = true} = {}) {\n     2\t  const pattern = strict ? /^(0|[1-9]\\d*)$/ : /^\\d+$/;\n     3\t  if (!pattern.test(value)) throw new TypeError('invalid decimal');\n     4\t  return Number(value);\n     5\t};\n6db57cdfa50287612a69297bd13dc6cbe622b442311e3756612813de7ceecc1c  package.json\nc2b1f9033c9ec3e77dae2d7bc002612955afeb2474d38c1a6310abdc22d20da5  package-lock.json\n1254c20d5d37dba3031de17a54a6b4a4a3de8c066c16522431302d11348145ff  app.js\ncb433486d4cd5184aab5a9d38f1156c86a6860a55d4824fe2f6f90953f9c3607  tests.js\nf9ed42914362c7b6c1b04f86a3cf29af4623bbe9afc320c67ee3c9fbeeb96de0  evidence/1.4.0/parse-number/package.json\nd6e7a54e9a3b34b592eeb5d9407e0b6c48066bef5829055aad528d5b06dc7ddd  evidence/1.4.0/parse-number/index.js\na12ab18da838a2e9d606d7f8d3533ef480d27d3ccd4e45d3da82e4488715dc5f  evidence/1.6.0/parse-number/package.json\n0847ae191e97f5bae0122c609ce997fb5c3376adfd7d6afc703ed62fad05d7d5  evidence/1.6.0/parse-number/index.js\nREADME.md\napp.js\nevidence/1.4.0/parse-number/index.js\nevidence/1.4.0/parse-number/package.json\nevidence/1.6.0/parse-number/index.js\nevidence/1.6.0/parse-number/package.json\nevidence/releases.md\npackage-lock.json\npackage.json\ntests.js\n"
+        }
+      }
+    },
+    {
+      "command": {
+        "cmd": "NODE_PATH=/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo/evidence/1.4.0 node -e 'const assert = require(\"node:assert/strict\"); const path = require(\"node:path\"); const resolved = require.resolve(\"parse-number\"); const pkg = require(path.join(path.dirname(resolved), \"package.json\")); const {importCount} = require(\"./app\"); require(\"./tests\"); const cases = [[\"7\",7],[\"007\",7],[\"0\",0],[\"00\",0]]; const results = cases.map(([input,expected]) => { try { const actual = importCount({count: input}); return {input,expected,actual,contractMatches: actual === expected}; } catch (error) { return {input,expected,error:{name:error.name,message:error.message},contractMatches:false}; } }); const {parseNumber} = require(\"parse-number\"); assert.equal(parseNumber(\"007\", {strict:false}),7); console.log(JSON.stringify({resolved,package:pkg,existingTests:\"passed; tests.js asserts only count=7\",cases:results,explicitStrictFalseFor007:7},null,2));'",
+        "workdir": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo",
+        "login": false,
+        "max_output_tokens": 5000
+      },
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "06fde2",
+          "wall_time_seconds": 0.000005708,
+          "exit_code": 0,
+          "original_token_count": 197,
+          "output": "{\n  \"resolved\": \"/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo/evidence/1.4.0/parse-number/index.js\",\n  \"package\": {\n    \"name\": \"parse-number\",\n    \"version\": \"1.4.0\",\n    \"main\": \"index.js\",\n    \"engines\": {\n      \"node\": \">=18\"\n    }\n  },\n  \"existingTests\": \"passed; tests.js asserts only count=7\",\n  \"cases\": [\n    {\n      \"input\": \"7\",\n      \"expected\": 7,\n      \"actual\": 7,\n      \"contractMatches\": true\n    },\n    {\n      \"input\": \"007\",\n      \"expected\": 7,\n      \"actual\": 7,\n      \"contractMatches\": true\n    },\n    {\n      \"input\": \"0\",\n      \"expected\": 0,\n      \"actual\": 0,\n      \"contractMatches\": true\n    },\n    {\n      \"input\": \"00\",\n      \"expected\": 0,\n      \"actual\": 0,\n      \"contractMatches\": true\n    }\n  ],\n  \"explicitStrictFalseFor007\": 7\n}\n"
+        }
+      }
+    },
+    {
+      "command": {
+        "cmd": "NODE_PATH=/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo/evidence/1.6.0 node -e 'const assert = require(\"node:assert/strict\"); const path = require(\"node:path\"); const resolved = require.resolve(\"parse-number\"); const pkg = require(path.join(path.dirname(resolved), \"package.json\")); const {importCount} = require(\"./app\"); require(\"./tests\"); const cases = [[\"7\",7],[\"007\",7],[\"0\",0],[\"00\",0]]; const results = cases.map(([input,expected]) => { try { const actual = importCount({count: input}); return {input,expected,actual,contractMatches: actual === expected}; } catch (error) { return {input,expected,error:{name:error.name,message:error.message},contractMatches:false}; } }); const {parseNumber} = require(\"parse-number\"); assert.equal(parseNumber(\"007\", {strict:false}),7); console.log(JSON.stringify({resolved,package:pkg,existingTests:\"passed; tests.js asserts only count=7\",cases:results,explicitStrictFalseFor007:7},null,2));'",
+        "workdir": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo",
+        "login": false,
+        "max_output_tokens": 5000
+      },
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "8c45cb",
+          "wall_time_seconds": 0.000007208,
+          "exit_code": 0,
+          "original_token_count": 234,
+          "output": "{\n  \"resolved\": \"/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo/evidence/1.6.0/parse-number/index.js\",\n  \"package\": {\n    \"name\": \"parse-number\",\n    \"version\": \"1.6.0\",\n    \"main\": \"index.js\",\n    \"engines\": {\n      \"node\": \">=18\"\n    }\n  },\n  \"existingTests\": \"passed; tests.js asserts only count=7\",\n  \"cases\": [\n    {\n      \"input\": \"7\",\n      \"expected\": 7,\n      \"actual\": 7,\n      \"contractMatches\": true\n    },\n    {\n      \"input\": \"007\",\n      \"expected\": 7,\n      \"error\": {\n        \"name\": \"TypeError\",\n        \"message\": \"invalid decimal\"\n      },\n      \"contractMatches\": false\n    },\n    {\n      \"input\": \"0\",\n      \"expected\": 0,\n      \"actual\": 0,\n      \"contractMatches\": true\n    },\n    {\n      \"input\": \"00\",\n      \"expected\": 0,\n      \"error\": {\n        \"name\": \"TypeError\",\n        \"message\": \"invalid decimal\"\n      },\n      \"contractMatches\": false\n    }\n  ],\n  \"explicitStrictFalseFor007\": 7\n}\n"
+        }
+      }
+    },
+    {
+      "command": {
+        "cmd": "git rev-parse HEAD; git status --short; shasum -a 256 package.json package-lock.json app.js tests.js evidence/releases.md evidence/1.4.0/parse-number/package.json evidence/1.4.0/parse-number/index.js evidence/1.6.0/parse-number/package.json evidence/1.6.0/parse-number/index.js; git diff --stat",
+        "workdir": "/private/tmp/workflow-pilots-20261011.jYJEET/dep-offline/repo",
+        "login": false,
+        "max_output_tokens": 2500
+      },
+      "result": {
+        "status": "fulfilled",
+        "value": {
+          "chunk_id": "ca87c6",
+          "wall_time_seconds": 0.000004459,
+          "exit_code": 0,
+          "original_token_count": 254,
+          "output": "0088070f74756dc9462dc913bf59f7be68c47479\n M evidence/releases.md\n M package-lock.json\n6db57cdfa50287612a69297bd13dc6cbe622b442311e3756612813de7ceecc1c  package.json\nc2b1f9033c9ec3e77dae2d7bc002612955afeb2474d38c1a6310abdc22d20da5  package-lock.json\n1254c20d5d37dba3031de17a54a6b4a4a3de8c066c16522431302d11348145ff  app.js\ncb433486d4cd5184aab5a9d38f1156c86a6860a55d4824fe2f6f90953f9c3607  tests.js\n3227ffdabfc88d1052e4b3b33945e38b6d12a754312fc173047c4078330581b4  evidence/releases.md\nf9ed42914362c7b6c1b04f86a3cf29af4623bbe9afc320c67ee3c9fbeeb96de0  evidence/1.4.0/parse-number/package.json\nd6e7a54e9a3b34b592eeb5d9407e0b6c48066bef5829055aad528d5b06dc7ddd  evidence/1.4.0/parse-number/index.js\na12ab18da838a2e9d606d7f8d3533ef480d27d3ccd4e45d3da82e4488715dc5f  evidence/1.6.0/parse-number/package.json\n0847ae191e97f5bae0122c609ce997fb5c3376adfd7d6afc703ed62fad05d7d5  evidence/1.6.0/parse-number/index.js\n evidence/releases.md | 6 +-----\n package-lock.json    | 2 +-\n 2 files changed, 2 insertions(+), 6 deletions(-)\n"
+        }
+      }
+    }
+  ]
+}

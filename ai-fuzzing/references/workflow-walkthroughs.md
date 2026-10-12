@@ -75,3 +75,26 @@ entrypoint now explicitly permits a short spec and omitting inapplicable section
 The recorder suite has since expanded with evidence-validation regressions. Run
 the command in the [README](../README.md#walkthrough-and-verification) for its
 current test count and results; the pilot measurements above are historical.
+
+## Independent target pilots (2026-10-11)
+
+Four new isolated agent requests cover native property discovery, semantic
+coverage gaps, a seeded SQLite retry defect and interrupted-run assessment.
+The [retained verification report](../../agent-docs/verification/workflow-reliability-20261011/README.md)
+links raw artifacts, independently assessed facts and frozen skill resources.
+Expected outcomes were withheld from the actors.
+
+The retry actor built real commit/lost-ack/retry checks without modifying product
+source. It observed duplicate durable effects, retained and minimized the history,
+and produced standalone replay; the assessor independently reproduced it.
+Campaign execution remained within the authorized 30-second total budget.
+Native-test assessment reused the existing deque-based properties instead of
+proposing a new framework. Coverage-gap assessment correctly distinguished zero
+checked critical histories from a successful command. Interrupted-run assessment
+preserved the record and reported incomplete execution; a blocked process check
+stayed explicitly unverified rather than becoming a success or automatic restart.
+
+These are small target-specific correctness observations, not statistical skill
+reliability or efficiency measurements. Partial traces leave questions, corrections,
+latency and token counts unknown. They do not cover concurrent delivery, broker
+semantics, machine power loss, or installed CI.

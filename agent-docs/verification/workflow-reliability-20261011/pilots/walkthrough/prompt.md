@@ -1,0 +1,1 @@
+Use $walkthrough to build a reviewer walkthrough for the local change in /private/tmp/workflow-pilots-20261011.jYJEET/walkthrough/repo. The existing draft under .walkthrough/draft may be useful context. Produce and verify the artifact against the current change.

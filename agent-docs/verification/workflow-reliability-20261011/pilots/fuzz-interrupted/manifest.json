@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "scenario_id": "fuzz-interrupted",
+  "fixture_digest": "be1c3ab7e8ad209f02796bfd869a349b9de426f67bcd7b3488412979e977d499",
+  "repo": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-interrupted/repo",
+  "prompt": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-interrupted/prompt.md",
+  "skill": "ai-fuzzing",
+  "initial_head": "d0a00dd37e8c8c9e92be3963b98919247c2feec2"
+}

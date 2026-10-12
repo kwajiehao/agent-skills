@@ -1,0 +1,1 @@
+Use $dep-review to review the lockfile bump in /private/tmp/workflow-pilots-20261011.jYJEET/dep-unknown/repo. This environment is offline and contains no installed dependency or package source beyond the files you can see. Give me the review you can support from this evidence.

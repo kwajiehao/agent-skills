@@ -1,0 +1,20 @@
+Command: /private/tmp/agent-workflow-dev-20261011/bin/python -m unittest discover -s tests -v
+Exit code: 1
+Snapshot: original storage.py with module-only _values dictionary; new tests.
+
+test_missing_path (test_storage.StorageTests.test_missing_path) ... ok
+test_path_objects_and_json_values (test_storage.StorageTests.test_path_objects_and_json_values) ... ok
+test_save_and_load (test_storage.StorageTests.test_save_and_load) ... ok
+test_survives_process_restart_and_overwrite ... FAIL (both saved values)
+
+Actual failure at tests/test_storage.py:51:
+    self.assertEqual(json.loads(result.stdout), value)
+AssertionError: None != {'count': 7, 'items': [None, True, 2.5, 'hello']}
+AssertionError: None != {'count': 8, 'nested': {'message': 'updated'}}
+
+Ran 4 tests in 0.065s
+FAILED (failures=2)
+
+Each writer subprocess exited successfully. Each independent reader subprocess
+returned JSON null instead of the saved value. The original same-process test
+passed, isolating the failure to durable state rather than the public call shape.

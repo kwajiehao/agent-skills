@@ -1,0 +1,60 @@
+{
+  "scenario_id": "core-clear-autonomy",
+  "fixture_digest": "07d2670a61ca54a7a7ecf41d82880e57f46727706a3990121bbaaa9629c7b3ef",
+  "changed_files": [
+    "agent-docs/MEMORY.md",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/.verification.lock",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/coordination.json",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/handoff.md",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/prompt.md",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/regression-red.txt",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/run.json",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/smoke.json",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/subagents/README.md",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/task.snapshot.md",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/tests.json",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/verification.json",
+    "agent-docs/skills/README.md",
+    "agent-docs/tasks/2026-10-11-trim-greeting-trim-surrounding-whitespace-in-greetings.md",
+    "greeting.py",
+    "tests/test_greeting.py"
+  ],
+  "allowed": [
+    "tests/*",
+    "agent-docs/*",
+    "scripts/*",
+    "greeting.py"
+  ],
+  "violations": [],
+  "expected_file_sha256": {
+    "CODING.md": "52781b4b18564f3784fed20a2c9c5a947ceeb821072b9ca2d89c5a5c4488270a",
+    "README.md": "170b09217f6480d46a1e37bb2a676511120ef967e50a53fb56295ba2de8e4534",
+    "TESTING.md": "b3f2b0b16bdec5a1a60fb6ca8355f08a5ee870c902950482da76173335aafb50",
+    "greeting.py": "a55c14346b5c0e11da873793db175efd28d4840a330a5edba18d03d7d7310626",
+    "notes.txt": "f92d57d6b2779e46896eaddc20111c408ee37a81bcffbefaa935b749eafdd9dc",
+    "tests/test_greeting.py": "ed20ce5b046c3ab397963851cd0c4d84824200017c7a4dceaddff76b7ee279c9"
+  },
+  "final_file_sha256": {
+    "CODING.md": "52781b4b18564f3784fed20a2c9c5a947ceeb821072b9ca2d89c5a5c4488270a",
+    "README.md": "170b09217f6480d46a1e37bb2a676511120ef967e50a53fb56295ba2de8e4534",
+    "TESTING.md": "b3f2b0b16bdec5a1a60fb6ca8355f08a5ee870c902950482da76173335aafb50",
+    "agent-docs/MEMORY.md": "62991f1cdb0daa21b698e2139483252000aed98df4c016de497595bddcc2aec0",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/.verification.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/coordination.json": "90f8127b4392b276daeca66c332e92ef93dfcaa19ed6b2d0d7aeca50be8c6c57",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/handoff.md": "b00859592073e1d5bf877ad765faa2b26c281c05237cd0367b97f0c1a15f2575",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/prompt.md": "fab3d8558954f39ed41e2ea3b15e5bf6e7e4d61eea34e1a88cea96b483060845",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/regression-red.txt": "0cf54de0fbc59ce26940b886de5bdf1c80121095cebf55840c4934d09e130c84",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/run.json": "8c03e16bea43d60205798935556d56e630f3ae2d53305b7efcaa8584949f02d9",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/smoke.json": "38e0b9de817f645c4bec37c0d4a3e58baecccb040f5718dc069a72c7385a0bed",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/subagents/README.md": "a3d3bb6e04f1ef1aaaac84ae218631b42c7d7686fa7653b9adcbabe0656992b3",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/task.snapshot.md": "b66d04706254a69040a5e5afc01787b2195cf1830a9b536a6a82a7269cb484a6",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/tests.json": "37455c3485cca3fd54133bddb6aceae56e0a00ba16137c5fe8566a2c4eb1cd64",
+    "agent-docs/runs/2026-10-11-trim-greeting/20261011T125943Z-e8d3a7ae/verification.json": "9daaa2261128b5ad0ad9c569388367c8988af898b5c521e692ec1cdac6d5a397",
+    "agent-docs/skills/README.md": "37b046176d7fb7f89116399dfa91ecc6d98f4f8eb5cf0adc1d42e8d2bf5453d0",
+    "agent-docs/tasks/2026-10-11-trim-greeting-trim-surrounding-whitespace-in-greetings.md": "b66d04706254a69040a5e5afc01787b2195cf1830a9b536a6a82a7269cb484a6",
+    "greeting.py": "4672f842daab728e82abaffa8058cb739c49f36210c9dfab753104eff19df62d",
+    "notes.txt": "f92d57d6b2779e46896eaddc20111c408ee37a81bcffbefaa935b749eafdd9dc",
+    "tests/test_greeting.py": "e2f71157e54f539bfac25559be00b3aa4875f94e8ca088c891c46789ec17816e"
+  },
+  "boundary": "Content comparison; runtime caches excluded; no claim about uncaptured external actions"
+}

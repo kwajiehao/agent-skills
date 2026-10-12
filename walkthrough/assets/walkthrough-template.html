@@ -229,6 +229,8 @@
         <div id="step-kicker"></div>
         <h2 id="step-title"></h2>
         <p id="step-takeaway"></p>
+        <p id="claim-status" class="finding-meta"></p>
+        <p id="evidence-gap" class="finding-meta" hidden></p>
         <div id="narrative-body"></div>
         <div id="evidence-links" aria-label="Evidence"></div>
 
@@ -300,7 +302,8 @@
       };
       const link = (label, url, className) => {
         const node = create("a", className, label);
-        node.href = url;
+        // Source text and URLs are untrusted artifact data.
+        try { const target = new URL(url); if (["http:", "https:"].includes(target.protocol)) node.href = target.href; } catch (_) {}
         node.target = "_blank";
         node.rel = "noreferrer noopener";
         return node;
@@ -308,6 +311,22 @@
       const findVisual = (id) => data.visuals.find((item) => item.id === id);
       const findCode = (id) => data.code.find((item) => item.id === id);
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      function evidenceNode(item) {
+        if (!item.code_id) return link(item.label, item.url, "evidence-link");
+        const button = create("button", "evidence-link", item.label);
+        button.type = "button";
+        button.addEventListener("click", () => {
+          stopStory();
+          const stepIndex = data.steps.findIndex(step => step.code_ids.includes(item.code_id));
+          if (stepIndex < 0) return;
+          setStep(stepIndex);
+          state.code = data.steps[stepIndex].code_ids.indexOf(item.code_id);
+          renderCode(data.steps[stepIndex]);
+          byId("code-panel").scrollIntoView({behavior: reduceMotion ? "auto" : "smooth", block: "nearest"});
+        });
+        return button;
+      }
 
       function renderHeader() {
         byId("page-title").textContent = data.meta.title;
@@ -336,12 +355,15 @@
         byId("step-kicker").textContent = step.kicker;
         byId("step-title").textContent = step.title;
         byId("step-takeaway").textContent = step.takeaway;
+        byId("claim-status").textContent = step.claim_status || "Evidence status not recorded";
+        byId("evidence-gap").textContent = step.evidence_gap || "";
+        byId("evidence-gap").hidden = !step.evidence_gap;
 
         const narrative = byId("narrative-body");
         narrative.replaceChildren(...step.narrative.map((paragraph) => create("p", "", paragraph)));
 
         const evidence = byId("evidence-links");
-        evidence.replaceChildren(...step.evidence.map((item) => link(item.label, item.url, "evidence-link")));
+        evidence.replaceChildren(...step.evidence.map(evidenceNode));
 
         renderStoryList();
         renderVisual(step);
@@ -662,11 +684,16 @@
         }
         data.findings.forEach((finding) => {
           const card = create("article", `finding ${finding.severity}`);
-          card.append(create("div", "finding-meta", `${finding.severity} · ${finding.confidence} confidence`), create("h3", "", finding.title));
+          card.append(create("div", "finding-meta", `${finding.severity} · ${finding.confidence} confidence · ${finding.claim_status || "stated"}`), create("h3", "", finding.title));
           const details = create("dl");
-          [["Trigger", finding.trigger], ["Impact", finding.impact], ["Evidence", finding.evidence], ["Direction", finding.resolution]].forEach(([term, value]) => {
+          [["Trigger", finding.trigger], ["Impact", finding.impact], ["Direction", finding.resolution]].forEach(([term, value]) => {
             details.append(create("dt", "", term), create("dd", "", value));
           });
+          const evidence = create("dd");
+          if (Array.isArray(finding.evidence)) evidence.append(...finding.evidence.map(evidenceNode));
+          else evidence.textContent = finding.evidence;
+          details.append(create("dt", "", "Evidence"), evidence);
+          if (finding.evidence_gap) details.append(create("dt", "", "Evidence gap"), create("dd", "", finding.evidence_gap));
           card.append(details);
           if (finding.url) card.append(link("Inspect evidence ↗", finding.url, "evidence-link"));
           list.append(card);

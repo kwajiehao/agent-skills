@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
-"""Validate a rendered PR walkthrough's data and static UI contract."""
+"""Validate walkthrough structure; --repo additionally checks its Git sources."""
 
 from __future__ import annotations
 
 import argparse
 import json
+import importlib.util
 import re
+import subprocess
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlparse
 
 
 REQUIRED_TOP_LEVEL = {"meta", "files", "code", "visuals", "steps", "findings", "coverage"}
@@ -271,9 +274,84 @@ def validate_html(document: str, result: Validation) -> None:
     result.require("latest" not in document.lower(), "unversioned 'latest' dependency or text found")
 
 
+def validate_sources(data: Any, repo: Path, result: Validation) -> None:
+    """Check authoritative source and evidence links, without mutating the repo.
+
+    External URLs are link records, not verified contents. A source match does
+    not prove that a test ran or that prose is semantically entailed by code.
+    """
+    if not isinstance(data, dict) or not isinstance(data.get("meta"), dict):
+        result.errors.append("source validation requires meta and source_snapshot")
+        return
+    spec = importlib.util.spec_from_file_location("walkthrough_source_evidence", Path(__file__).with_name("source_evidence.py"))
+    source = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(source)
+    meta = data["meta"]
+    snapshot = meta.get("source_snapshot")
+    if not isinstance(snapshot, dict):
+        result.errors.append("source validation requires collected meta.source_snapshot")
+        return
+    try:
+        for side in ("base", "head"):
+            result.require(source.resolve(repo, meta[f"{side}_ref"]) == meta[f"{side}_sha"], f"{side} target ref is stale")
+        actual = source.collect(repo, meta["base_sha"], meta["head_sha"], snapshot["mode"], snapshot["exclude_untracked"])
+        result.require(actual["meta"]["source_snapshot"] == snapshot, "source snapshot is stale or its digest/manifest is invalid")
+        files = {f["path"]: f for f in actual["files"]}
+        provided = {f["path"]: f for f in data.get("files", []) if isinstance(f, dict) and isinstance(f.get("path"), str)}
+        result.require(set(files) == set(provided), "changed inventory differs from authoritative source snapshot")
+        for path in files.keys() & provided.keys():
+            result.require(all(files[path][key] == provided[path].get(key) for key in ("status", "additions", "deletions")), f"diff statistics differ for {path}")
+        for index, code in enumerate(data.get("code", [])):
+            if not isinstance(code, dict):
+                continue
+            try:
+                expected = source.excerpt(repo, meta, code["path"], code["side"], code["start_line"], code["end_line"], code.get("revision"))
+                result.require(code.get("content") == expected["content"], f"code[{index}] source text differs from pinned source")
+            except (ValueError, KeyError, OSError, subprocess.TimeoutExpired) as error:
+                result.errors.append(f"code[{index}] source verification failed: {error}")
+    except (ValueError, KeyError, TypeError, OSError, subprocess.TimeoutExpired) as error:
+        result.errors.append(f"source verification failed: {error}")
+
+    code_ids = {c.get("id") for c in data.get("code", []) if isinstance(c, dict)}
+    external = False
+    for section in ("steps", "findings"):
+        for index, item in enumerate(data.get(section, [])):
+            if not isinstance(item, dict):
+                continue
+            at = f"{section}[{index}]"
+            status = item.get("claim_status")
+            result.require(status in {"stated", "demonstrated", "inferred", "disputed", "unknown"}, f"{at}.claim_status is required for source verification")
+            evidence = item.get("evidence")
+            result.require(isinstance(evidence, list), f"{at}.evidence must be typed evidence records for source verification")
+            if status in {"stated", "demonstrated", "disputed"}:
+                result.require(isinstance(evidence, list) and bool(evidence), f"{at} {status} claim needs evidence")
+            elif status in {"inferred", "unknown"} and not evidence:
+                result.require(isinstance(item.get("evidence_gap"), str) and bool(item["evidence_gap"].strip()), f"{at} needs an explicit evidence_gap")
+            if not isinstance(evidence, list):
+                continue
+            for i, entry in enumerate(evidence):
+                here = f"{at}.evidence[{i}]"
+                if not isinstance(entry, dict):
+                    result.errors.append(f"{here} must be an evidence object")
+                    continue
+                result.require(isinstance(entry.get("label"), str) and bool(entry["label"].strip()), f"{here} requires a label")
+                has_code, has_url = "code_id" in entry, "url" in entry
+                result.require(has_code != has_url, f"{here} must identify exactly one code_id or external url")
+                if has_code:
+                    result.require(entry["code_id"] in code_ids, f"{here} references unknown code evidence")
+                if has_url:
+                    parsed = urlparse(str(entry["url"]))
+                    result.require(parsed.scheme in {"https", "http"} and bool(parsed.netloc), f"{here} must use an absolute HTTP(S) evidence URL")
+                    result.require(entry.get("source_kind") in {"spec", "issue", "pr", "comment", "check", "benchmark", "manual"}, f"{here} external evidence requires source_kind")
+                    external = True
+    if external:
+        result.warnings.append("external evidence URLs were linked, not fetched or verified; inspect their contents and execution claims separately")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--html", type=Path, required=True, help="rendered walkthrough HTML")
+    parser.add_argument("--repo", type=Path, help="source repository root; required to verify exact excerpts, inventory, and freshness")
     args = parser.parse_args()
 
     document = args.html.read_text(encoding="utf-8")
@@ -282,6 +360,10 @@ def main() -> int:
     data = extract_data(document, result)
     if data is not None:
         validate_data(data, result)
+        if args.repo:
+            validate_sources(data, args.repo, result)
+        else:
+            result.warnings.append("STRUCTURE ONLY: source text, changed inventory, evidence links, and freshness were not verified; pass --repo")
 
     for warning in result.warnings:
         print(f"WARNING: {warning}")
@@ -290,7 +372,8 @@ def main() -> int:
     if result.errors:
         print(f"Validation failed: {len(result.errors)} error(s), {len(result.warnings)} warning(s)")
         return 1
-    print(f"Validation passed: {args.html.resolve()} ({len(result.warnings)} warning(s))")
+    level = "Source and structure" if args.repo else "Structure only"
+    print(f"{level} validation passed: {args.html.resolve()} ({len(result.warnings)} warning(s))")
     return 0
 
 

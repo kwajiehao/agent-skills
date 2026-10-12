@@ -1,0 +1,48 @@
+{
+  "baseline": {
+    "files": {
+      "CODING.md": "2c2930635946cc104437c1faa82b435f08021911dea11258d903301879b79390",
+      "README.md": "49ff1c6166dd16ba0c48ee79bcf0dff1bf11b2d26f56ff6be3ddb0fa0501f483",
+      "TESTING.md": "b38585a58d87f371fdb5ff7c4fa63166a20b75e8d9a46a4449dcfbfa90c79ad0",
+      "agent-docs/MEMORY.md": "919e47892bfff8fea96dc9eb175ad32afb8a5252c8b55cefa22ad924c604cbfb",
+      "agent-docs/runs/2026-10-11-persistent-storage/20261011T125546Z-94ff57ef/.verification.lock": "d4d707cd571c7b67634dda849b907ebc866fe9701e70cc9734f8ad2b1fdc1df9",
+      "agent-docs/runs/2026-10-11-persistent-storage/20261011T125546Z-94ff57ef/coordination.json": "f904e328ab06d8016e2ce014d8058abeec9f65af7f6ce23de91ce4dc3beeedb5",
+      "agent-docs/runs/2026-10-11-persistent-storage/20261011T125546Z-94ff57ef/handoff.md": "6806497638a8456ea34d609dbe3a3f9a08f9ae3810e242d8a76f54f4dee180bd",
+      "agent-docs/runs/2026-10-11-persistent-storage/20261011T125546Z-94ff57ef/prompt.md": "8138a8448fea564a49f64ab9000bda57811330bf403b813e69ffbd988d967bea",
+      "agent-docs/runs/2026-10-11-persistent-storage/20261011T125546Z-94ff57ef/red-regression.txt": "10b68732ed33f0fc5ad44dc12dbf186f4f9de361d5b7cb4386775272d46d9271",
+      "agent-docs/runs/2026-10-11-persistent-storage/20261011T125546Z-94ff57ef/run.json": "88874401e90acb018a3b2474da8b7e62d4967d310ef6a2c34a846a26b5074ab9",
+      "agent-docs/runs/2026-10-11-persistent-storage/20261011T125546Z-94ff57ef/smoke.json": "e564106b94c511c05579d1bdb32b31e64ce8bb761ed326c2292414103dd2b476",
+      "agent-docs/runs/2026-10-11-persistent-storage/20261011T125546Z-94ff57ef/subagents/README.md": "304a36e81fc9e0ea4927327528f3fa8177aa63fbcc6e295d6de46abff8011d8b",
+      "agent-docs/runs/2026-10-11-persistent-storage/20261011T125546Z-94ff57ef/task.snapshot.md": "2d90f2b7c86cc183c6f104b89c59e2d00ff7a8ee5b07d8d2c0923366b04734dd",
+      "agent-docs/runs/2026-10-11-persistent-storage/20261011T125546Z-94ff57ef/tests.json": "615960497dccdb96c5d07dcbbef3a6ce5ff004f828c1a11ad88751c6f58a30e0",
+      "agent-docs/runs/2026-10-11-persistent-storage/20261011T125546Z-94ff57ef/verification.json": "594e9781e1dceb6be307594a7b886521cfc2f9d62588db2967fccc93d1fa72be",
+      "agent-docs/skills/README.md": "52423de167741712f37fd02a73a257e7c448e6b9fb880db674c96446d3b8643e",
+      "agent-docs/tasks/2026-10-11-persistent-storage-persist-saved-values-across-process-restarts.md": "4e6d0980738dbcd230b13d4e0924e6df0245825d24538108d88c06a1d8ad14ff",
+      "storage.py": "dd4bd1236d4590c4d2e1ea6ba27523c1cf077888bd197bab8a7ee3ed61690765",
+      "tests/__pycache__/test_storage.cpython-313-pytest-9.1.1.pyc": "a312dbb3653d03770e42d9ec2792a0407853240f5e60fa476d6614ab6e8fc974",
+      "tests/test_storage.py": "80109d57778f9b8758a67215e3900ea40b99e5c8789d13f1c8f194944ebfd099"
+    },
+    "head": "84e6fabbca62b98c1f452a9bdd5da79c72690430"
+  },
+  "coordination": {
+    "maker_characterization": null,
+    "mode": "solo",
+    "reviewer_characterization": null
+  },
+  "created_at": "2026-10-11T12:57:42.968915+00:00",
+  "handoff": "/private/tmp/workflow-pilots-20261011.jYJEET/core-runtime/repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/handoff.md",
+  "repo_root": "/private/tmp/workflow-pilots-20261011.jYJEET/core-runtime/repo",
+  "run_id": "20261011T125742Z-02054ff3",
+  "schema_version": 2,
+  "status": "prepared",
+  "subagents_dir": "/private/tmp/workflow-pilots-20261011.jYJEET/core-runtime/repo/agent-docs/runs/2026-10-11-persistent-storage/20261011T125742Z-02054ff3/subagents",
+  "task_id": "2026-10-11-persistent-storage",
+  "task_path": "/private/tmp/workflow-pilots-20261011.jYJEET/core-runtime/repo/agent-docs/tasks/2026-10-11-persistent-storage-persist-saved-values-across-process-restarts.md",
+  "task_sha256": "41f21cea4b99c257b838a0ef8ff110fb4dca460e915cf72ce612b80e7ce7690b",
+  "verification": {
+    "smoke_command": null,
+    "test_commands": [
+      "/private/tmp/agent-workflow-dev-20261011/bin/python -B -m unittest discover -s tests -v"
+    ]
+  }
+}

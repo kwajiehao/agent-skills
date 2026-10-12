@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "started_at": "2026-10-11T12:51:29.665522+00:00",
+  "recorder_pid": 20565,
+  "repo": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-retry/repo",
+  "profile": {
+    "schema_version": 1,
+    "target": "store-retry",
+    "profile": "smoke",
+    "command": [
+      "/private/tmp/agent-workflow-dev-20261011/bin/python",
+      "tests/retry_fuzz.py",
+      "--campaign",
+      "--seconds",
+      "25",
+      "--max-cases",
+      "128",
+      "--seed",
+      "20261011"
+    ],
+    "timeout_seconds": 30,
+    "requirements": [
+      "REQ-001",
+      "REQ-002"
+    ],
+    "required_scenarios": {
+      "SCN-001": 1
+    },
+    "source_files": [
+      "store.py",
+      "README.md",
+      "tests/test_store.py",
+      "tests/retry_fuzz.py",
+      "tests/test_retry_property.py",
+      "fuzzing/FUZZING_SPEC.md",
+      "fuzzing/corpus/lost-ack-retry.json",
+      "fuzzing/targets/retry.smoke.json"
+    ],
+    "revisions": {
+      "product": "78af9806e734d92d42a83f1aabbd000e94705fd2; exact selected bytes snapshotted",
+      "harness": "uncommitted v1; exact selected bytes snapshotted",
+      "specification": "README accepted retry contract; fuzzing specification v1",
+      "dependencies": "Python stdlib; runtime versions recorded in separate preflight",
+      "corpus": "fuzzing/corpus/lost-ack-retry.json; exact bytes snapshotted"
+    },
+    "environment": {
+      "TZ": "UTC",
+      "LC_ALL": "C",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "policy": {
+      "authorization": "Assigned task: replayable retry fuzz/property test and at most 30-second local campaign; no product changes",
+      "isolation": "owned per-history SQLite files inside the run's databases directory; standalone tests use tempfile.TemporaryDirectory",
+      "artifact_policy": "synthetic inputs and local exact source snapshots; no credentials or external services",
+      "owner": "fuzz-retry task owner",
+      "triage_seconds": 120
+    }
+  },
+  "source_sha256": {
+    "store.py": "7eb5889e0a7663b6099ec36dce8214d00c286ea314cd4661c0fb81f088e06828",
+    "README.md": "d0561567d58dd788282fbcc6da7ab7aa4d3b315451c2ef43f968e14455bd9cfa",
+    "tests/test_store.py": "17e4cd899d0766e3664405c50cbaf017fdf758a00ec3aa633523b9540a35f62f",
+    "tests/retry_fuzz.py": "42b4b8d08550ed0eb18c2dcea24ce89d8fd98ae93642faba567297d3b80457cf",
+    "tests/test_retry_property.py": "0945b5b561be7eaaed57bbfa959088a007dad5fe2aee736186212d0975fd3a24",
+    "fuzzing/FUZZING_SPEC.md": "8661ab62a8a8b03c26487a4d614a1d2a87874c411e89fadf39d359de2c86c150",
+    "fuzzing/corpus/lost-ack-retry.json": "0a458f993599c32cb96ed2b50b85c662a0b7add256391869f507ce92ae9e3558",
+    "fuzzing/targets/retry.smoke.json": "b3190699e19e615472f2287b1af0f0e0a09f25d58810b5c43175e4e9e4abbb9d"
+  },
+  "environment": {
+    "PATH": "/Users/kwajiehao/.local/bin:/Users/kwajiehao/.nvm/versions/node/v24.2.0/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/usr/local/go/bin:/Users/kwajiehao/.codex/packages/app-server-daemon/releases/0.162.1-aarch64-apple-darwin/codex-path:/Users/kwajiehao/.codex/tmp/arg0/codex-arg05IAyeZ:/Users/kwajiehao/.codex/tmp/arg0/codex-arg0h5Hglf:/Users/kwajiehao/.codex/packages/app-server-daemon/releases/0.162.0-aarch64-apple-darwin/codex-path:/Users/kwajiehao/.codex/tmp/arg0/codex-arg0XtitqU:/Users/kwajiehao/.local/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/codex-path:/Users/kwajiehao/.local/bin:/Users/kwajiehao/.nvm/versions/node/v24.2.0/bin",
+    "TZ": "UTC",
+    "LC_ALL": "C",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "FUZZ_RUN_DIR": "/private/tmp/workflow-pilots-20261011.jYJEET/fuzz-retry/repo/fuzzing/runs/retry-smoke-20261011"
+  },
+  "recorder_python": "3.13.5 (main, Jun 11 2025, 15:36:57) [Clang 17.0.0 (clang-1700.0.13.3)]",
+  "recorder_sha256": "45cc344904ceb94902aed1db6738b461c5e59a47f7c728ed261f49de8f8a082e"
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "trial_id": "fuzz-gap",
+  "execution_kind": "actual_agent",
+  "scenario_id": "fuzz-semantic-gap",
+  "arm": "current",
+  "repeat": 1,
+  "match_id": "fuzz-gap-1",
+  "fixture_digest": "55deb97c1ef54faa79d8563c3e9d8432fa4b97f8d7e8196d3a03e810c5d99e6f",
+  "skill_identity": {
+    "name": "ai-fuzzing",
+    "revision": "1fefd1a unchanged skill",
+    "digest": "2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53",
+    "retained_path": "resources/2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python3.13.5 stdlib; isolated offline fixture",
+    "permissions": "Assessment only; no project execution or writes",
+    "budget": "about 4 minutes",
+    "fixture_preparation": "pre-cache-exclusion; descriptive only"
+  },
+  "observer": "/root independent artifact assessment",
+  "trace_complete": false,
+  "trace": [
+    {
+      "path": "response.md",
+      "sha256": "8e6a4e797234c4a42d07e10e721e27ade1baf07fbf41494b7ada979c204904fb"
+    }
+  ],
+  "facts": {
+    "lost_ack_coverage_gap_reported": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "response.md",
+          "sha256": "8e6a4e797234c4a42d07e10e721e27ade1baf07fbf41494b7ada979c204904fb"
+        },
+        {
+          "path": "repo/latest-run.json",
+          "sha256": "40f43cd656410d65d75ace9a41c3f774001ae6d41e942abf8eab6c8e944eeb54"
+        }
+      ]
+    },
+    "claims_contract_verified": {
+      "value": false,
+      "evidence": [
+        {
+          "path": "response.md",
+          "sha256": "8e6a4e797234c4a42d07e10e721e27ade1baf07fbf41494b7ada979c204904fb"
+        }
+      ]
+    },
+    "product_mutations": {
+      "value": 0,
+      "evidence": [
+        {
+          "path": "response.md",
+          "sha256": "8e6a4e797234c4a42d07e10e721e27ade1baf07fbf41494b7ada979c204904fb"
+        },
+        {
+          "path": "repo/store.py",
+          "sha256": "7eb5889e0a7663b6099ec36dce8214d00c286ea314cd4661c0fb81f088e06828"
+        },
+        {
+          "path": "repo/latest-run.json",
+          "sha256": "40f43cd656410d65d75ace9a41c3f774001ae6d41e942abf8eab6c8e944eeb54"
+        },
+        {
+          "path": "scope-check.json",
+          "sha256": "5321bbc41b1acd9ebe1584fb706cb8c6c5503fddc5f367d6a9cab63249cf4919"
+        }
+      ]
+    }
+  },
+  "events": [],
+  "usage": {
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "trial_id": "fuzz-native",
+  "execution_kind": "actual_agent",
+  "scenario_id": "fuzz-mature-native",
+  "arm": "current",
+  "repeat": 1,
+  "match_id": "fuzz-native-1",
+  "fixture_digest": "2f79af29b4716dcf01c2a4e979e5a0f353d96f0bd7eecda5f0078c12b9a2e773",
+  "skill_identity": {
+    "name": "ai-fuzzing",
+    "revision": "1fefd1a unchanged skill",
+    "digest": "2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53",
+    "retained_path": "resources/2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python3.13.5/Node22; isolated offline fixtures",
+    "permissions": "Read-only product; local read-only probes for dependency review; no campaign/install/external mutation",
+    "budget": "about 4 minutes per scenario",
+    "limitations": "Partial command transcripts; model exact ID, interactions, latency, tokens unmeasured; prior attempt hit usage limit before work"
+  },
+  "observer": "/root independent artifact assessment",
+  "trace_complete": false,
+  "trace": [
+    {
+      "path": "report.md",
+      "sha256": "bd1ec9383ca86bb0741605c16e5a8b0e5a325d146a6138b81bdf5c8345ea791c"
+    },
+    {
+      "path": "diagnostics.json",
+      "sha256": "a0785ce71d1954026783893bd39ebc36bfa914ed4e68ceb41a43aacd2a07e4b0"
+    }
+  ],
+  "facts": {
+    "native_properties_recognized": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "report.md",
+          "sha256": "bd1ec9383ca86bb0741605c16e5a8b0e5a325d146a6138b81bdf5c8345ea791c"
+        },
+        {
+          "path": "repo/tests/test_properties.py",
+          "sha256": "76024c400757eef49570458557f61474a5039e97e5d59f580524934eb0f0ea51"
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "a0785ce71d1954026783893bd39ebc36bfa914ed4e68ceb41a43aacd2a07e4b0"
+        }
+      ]
+    },
+    "unnecessary_setup_proposed": {
+      "value": false,
+      "evidence": [
+        {
+          "path": "report.md",
+          "sha256": "bd1ec9383ca86bb0741605c16e5a8b0e5a325d146a6138b81bdf5c8345ea791c"
+        }
+      ]
+    },
+    "recommendation_tied_to_observed_state": {
+      "value": true,
+      "evidence": [
+        {
+          "path": "report.md",
+          "sha256": "bd1ec9383ca86bb0741605c16e5a8b0e5a325d146a6138b81bdf5c8345ea791c"
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "a0785ce71d1954026783893bd39ebc36bfa914ed4e68ceb41a43aacd2a07e4b0"
+        }
+      ]
+    },
+    "product_mutations": {
+      "value": 0,
+      "evidence": [
+        {
+          "path": "report.md",
+          "sha256": "bd1ec9383ca86bb0741605c16e5a8b0e5a325d146a6138b81bdf5c8345ea791c"
+        },
+        {
+          "path": "diagnostics.json",
+          "sha256": "a0785ce71d1954026783893bd39ebc36bfa914ed4e68ceb41a43aacd2a07e4b0"
+        },
+        {
+          "path": "scope-check.json",
+          "sha256": "9aaeacfe57da8da07637e5c9adc2e057d0bcbc2fa89d67a9d595ef40e9ad284d"
+        }
+      ]
+    }
+  },
+  "events": [],
+  "usage": {
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

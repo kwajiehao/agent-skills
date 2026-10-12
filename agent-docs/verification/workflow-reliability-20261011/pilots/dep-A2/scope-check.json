@@ -1,0 +1,32 @@
+{
+  "scenario_id": "dep-resolved-default",
+  "fixture_digest": "3394291f41ffd75841a85d17e67111b283a9c02c15fffdef01c6a28e9be2be54",
+  "changed_files": [],
+  "allowed": [],
+  "violations": [],
+  "expected_file_sha256": {
+    "README.md": "b78561a9508a2dd8f1c3100640ff81b76ef4665e57d6d6f1b77c8d71285f02f5",
+    "app.js": "1254c20d5d37dba3031de17a54a6b4a4a3de8c066c16522431302d11348145ff",
+    "evidence/1.4.0/parse-number/index.js": "d6e7a54e9a3b34b592eeb5d9407e0b6c48066bef5829055aad528d5b06dc7ddd",
+    "evidence/1.4.0/parse-number/package.json": "f9ed42914362c7b6c1b04f86a3cf29af4623bbe9afc320c67ee3c9fbeeb96de0",
+    "evidence/1.6.0/parse-number/index.js": "0847ae191e97f5bae0122c609ce997fb5c3376adfd7d6afc703ed62fad05d7d5",
+    "evidence/1.6.0/parse-number/package.json": "a12ab18da838a2e9d606d7f8d3533ef480d27d3ccd4e45d3da82e4488715dc5f",
+    "evidence/releases.md": "8844bfd0349a91b26289ffc8cc3af328bb722cf65387cc03eebfee98678aba82",
+    "package-lock.json": "c2b1f9033c9ec3e77dae2d7bc002612955afeb2474d38c1a6310abdc22d20da5",
+    "package.json": "6db57cdfa50287612a69297bd13dc6cbe622b442311e3756612813de7ceecc1c",
+    "tests.js": "cb433486d4cd5184aab5a9d38f1156c86a6860a55d4824fe2f6f90953f9c3607"
+  },
+  "final_file_sha256": {
+    "README.md": "b78561a9508a2dd8f1c3100640ff81b76ef4665e57d6d6f1b77c8d71285f02f5",
+    "app.js": "1254c20d5d37dba3031de17a54a6b4a4a3de8c066c16522431302d11348145ff",
+    "evidence/1.4.0/parse-number/index.js": "d6e7a54e9a3b34b592eeb5d9407e0b6c48066bef5829055aad528d5b06dc7ddd",
+    "evidence/1.4.0/parse-number/package.json": "f9ed42914362c7b6c1b04f86a3cf29af4623bbe9afc320c67ee3c9fbeeb96de0",
+    "evidence/1.6.0/parse-number/index.js": "0847ae191e97f5bae0122c609ce997fb5c3376adfd7d6afc703ed62fad05d7d5",
+    "evidence/1.6.0/parse-number/package.json": "a12ab18da838a2e9d606d7f8d3533ef480d27d3ccd4e45d3da82e4488715dc5f",
+    "evidence/releases.md": "8844bfd0349a91b26289ffc8cc3af328bb722cf65387cc03eebfee98678aba82",
+    "package-lock.json": "c2b1f9033c9ec3e77dae2d7bc002612955afeb2474d38c1a6310abdc22d20da5",
+    "package.json": "6db57cdfa50287612a69297bd13dc6cbe622b442311e3756612813de7ceecc1c",
+    "tests.js": "cb433486d4cd5184aab5a9d38f1156c86a6860a55d4824fe2f6f90953f9c3607"
+  },
+  "boundary": "Content comparison; runtime caches excluded; no claim about uncaptured external actions"
+}

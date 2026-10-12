@@ -17,7 +17,7 @@ The default deliverable is a local interactive site generated under `.walkthroug
 - **Code and prose stay synchronized.** A story step that discusses code must select a short, exact, copyable excerpt beside the prose and highlight the corresponding diagram node.
 - **Visuals explain structure or behavior.** Diagrams are semantic models, not decoration. Use consistent encodings and scale. Prefer 2D unless depth materially explains hierarchy, concurrency, topology, or magnitude.
 - **Be concise without hiding scope.** Teach the smallest coherent story, then expose coverage, de-emphasized files, assumptions, and missing evidence so the reviewer knows what was and was not represented.
-- **Pin the review target.** Record base/head refs and immutable SHAs. Detect and report staleness if the head changes after collection.
+- **Pin the review target.** Record base/head refs, immutable SHAs, and a collected source snapshot. Local targets also fingerprint index and working contents; unchanged HEAD does not establish freshness.
 
 Before building a walkthrough, read:
 
@@ -36,6 +36,15 @@ Accept a PR URL/number, current branch PR, commit range, or local changes. Prefe
 For a GitHub PR, collect at least title, body, URL, base/head refs and OIDs, commits, changed files, reviews, comments, and checks with `gh`. For a local range, record the exact refs and resolved SHAs. Include staged and working-tree diffs only when the requested target includes them.
 
 Inspect the complete diff. Also read the full current versions of important changed files and enough unchanged owners, callers, types, configs, tests, and documentation to understand the change in-system. Follow repository instructions such as `AGENTS.md`, `CONTRIBUTING.md`, and relevant ADRs.
+
+Collect the authoritative inventory and snapshot before composing data:
+
+```bash
+python3 <skill-dir>/scripts/source_evidence.py --repo <repo-root> \
+  --base <base-ref> --head <head-ref> --mode committed
+```
+
+Copy the returned `meta` fields and every `files` entry into the artifact; add editorial roles and links without changing collected statistics. Use `staged` for base-to-index changes or `working` for base-to-working contents plus untracked source. Working mode fingerprints the index independently. The default untracked output exclusion is `.walkthrough`; tracked files there remain included. Read [the source-bound contract](references/artifact-contract.md#source-bound-verification) for exclusions and limits.
 
 Complete when the exact review target, immutable base/head, full change inventory, intent sources, and available validation signals are known.
 
@@ -75,6 +84,8 @@ Complete when the story has a deliberate order and every step has one takeaway, 
 Use real text from the pinned revision or diff. Normally keep one excerpt to roughly 8–25 lines and one idea. Split longer logic into multiple excerpts. Show before/after excerpts when the contrast is the lesson; use a diff excerpt when line-level change is the lesson; use the current version when surrounding control flow is the lesson.
 
 Each excerpt must include path, side/revision, start/end lines, language, exact content, and a PR diff or immutable blob URL when available. Never synthesize code and present it as source. Avoid screenshots of code.
+
+Extract source rather than transcribing it: use `source_evidence.py` with the same repository/base/head/mode plus `--path <path> --side new --start <line> --end <line>`. Use `old` for base source, `diff` for the collector's exact per-file unified diff, or `context --revision <base-or-head-sha>` for unchanged context. A `new` excerpt in staged/working mode comes from that local endpoint.
 
 Complete when every code-bearing story step opens with the relevant excerpt visible beside the prose and each excerpt can be traced to the pinned change.
 
@@ -124,12 +135,14 @@ Run the deterministic validator:
 
 ```bash
 python3 <skill-dir>/scripts/validate_walkthrough.py \
-  --html .walkthrough/<pr-or-branch>-<head-sha>/index.html
+  --html .walkthrough/<pr-or-branch>-<head-sha>/index.html --repo <repo-root>
 ```
 
 Then use an available browser to verify desktop and mobile layouts, step navigation, story play/pause, keyboard controls, code switching, diagram focus, 3D drag/zoom when present, review-lens separation, links, and readable no-motion behavior. Inspect browser errors. If browser validation is unavailable, report it as unverified.
 
-Finally re-resolve the current head. If it differs from the artifact's `head_sha`, mark the walkthrough stale and do not present it as current.
+Run source validation again immediately before handoff. It checks refs, full changed inventory, exact excerpts, typed evidence links, and local content/index digests. If it fails, recollect and rebuild or explicitly deliver the artifact as stale. Without `--repo`, the validator checks structure only and does not establish source accuracy. URL evidence is linked but not fetched; inspect external records and execution claims separately. Exact code does not by itself prove that a test ran or that a claim follows from it.
+
+When maintaining the bundled renderer, run its reusable browser regression against the rendered example: `playwright-cli -s=walkthrough-check run-code --filename <skill-dir>/tests/browser_walkthrough.js`, after opening the example in that named session. It checks navigation, source evidence buttons, inference gaps, review separation, desktop/mobile, and reduced motion. Close only that session afterward.
 
 Complete when validation passes, the rendered claims match their evidence, and any unavailable checks are stated plainly.
 

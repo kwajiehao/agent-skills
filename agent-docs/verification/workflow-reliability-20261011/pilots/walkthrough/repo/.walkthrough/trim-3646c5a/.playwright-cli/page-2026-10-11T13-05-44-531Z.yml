@@ -1,0 +1,117 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - generic [ref=e4]: PR review buddy
+      - heading "Trim name whitespace before greeting" [level=1] [ref=e5]
+      - generic [ref=e6]: Local working change (HEAD to working contents; index fingerprinted) · HEAD@3646c5a1 → HEAD@3646c5a1
+    - generic "Walkthrough controls" [ref=e7]:
+      - button "Previous story step" [disabled] [ref=e8]: ← Previous
+      - button "▶ Story" [ref=e9] [cursor=pointer]
+      - button "Next story step" [ref=e10] [cursor=pointer]: Next →
+      - generic [ref=e11]: 1 / 4
+      - button "Review lens" [ref=e12] [cursor=pointer]
+  - generic [ref=e13]: The README states that the local patch trims name whitespace; greet now applies strip() before interpolation.
+  - main [ref=e14]:
+    - navigation "Walkthrough chapters" [ref=e15]:
+      - generic [ref=e16]:
+        - generic [ref=e17]: Reviewer story
+        - generic [ref=e18]:
+          - button "1 Names are trimmed at the greeting boundary" [ref=e19] [cursor=pointer]:
+            - generic [ref=e20]: "1"
+            - generic [ref=e21]: Names are trimmed at the greeting boundary
+          - button "2 strip() runs before string interpolation" [ref=e22] [cursor=pointer]:
+            - generic [ref=e23]: "2"
+            - generic [ref=e24]: strip() runs before string interpolation
+          - button "3 Padded names normalize; interior spacing remains" [ref=e25] [cursor=pointer]:
+            - generic [ref=e26]: "3"
+            - generic [ref=e27]: Padded names normalize; interior spacing remains
+          - button "4 Clarify the accepted input type" [ref=e28] [cursor=pointer]:
+            - generic [ref=e29]: "4"
+            - generic [ref=e30]: Clarify the accepted input type
+    - region "Names are trimmed at the greeting boundary" [ref=e31]:
+      - article [ref=e32]:
+        - generic [ref=e33]: Why / contract
+        - heading "Names are trimmed at the greeting boundary" [level=2] [ref=e34]
+        - paragraph [ref=e35]: The declared intent is whitespace trimming; the patch changes one expression in greet.
+        - paragraph [ref=e36]: stated
+        - generic [ref=e37]:
+          - paragraph [ref=e38]: The README describes trimming name whitespace. The implementation applies that normalization inside greet, immediately before formatting the returned greeting.
+          - paragraph [ref=e39]: This local change is one file, with one added and one removed line. The existing tracked draft describes title-casing and is inconsistent with the current source; it is context only, not evidence for this walkthrough.
+        - generic "Evidence" [ref=e40]:
+          - button "Declared trimming intent" [ref=e41]
+          - button "Current implementation" [ref=e42]
+        - region "Same greeting wrapper, one added normalization step" [ref=e43]:
+          - generic [ref=e44]:
+            - generic [ref=e45]:
+              - generic [ref=e46]: Same greeting wrapper, one added normalization step
+              - generic [ref=e47]: 2D relationship model
+            - button "Overview / reset" [ref=e48] [cursor=pointer]
+          - img "Matched lanes show the old direct interpolation and new strip() call. Blue is the unchanged input/formatting role; green is the added operation; slate is the returned string. Node sizes carry no quantitative meaning." [ref=e50]:
+            - generic [ref=e51]: direct value
+            - generic [ref=e52]: format
+            - generic [ref=e53]: call strip
+            - generic [ref=e54]: format result
+            - 'button "Before: name: Caller-supplied value" [ref=e55]':
+              - generic: "Before: name"
+              - generic: Caller-supplied value
+            - 'button "Interpolate: Hello, {name}!" [ref=e57]':
+              - generic: Interpolate
+              - generic: "Hello, {name}!"
+            - 'button "Return string: Boundary spaces remain" [ref=e59]':
+              - generic: Return string
+              - generic: Boundary spaces remain
+            - 'button "After: name: Caller-supplied value" [ref=e61]':
+              - generic: "After: name"
+              - generic: Caller-supplied value
+            - 'button "name.strip(): Trim both string ends" [ref=e63]':
+              - generic: name.strip()
+              - generic: Trim both string ends
+            - 'button "Return string: Hello, {trimmed}!" [ref=e65]':
+              - generic: Return string
+              - generic: "Hello, {trimmed}!"
+          - generic [ref=e67]: Matched lanes show the old direct interpolation and new strip() call. Blue is the unchanged input/formatting role; green is the added operation; slate is the returned string. Node sizes carry no quantitative meaning.
+          - generic [ref=e68]: Complete model
+          - generic "Diagram legend" [ref=e69]:
+            - generic [ref=e72]: blue
+            - generic [ref=e75]: slate
+            - generic [ref=e78]: green
+    - complementary "Code beside the story" [ref=e79]:
+      - generic [ref=e80]:
+        - generic [ref=e82]:
+          - generic [ref=e83]: Exact source evidence
+          - strong [ref=e84]: Code beside the story
+        - tablist "Source excerpts" [ref=e85]:
+          - tab "README intent" [selected] [ref=e86] [cursor=pointer]
+          - 'tab "After: strip then interpolate" [ref=e87] [cursor=pointer]'
+        - generic [ref=e88]:
+          - generic [ref=e89]:
+            - generic [ref=e90]: README.md:1-4 · context
+            - button "Copy" [ref=e92] [cursor=pointer]
+          - code [ref=e94]:
+            - generic [ref=e95]: "1 # Greeting change"
+            - generic [ref=e96]: "2"
+            - generic [ref=e97]: 3 The local patch trims name whitespace. Review artifact drafts live under
+            - generic [ref=e98]: "4 `.walkthrough/`; compare their source evidence with the current working tree."
+  - generic [ref=e100]:
+    - generic [ref=e101]: What the narrative includes and compresses
+    - heading "Review coverage" [level=2] [ref=e102]
+    - generic [ref=e103]:
+      - generic [ref=e104]:
+        - heading "Represented · 1" [level=3] [ref=e105]
+        - list [ref=e106]:
+          - listitem [ref=e107]: greeting.py
+      - generic [ref=e108]:
+        - heading "De-emphasized · 0" [level=3] [ref=e109]
+        - list [ref=e110]:
+          - listitem [ref=e111]: None
+      - generic [ref=e112]:
+        - heading "Unresolved · 0" [level=3] [ref=e113]
+        - list [ref=e114]:
+          - listitem [ref=e115]: None
+      - generic [ref=e116]:
+        - heading "Evidence gaps · 4" [level=3] [ref=e117]
+        - list [ref=e118]:
+          - listitem [ref=e119]: No repository tests or CI; manual probes recorded separately.
+          - listitem [ref=e120]: No callers, type annotations, or documented non-string/blank-input contract.
+          - listitem [ref=e121]: No PR discussion or remote is available; intent comes from README.
+          - listitem [ref=e122]: Tracked draft is stale (title() versus current strip()); it remains untouched.

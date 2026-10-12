@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "scenario_id": "walkthrough-source-integrity",
+  "fixture_digest": "e2551d3f8030180d4480940285376d4c78c57b909cd77c96f00ea713d6e7d0eb",
+  "repo": "/private/tmp/workflow-pilots-20261011.jYJEET/walkthrough/repo",
+  "prompt": "/private/tmp/workflow-pilots-20261011.jYJEET/walkthrough/prompt.md",
+  "skill": "walkthrough",
+  "initial_head": "3646c5a141d310d990ebbb9cf062c67156968290"
+}

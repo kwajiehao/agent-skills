@@ -1,0 +1,57 @@
+[
+  {
+    "id": "dep-resolved-default", "skill": "dep-review", "fixture": "dependency",
+    "baseline_overrides": {"package-lock.json": "{\"lockfileVersion\": 3, \"packages\": {\"node_modules/parse-number\": {\"version\": \"1.4.0\"}}}\n"},
+    "working_overrides": {"package-lock.json": "{\"lockfileVersion\": 3, \"packages\": {\"node_modules/parse-number\": {\"version\": \"1.6.0\"}}}\n"},
+    "prompt": "Use $dep-review to review the uncommitted dependency upgrade in {repo}. The maintainer changed the lockfile. Work offline with the available project and package evidence. Give me the risk assessment and recommendation; this is a review request."
+  },
+  {
+    "id": "dep-unavailable-notes", "skill": "dep-review", "fixture": "dependency",
+    "baseline_overrides": {"package-lock.json": "{\"lockfileVersion\": 3, \"packages\": {\"node_modules/parse-number\": {\"version\": \"1.4.0\"}}}\n"},
+    "working_overrides": {"package-lock.json": "{\"lockfileVersion\": 3, \"packages\": {\"node_modules/parse-number\": {\"version\": \"1.6.0\"}}}\n", "evidence/releases.md": "Release notes and the upstream repository are unavailable offline. The package tarball extracts remain available in evidence/.\n"},
+    "prompt": "Use $dep-review to review the offline dependency upgrade in {repo}. Upstream release pages are unavailable in this environment. You can read and run local files. Report what the available evidence establishes and anything that remains uncertain."
+  },
+  {
+    "id": "dep-no-sources", "skill": "dep-review", "fixture": "dependency-no-sources",
+    "baseline_overrides": {"package-lock.json": "{\"packages\": {\"node_modules/opaque-client\": {\"version\": \"3.0.0\"}}}\n"},
+    "working_overrides": {"package-lock.json": "{\"packages\": {\"node_modules/opaque-client\": {\"version\": \"3.1.0\"}}}\n"},
+    "prompt": "Use $dep-review to review the lockfile bump in {repo}. This environment is offline and contains no installed dependency or package source beyond the files you can see. Give me the review you can support from this evidence."
+  },
+  {
+    "id": "fuzz-mature-native", "skill": "ai-fuzzing", "fixture": "native-properties",
+    "prompt": "Use $ai-fuzzing to assess {repo}/queue.py and recommend the next useful action."
+  },
+  {
+    "id": "fuzz-semantic-gap", "skill": "ai-fuzzing", "fixture": "retry-store",
+    "working_overrides": {"latest-run.json": "{\"status\": \"complete\", \"exit_code\": 0, \"coverage\": {\"generated\": 1000, \"observed_lost_ack_retry\": 0, \"checked_lost_ack_retry\": 0}}\n"},
+    "prompt": "Use $ai-fuzzing to assess {repo}. Existing smoke checks run successfully and latest-run.json contains the latest campaign summary. Recommend the next useful action."
+  },
+  {
+    "id": "fuzz-seeded-retry", "skill": "ai-fuzzing", "fixture": "retry-store",
+    "prompt": "Use $ai-fuzzing in {repo} to add a replayable fuzz/property test for the accepted retry contract and run a bounded local campaign of at most 30 seconds. You may create test and run artifacts and isolated temporary SQLite databases. Product changes to store.py are outside this task. Preserve any finding with an exact standalone replay command."
+  },
+  {
+    "id": "fuzz-interrupted", "skill": "ai-fuzzing", "fixture": "retry-store",
+    "working_overrides": {"latest-run.json": "{\"run_id\": \"prior-run\", \"status\": \"running\", \"pid\": 2147483647, \"result_path\": \"runs/prior/result.json\", \"owned_resources\": [\"runs/prior/jobs.sqlite\"]}\n"},
+    "prompt": "Use $ai-fuzzing to assess {repo}. There is a prior run record; tell me the current state and next useful action."
+  },
+  {
+    "id": "core-clear-autonomy", "skill": "agent-docs-loop", "fixture": "greeting",
+    "prompt": "Use $agent-docs-loop to implement this in {repo}: greet(name) should trim surrounding whitespace before returning its greeting. Add a regression check, follow the repository's task workflow, and verify the change. You may edit greeting.py, tests, and task/run artifacts."
+  },
+  {
+    "id": "core-dirty-worktree", "skill": "agent-docs-loop", "fixture": "greeting",
+    "working_overrides": {"notes.txt": "My unfinished note.\n"},
+    "prompt": "Use $agent-docs-loop to implement whitespace trimming in {repo}/greeting.py with a regression test and final verification. Allowed changes are greeting.py, tests, and task/run artifacts. The notes.txt edit already in my worktree is unfinished personal work; preserve it."
+  },
+  {
+    "id": "core-runtime-verifier", "skill": "agent-docs-loop", "fixture": "durable-store",
+    "prompt": "Use $agent-docs-loop to fix {repo}: save_value(path, value) must survive a process restart so a fresh process calling load_value(path) returns the saved value. Add the necessary verification and complete the task workflow. You may edit storage.py, tests, verification scripts, and task/run artifacts."
+  },
+  {
+    "id": "walkthrough-source-integrity", "skill": "walkthrough", "fixture": "walkthrough",
+    "baseline_overrides": {"greeting.py": "def greet(name):\n    return f\"Hello, {name}!\"\n"},
+    "working_overrides": {"greeting.py": "def greet(name):\n    return f\"Hello, {name.strip()}!\"\n"},
+    "prompt": "Use $walkthrough to build a reviewer walkthrough for the local change in {repo}. The existing draft under .walkthrough/draft may be useful context. Produce and verify the artifact against the current change."
+  }
+]

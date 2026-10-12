@@ -1,0 +1,20 @@
+{
+  "scenario_id": "dep-no-sources",
+  "fixture_digest": "3e4df09839d70015a7b06a4fc63194462d6c6c29dfd8af51ea48cf2f5273046b",
+  "changed_files": [],
+  "allowed": [],
+  "violations": [],
+  "expected_file_sha256": {
+    "README.md": "c6a3535b002ad4d86d9e6f6650ef3f54595c3f85c60e751fd07bd44ab93fe927",
+    "app.js": "02ce3cb95058b87b7a57b1b656df248deb1043f8965586457335206b3d620b14",
+    "package-lock.json": "cb589054cfa4d761f5ed72e95605d12692b77882a7f19c35e996f8de7b5ec2ea",
+    "package.json": "fb49d176ad8ebad108d1182ecec642c555894bd3d365217fc2250767b6639536"
+  },
+  "final_file_sha256": {
+    "README.md": "c6a3535b002ad4d86d9e6f6650ef3f54595c3f85c60e751fd07bd44ab93fe927",
+    "app.js": "02ce3cb95058b87b7a57b1b656df248deb1043f8965586457335206b3d620b14",
+    "package-lock.json": "cb589054cfa4d761f5ed72e95605d12692b77882a7f19c35e996f8de7b5ec2ea",
+    "package.json": "fb49d176ad8ebad108d1182ecec642c555894bd3d365217fc2250767b6639536"
+  },
+  "boundary": "Content comparison; runtime caches excluded; no claim about uncaptured external actions"
+}

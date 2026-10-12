@@ -1,0 +1,246 @@
+test_context_revision_must_be_endpoint_not_arbitrary_ref (test_source_verification.SourceVerificationTests.test_context_revision_must_be_endpoint_not_arbitrary_ref) ... ERROR
+test_demonstrated_claim_without_evidence_is_rejected (test_source_verification.SourceVerificationTests.test_demonstrated_claim_without_evidence_is_rejected) ... ERROR
+test_diff_excerpt_is_exact_and_anchored (test_source_verification.SourceVerificationTests.test_diff_excerpt_is_exact_and_anchored) ... ERROR
+test_evidence_cannot_point_to_nonexistent_code (test_source_verification.SourceVerificationTests.test_evidence_cannot_point_to_nonexistent_code) ... ERROR
+test_exact_pinned_source_passes_and_does_not_mutate_repo (test_source_verification.SourceVerificationTests.test_exact_pinned_source_passes_and_does_not_mutate_repo) ... ERROR
+test_fabricated_excerpt_is_rejected (test_source_verification.SourceVerificationTests.test_fabricated_excerpt_is_rejected) ... ERROR
+test_index_fingerprint_changes_even_when_working_content_is_restored (test_source_verification.SourceVerificationTests.test_index_fingerprint_changes_even_when_working_content_is_restored) ... ERROR
+test_inventory_fabricated_counts_are_rejected (test_source_verification.SourceVerificationTests.test_inventory_fabricated_counts_are_rejected) ... ERROR
+test_inventory_omission_is_rejected_even_when_coverage_agrees (test_source_verification.SourceVerificationTests.test_inventory_omission_is_rejected_even_when_coverage_agrees) ... ERROR
+test_path_escape_and_symlink_escape_are_rejected (test_source_verification.SourceVerificationTests.test_path_escape_and_symlink_escape_are_rejected) ... ERROR
+test_staged_change_stales_without_head_change (test_source_verification.SourceVerificationTests.test_staged_change_stales_without_head_change) ... ERROR
+test_unknown_claim_with_explicit_gap_is_valid (test_source_verification.SourceVerificationTests.test_unknown_claim_with_explicit_gap_is_valid) ... ERROR
+test_untracked_source_is_included_and_fingerprinted (test_source_verification.SourceVerificationTests.test_untracked_source_is_included_and_fingerprinted) ... ERROR
+test_working_change_stales_without_head_change (test_source_verification.SourceVerificationTests.test_working_change_stales_without_head_change) ... ERROR
+test_example_data_satisfies_contract (test_walkthrough.WalkthroughValidationTests.test_example_data_satisfies_contract) ... ok
+test_incomplete_coverage_is_rejected (test_walkthrough.WalkthroughValidationTests.test_incomplete_coverage_is_rejected) ... ok
+test_rendered_html_contains_valid_inline_data (test_walkthrough.WalkthroughValidationTests.test_rendered_html_contains_valid_inline_data) ... ok
+test_unknown_focus_node_is_rejected (test_walkthrough.WalkthroughValidationTests.test_unknown_focus_node_is_rejected) ... ok
+
+======================================================================
+ERROR: test_context_revision_must_be_endpoint_not_arbitrary_ref (test_source_verification.SourceVerificationTests.test_context_revision_must_be_endpoint_not_arbitrary_ref)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 151, in test_context_revision_must_be_endpoint_not_arbitrary_ref
+    data = self.document()
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_demonstrated_claim_without_evidence_is_rejected (test_source_verification.SourceVerificationTests.test_demonstrated_claim_without_evidence_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 89, in test_demonstrated_claim_without_evidence_is_rejected
+    data = self.document()
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_diff_excerpt_is_exact_and_anchored (test_source_verification.SourceVerificationTests.test_diff_excerpt_is_exact_and_anchored)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 130, in test_diff_excerpt_is_exact_and_anchored
+    source = load("walkthrough_diff_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_evidence_cannot_point_to_nonexistent_code (test_source_verification.SourceVerificationTests.test_evidence_cannot_point_to_nonexistent_code)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 99, in test_evidence_cannot_point_to_nonexistent_code
+    data = self.document()
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_exact_pinned_source_passes_and_does_not_mutate_repo (test_source_verification.SourceVerificationTests.test_exact_pinned_source_passes_and_does_not_mutate_repo)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 69, in test_exact_pinned_source_passes_and_does_not_mutate_repo
+    self.assertEqual(self.validate(self.document()), [])
+                                   ~~~~~~~~~~~~~^^
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_fabricated_excerpt_is_rejected (test_source_verification.SourceVerificationTests.test_fabricated_excerpt_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 73, in test_fabricated_excerpt_is_rejected
+    data = self.document()
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_index_fingerprint_changes_even_when_working_content_is_restored (test_source_verification.SourceVerificationTests.test_index_fingerprint_changes_even_when_working_content_is_restored)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 123, in test_index_fingerprint_changes_even_when_working_content_is_restored
+    data = self.document("working")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_inventory_fabricated_counts_are_rejected (test_source_verification.SourceVerificationTests.test_inventory_fabricated_counts_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 84, in test_inventory_fabricated_counts_are_rejected
+    data = self.document()
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_inventory_omission_is_rejected_even_when_coverage_agrees (test_source_verification.SourceVerificationTests.test_inventory_omission_is_rejected_even_when_coverage_agrees)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 78, in test_inventory_omission_is_rejected_even_when_coverage_agrees
+    data = self.document()
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_path_escape_and_symlink_escape_are_rejected (test_source_verification.SourceVerificationTests.test_path_escape_and_symlink_escape_are_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 138, in test_path_escape_and_symlink_escape_are_rejected
+    data = self.document()
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_staged_change_stales_without_head_change (test_source_verification.SourceVerificationTests.test_staged_change_stales_without_head_change)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 110, in test_staged_change_stales_without_head_change
+    data = self.document("staged")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_unknown_claim_with_explicit_gap_is_valid (test_source_verification.SourceVerificationTests.test_unknown_claim_with_explicit_gap_is_valid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 94, in test_unknown_claim_with_explicit_gap_is_valid
+    data = self.document()
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_untracked_source_is_included_and_fingerprinted (test_source_verification.SourceVerificationTests.test_untracked_source_is_included_and_fingerprinted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 117, in test_untracked_source_is_included_and_fingerprinted
+    data = self.document("working")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+======================================================================
+ERROR: test_working_change_stales_without_head_change (test_source_verification.SourceVerificationTests.test_working_change_stales_without_head_change)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 104, in test_working_change_stales_without_head_change
+    data = self.document("working")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 49, in document
+    source = load("walkthrough_sources", SKILL / "scripts/source_evidence.py")
+  File "/Users/kwajiehao/Documents/agent-skills/walkthrough/tests/test_source_verification.py", line 19, in load
+    spec.loader.exec_module(module)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "<frozen importlib._bootstrap_external>", line 1022, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1159, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1217, in get_data
+FileNotFoundError: [Errno 2] No such file or directory: '/Users/kwajiehao/Documents/agent-skills/walkthrough/scripts/source_evidence.py'
+
+----------------------------------------------------------------------
+Ran 18 tests in 1.219s
+
+FAILED (errors=14)

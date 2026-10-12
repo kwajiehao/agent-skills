@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "command": "python3 -B .walkthrough/trim-3646c5a/verify_behavior.py",
+  "string_cases": 8,
+  "boundary_cases": 2,
+  "results": [
+    {"case":"plain","input":"Ada","before":"Hello, Ada!","after":"Hello, Ada!","passed":true},
+    {"case":"padded","input":"  Ada  ","before":"Hello,   Ada  !","after":"Hello, Ada!","passed":true},
+    {"case":"tabs/newlines","input":"\tAda\n","before":"Hello, \tAda\n!","after":"Hello, Ada!","passed":true},
+    {"case":"empty","input":"","before":"Hello, !","after":"Hello, !","passed":true},
+    {"case":"blank","input":" \t\n","before":"Hello,  \t\n!","after":"Hello, !","passed":true},
+    {"case":"interior","input":"Ada  Lovelace","before":"Hello, Ada  Lovelace!","after":"Hello, Ada  Lovelace!","passed":true},
+    {"case":"case","input":"aDa","before":"Hello, aDa!","after":"Hello, aDa!","passed":true},
+    {"case":"unicode","input":"\u2003Ada\u00a0","before":"Hello, \u2003Ada\u00a0!","after":"Hello, Ada!","passed":true},
+    {"input":null,"before":"Hello, None!","after_exception":"AttributeError","passed":true},
+    {"input":42,"before":"Hello, 42!","after_exception":"AttributeError","passed":true}
+  ]
+}

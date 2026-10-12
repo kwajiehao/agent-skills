@@ -1,0 +1,18 @@
+[
+  {
+    "command": "NODE_PATH=/private/tmp/workflow-pilots-20261011.jYJEET/dep-B2/repo/evidence/1.4.0 node /private/tmp/workflow-pilots-20261011.jYJEET/dep-B2/probe.js",
+    "chunk_id": "7ae724",
+    "wall_time_seconds": 0.000006459,
+    "exit_code": 0,
+    "original_token_count": 104,
+    "output": "{\"package\":{\"name\":\"parse-number\",\"version\":\"1.4.0\",\"main\":\"index.js\",\"engines\":{\"node\":\">=18\"}},\"resolved\":\"/private/tmp/workflow-pilots-20261011.jYJEET/dep-B2/repo/evidence/1.4.0/parse-number/index.js\"}\n{\"input\":\"0\",\"expected\":0,\"actual\":0,\"compatible\":true}\n{\"input\":\"7\",\"expected\":7,\"actual\":7,\"compatible\":true}\n{\"input\":\"007\",\"expected\":7,\"actual\":7,\"compatible\":true}\nExplicit strict:false returns 7 for 007.\n"
+  },
+  {
+    "command": "NODE_PATH=/private/tmp/workflow-pilots-20261011.jYJEET/dep-B2/repo/evidence/1.6.0 node /private/tmp/workflow-pilots-20261011.jYJEET/dep-B2/probe.js",
+    "chunk_id": "8c981f",
+    "wall_time_seconds": 0.000006542,
+    "exit_code": 1,
+    "original_token_count": 111,
+    "output": "{\"package\":{\"name\":\"parse-number\",\"version\":\"1.6.0\",\"main\":\"index.js\",\"engines\":{\"node\":\">=18\"}},\"resolved\":\"/private/tmp/workflow-pilots-20261011.jYJEET/dep-B2/repo/evidence/1.6.0/parse-number/index.js\"}\n{\"input\":\"0\",\"expected\":0,\"actual\":0,\"compatible\":true}\n{\"input\":\"7\",\"expected\":7,\"actual\":7,\"compatible\":true}\n{\"input\":\"007\",\"expected\":7,\"error\":\"TypeError: invalid decimal\",\"compatible\":false}\nExplicit strict:false returns 7 for 007.\n"
+  }
+]

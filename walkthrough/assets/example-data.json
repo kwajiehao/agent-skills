@@ -94,6 +94,7 @@
   "steps": [
     {
       "id": "intent",
+      "claim_status": "stated",
       "kind": "intent",
       "kicker": "Why",
       "title": "Transient failures should not silently drop work",
@@ -102,10 +103,11 @@
       "visual_id": "system-overview",
       "focus_node_ids": ["worker", "scheduler", "dead-letter"],
       "code_ids": [],
-      "evidence": [{"label": "Example PR", "url": "https://github.com/example/queue-service/pull/123"}]
+      "evidence": [{"label": "Example PR", "url": "https://github.com/example/queue-service/pull/123", "source_kind": "pr"}]
     },
     {
       "id": "mechanism",
+      "claim_status": "demonstrated",
       "kind": "mechanism",
       "kicker": "Key mechanism",
       "title": "One function decides retry or terminal handling",
@@ -114,11 +116,12 @@
       "visual_id": "attempt-lanes",
       "focus_node_ids": ["attempt-1", "attempt-2", "attempt-3", "terminal"],
       "code_ids": ["retry-policy"],
-      "evidence": [{"label": "Retry implementation", "url": "https://github.com/example/queue-service/pull/123/files#R41"}],
+      "evidence": [{"label": "Retry implementation", "code_id": "retry-policy"}],
       "camera": {"rotation_x": -0.18, "rotation_y": 0.2, "zoom": 1.05}
     },
     {
       "id": "proof",
+      "claim_status": "demonstrated",
       "kind": "proof",
       "kicker": "Proof",
       "title": "The exhausted path is observable and tested",
@@ -127,10 +130,12 @@
       "visual_id": "system-overview",
       "focus_node_ids": ["dead-letter"],
       "code_ids": ["retry-test"],
-      "evidence": [{"label": "Terminal-path test", "url": "https://github.com/example/queue-service/pull/123/files#R73"}]
+      "evidence": [{"label": "Terminal-path test", "code_id": "retry-test"}]
     },
     {
       "id": "coverage",
+      "claim_status": "inferred",
+      "evidence_gap": "Synthetic renderer example; no source repository is attached.",
       "kind": "coverage",
       "kicker": "Review map",
       "title": "Two files carry the behavior and its proof",
@@ -146,10 +151,11 @@
     {
       "severity": "important",
       "confidence": "medium",
+      "claim_status": "demonstrated",
       "title": "Backoff behavior has no boundary test",
       "trigger": "A retryable failure before max_attempts.",
       "impact": "A regression could enqueue immediately or with an unintended delay.",
-      "evidence": "The added test covers exhaustion but not the computed delay.",
+      "evidence": [{"label": "Terminal-path test", "code_id": "retry-test"}],
       "resolution": "Add a focused assertion for the first retry's delay and updated attempt count.",
       "url": "https://github.com/example/queue-service/pull/123/files#R73"
     }

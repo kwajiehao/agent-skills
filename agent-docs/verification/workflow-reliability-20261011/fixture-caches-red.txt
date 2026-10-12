@@ -1,0 +1,29 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ CaseControls.test_prepare_does_not_copy_runtime_caches_into_raw_projects ___
+
+self = <test_cases.CaseControls testMethod=test_prepare_does_not_copy_runtime_caches_into_raw_projects>
+
+    def test_prepare_does_not_copy_runtime_caches_into_raw_projects(self):
+        catalog = self.root / "catalog"
+        fixture = catalog / "fixtures" / "sample"
+        (fixture / "__pycache__").mkdir(parents=True)
+        (fixture / "__pycache__" / "source.pyc").write_bytes(b"stale cache")
+        (fixture / ".pytest_cache").mkdir()
+        (fixture / ".pytest_cache" / "state").write_text("previous execution")
+        (fixture / "source.py").write_text("value = 1\n")
+        (catalog / "cases.json").write_text(json.dumps([{
+            "id": "sample", "fixture": "sample", "skill": "sample",
+            "prompt": "Inspect {repo}.",
+        }]))
+        with mock.patch.object(evals, "HERE", catalog):
+            repo = Path(evals.prepare_case("sample", self.root / "clean-trial")["repo"])
+        self.assertEqual((repo / "source.py").read_text(), "value = 1\n")
+>       self.assertFalse((repo / "__pycache__").exists())
+E       AssertionError: True is not false
+
+evals/tests/test_cases.py:45: AssertionError
+=========================== short test summary info ============================
+FAILED evals/tests/test_cases.py::CaseControls::test_prepare_does_not_copy_runtime_caches_into_raw_projects
+1 failed, 6 deselected in 0.13s
+

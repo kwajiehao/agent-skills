@@ -1,0 +1,95 @@
+{
+  "binding": {
+    "run_id": "20261011T125742Z-02054ff3",
+    "task_sha256": "41f21cea4b99c257b838a0ef8ff110fb4dca460e915cf72ce612b80e7ce7690b",
+    "tree_sha256": "75e75be72155aea710f9746fbf1a27e68679a2c5787d342bc29806a26d19093e"
+  },
+  "commands": [
+    {
+      "command": "/private/tmp/agent-workflow-dev-20261011/bin/python -B -m unittest discover -s tests -v",
+      "cwd": "/private/tmp/workflow-pilots-20261011.jYJEET/core-runtime/repo",
+      "duration_seconds": 0.115,
+      "exit_code": 0,
+      "stderr": "test_missing_path (test_storage.StorageTests.test_missing_path) ... ok\ntest_path_objects_and_json_values (test_storage.StorageTests.test_path_objects_and_json_values) ... ok\ntest_save_and_load (test_storage.StorageTests.test_save_and_load) ... ok\ntest_survives_process_restart_and_overwrite (test_storage.StorageTests.test_survives_process_restart_and_overwrite) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.080s\n\nOK\n",
+      "stderr_truncated": false,
+      "stdout": "",
+      "stdout_truncated": false,
+      "timed_out": false
+    }
+  ],
+  "gates": [
+    {
+      "details": {
+        "baseline_head": "84e6fabbca62b98c1f452a9bdd5da79c72690430",
+        "changed_files": [],
+        "current_head": "84e6fabbca62b98c1f452a9bdd5da79c72690430",
+        "violations": []
+      },
+      "name": "diff_scope",
+      "passed": true
+    },
+    {
+      "details": {
+        "empty_artifacts": [],
+        "invalid_artifacts": [],
+        "missing_artifacts": [],
+        "mode": "solo",
+        "required_artifacts": []
+      },
+      "name": "coordination",
+      "passed": true
+    },
+    {
+      "details": {
+        "count": 1
+      },
+      "name": "tests",
+      "passed": true
+    },
+    {
+      "details": {
+        "reason": "no smoke_command configured",
+        "skipped": true
+      },
+      "name": "smoke",
+      "passed": true
+    },
+    {
+      "details": {
+        "after": {
+          "run_id": "20261011T125742Z-02054ff3",
+          "task_sha256": "41f21cea4b99c257b838a0ef8ff110fb4dca460e915cf72ce612b80e7ce7690b",
+          "tree_sha256": "75e75be72155aea710f9746fbf1a27e68679a2c5787d342bc29806a26d19093e"
+        },
+        "before": {
+          "run_id": "20261011T125742Z-02054ff3",
+          "task_sha256": "41f21cea4b99c257b838a0ef8ff110fb4dca460e915cf72ce612b80e7ce7690b",
+          "tree_sha256": "75e75be72155aea710f9746fbf1a27e68679a2c5787d342bc29806a26d19093e"
+        },
+        "error": null
+      },
+      "name": "snapshot_stability",
+      "passed": true
+    },
+    {
+      "details": {
+        "conditions": [
+          {
+            "command": "/private/tmp/agent-workflow-dev-20261011/bin/python -B -m unittest discover -s tests -v",
+            "condition": "A fresh process loading the same path returns the value saved by a previous process, including an overwrite.",
+            "passed": true
+          },
+          {
+            "command": "/private/tmp/agent-workflow-dev-20261011/bin/python -B -m unittest discover -s tests -v",
+            "condition": "Existing save/load API and missing-path behavior remain valid using standard-library storage.",
+            "passed": true
+          }
+        ]
+      },
+      "name": "acceptance",
+      "passed": true
+    }
+  ],
+  "schema_version": 2,
+  "status": "passed"
+}

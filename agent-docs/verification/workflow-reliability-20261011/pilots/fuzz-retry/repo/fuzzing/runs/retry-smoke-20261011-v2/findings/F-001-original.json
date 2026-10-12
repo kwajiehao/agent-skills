@@ -1,0 +1,77 @@
+{
+  "case": {
+    "seed": 20261011,
+    "actions": [
+      {
+        "job_id": "job-20261011-0",
+        "amount": 2147483647,
+        "lose_ack": true
+      },
+      {
+        "job_id": "job-20261011-0",
+        "amount": 2147483647,
+        "lose_ack": false
+      }
+    ]
+  },
+  "trace": [
+    {
+      "step": 0,
+      "action": {
+        "job_id": "job-20261011-0",
+        "amount": 2147483647,
+        "lose_ack": true
+      },
+      "outcome": "timeout",
+      "durable_rows": [
+        [
+          "job-20261011-0",
+          2147483647
+        ]
+      ],
+      "violations": []
+    },
+    {
+      "step": 1,
+      "action": {
+        "job_id": "job-20261011-0",
+        "amount": 2147483647,
+        "lose_ack": false
+      },
+      "outcome": "returned",
+      "durable_rows": [
+        [
+          "job-20261011-0",
+          2147483647
+        ],
+        [
+          "job-20261011-0",
+          2147483647
+        ]
+      ],
+      "violations": [
+        {
+          "requirement": "REQ-001",
+          "job_id": "job-20261011-0",
+          "expected": 1,
+          "actual": 2
+        }
+      ]
+    }
+  ],
+  "violations": [
+    {
+      "step": 1,
+      "requirement": "REQ-001",
+      "job_id": "job-20261011-0",
+      "expected": 1,
+      "actual": 2
+    }
+  ],
+  "oracle_checks": {
+    "REQ-001": 2,
+    "REQ-002": 1
+  },
+  "scenario_observed": true,
+  "scenario_checked": true
+}

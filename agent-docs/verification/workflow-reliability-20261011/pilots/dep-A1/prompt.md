@@ -1,0 +1,1 @@
+Use $dep-review to review the uncommitted dependency upgrade in /private/tmp/workflow-pilots-20261011.jYJEET/dep-A1/repo. The maintainer changed the lockfile. Work offline with the available project and package evidence. Give me the risk assessment and recommendation; this is a review request.

@@ -1,0 +1,8 @@
+{
+  "path": "greeting.py",
+  "base_head_only_freshness": "HEAD did not change",
+  "excerpts": [
+    {"start": 1, "end": 2, "code": "def greet(name):\n    return f\"Hello, {name.title()}!\""}
+  ],
+  "changed_files": []
+}

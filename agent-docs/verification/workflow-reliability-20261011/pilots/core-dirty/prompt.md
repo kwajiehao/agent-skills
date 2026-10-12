@@ -1,0 +1,1 @@
+Use $agent-docs-loop to implement whitespace trimming in /private/tmp/workflow-pilots-20261011.jYJEET/core-dirty/repo/greeting.py with a regression test and final verification. Allowed changes are greeting.py, tests, and task/run artifacts. The notes.txt edit already in my worktree is unfinished personal work; preserve it.

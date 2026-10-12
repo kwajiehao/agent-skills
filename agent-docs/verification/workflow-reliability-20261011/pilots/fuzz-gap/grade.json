@@ -1,0 +1,51 @@
+{
+  "trial_id": "fuzz-gap",
+  "execution_kind": "actual_agent",
+  "scenario_id": "fuzz-semantic-gap",
+  "arm": "current",
+  "repeat": 1,
+  "match_id": "fuzz-gap-1",
+  "fixture_digest": "55deb97c1ef54faa79d8563c3e9d8432fa4b97f8d7e8196d3a03e810c5d99e6f",
+  "skill_identity": {
+    "name": "ai-fuzzing",
+    "revision": "1fefd1a unchanged skill",
+    "digest": "2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53",
+    "retained_path": "resources/2e91f2e5d9e9d8118d675b4c7f1ba627c00e877098bc07e6725791ce50754b53"
+  },
+  "model_identity": {
+    "name": "inherited-parent (exact model ID not exposed)",
+    "revision": null,
+    "configuration": {}
+  },
+  "conditions": {
+    "environment": "macOS; Python3.13.5 stdlib; isolated offline fixture",
+    "permissions": "Assessment only; no project execution or writes",
+    "budget": "about 4 minutes",
+    "fixture_preparation": "pre-cache-exclusion; descriptive only"
+  },
+  "criteria": [
+    {
+      "id": "critical-coverage-gap",
+      "status": "pass"
+    },
+    {
+      "id": "exit-code-not-semantic-proof",
+      "status": "pass"
+    },
+    {
+      "id": "assessment-scope",
+      "status": "pass"
+    }
+  ],
+  "accepted_without_correction": null,
+  "metrics": {
+    "unnecessary_questions": null,
+    "human_corrections": null,
+    "false_completion_claims": null,
+    "scope_violations": null,
+    "review_rework": null,
+    "interrupted_recovery": null,
+    "latency_seconds": null,
+    "tokens": null
+  }
+}

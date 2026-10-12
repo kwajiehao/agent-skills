@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "scenario_id": "core-dirty-worktree",
+  "fixture_digest": "98f5575b5e0564745a03e49dec7d073181f78a56834adbf3db51ebad7ed8f7d3",
+  "repo": "/private/tmp/workflow-pilots-20261011.jYJEET/core-dirty/repo",
+  "prompt": "/private/tmp/workflow-pilots-20261011.jYJEET/core-dirty/prompt.md",
+  "skill": "agent-docs-loop",
+  "initial_head": "cce4682816c7c4adc8fb69c66ad17b85af536202"
+}
