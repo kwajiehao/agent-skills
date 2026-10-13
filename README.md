@@ -26,6 +26,7 @@ Already have the repo cloned? Just run it from the root:
 | `/dep-review` | Reviews dependency bump PRs by auditing codebase usage, analyzing changelog/release changes, and cross-referencing impact to produce a structured risk assessment |
 | `/code-walkthrough` | Explains snippets, functions, files, modules, notebooks, or whole codebases with synchronized prose, exact code, diagrams, and evidence; works outside Git |
 | `/pr-walkthrough` | Builds author-perspective visual walkthroughs of PRs, commit ranges, or local changes with exact code, diagrams, evidence, and a secondary review lens |
+| `/draft-slack-message` | Drafts any Slack message to colleagues (DMs, replies, channel posts, intros, updates) in the user's voice, pulling relationship, thread and channel context from Slack first; never sends without approval |
 
 ## How installing works
 
