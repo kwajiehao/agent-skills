@@ -1,0 +1,22 @@
+{
+  "date": "2026-10-13",
+  "trace_complete": false,
+  "model": null,
+  "token_usage": null,
+  "latency": null,
+  "kind": "independent behavioral pilots; parent artifact and source assessment",
+  "files": {
+    "artifacts/evidence/report.md": "8d9d650f6641f9abab7d80cbe152f4c6825a5ab943e60cf6d39fb2c8b7b7cef7",
+    "artifacts/evidence/sources.md": "be9174dabcb96e4728a211a4a16b00b84c2f86144d1432625febc2789d67171a",
+    "artifacts/online/evidence-notes.md": "b3da091fd4753f97f3811b9d0f423b8c045f17d5db36dc7d11d5fd2aa20483a9",
+    "artifacts/online/report.md": "39b9359c2792903c1e98cbafb934ec08f11cee48ae49348a9522c069f4ec0c34",
+    "artifacts/vague/response.md": "d9c29d0230047a9bc6bfe71af7213b4f33fd3420ab862ae8d72eea6c4b33457e",
+    "criteria.md": "7f886877c9d5eeb8cacb5552f450a0a5498f4e6c15e8ad12d799f040028df94a",
+    "skill-snapshot/SKILL.md": "8a6a53040e47aa8e1bc8285b8754a1e445d1f61fbd368bcc32541d9cfa56af72",
+    "skill-snapshot/agents/openai.yaml": "51c73eee63e3ade10b272cf17456e44e7685b50cbe43d704302abea00153ad07",
+    "skill-snapshot/references/design-sources.md": "2ea51593a31d6a98b7f69248cfa66a144275f651ca9ac637789028d4555cad3d",
+    "skill-snapshot/references/report-design.md": "c9e5707ef7f69ca159dc7827568974e87115c557dbd7830c37b8936d60f45929",
+    "skill-snapshot/references/research-method.md": "8fdbb7ff14193c25f1205cc6c3b4980e5997971f2a1d4b1a76ef8ac63f0a8e51",
+    "assessment.md": "f0ee650ded8b0fb81eebc863c6a04a21f1a151c042aa99fefb8dac65d3235625"
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Research"
+  short_description: "Clear, evidence-backed research reports"
+  default_prompt: "Use $research to investigate a topic and explain the findings with sources and useful visuals."

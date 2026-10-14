@@ -128,9 +128,11 @@ Escape external text as data; do not inject it as HTML. The renderer embeds all 
 Render and validate:
 
 ```bash
-python3 scripts/render_walkthrough.py --data data.json --output .walkthrough/change/index.html
-python3 scripts/validate_walkthrough.py --html .walkthrough/change/index.html --repo <repo-root>
+python3 scripts/render_walkthrough.py --data data.json
+python3 scripts/validate_walkthrough.py --html <rendered-path> --repo <repo-root>
 ```
+
+By default the renderer writes an artifact folder under `~/.agents/walkthroughs/` and reports its path. Each library artifact contains the HTML, `walkthrough-data.json`, `preview.svg`, and `.walkthrough-entry.json`; source captures and supporting assets belong beside them. The root `index.html` is the shared searchable gallery and is reserved for that purpose. An explicit `--output` outside the library is respected without registering it. `--library-root` overrides the default library for isolated tests or a user-selected destination. Metadata labels retain the captured snapshot; the gallery does not validate live source freshness.
 
 Without `--repo`, validation checks structure only: schema references, line ranges, coverage accounting, required UI contracts, inline data, and unpinned/external runtime dependencies. It prints an explicit warning and does not verify source text or freshness. Browser QA remains required for layout and interaction confidence. The bundled example is synthetic renderer data and is not a source-verified review.
 

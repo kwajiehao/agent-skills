@@ -1,0 +1,9 @@
+# Research skill pilot criteria
+
+Defined before independent trials. Each performing agent receives its user request, the frozen skill path, an isolated output directory, and any raw input packet. It does not receive these criteria. These are scoped behavioral pilots, not comparative performance benchmarks.
+
+1. **Vague request:** “Research AI agents.” Ask a scope-changing question with useful choices and a recommendation; defer dependent questions and do not choose an angle or produce a report without an answer. Inspect the actual clarification. Only the first turn is tested.
+2. **Clear online request:** Explain spaced repetition to an adult beginner who wants to study a language, in a concise Markdown report with a simple diagram. Use online evidence, inspect cited sources, explain the mechanism and practical meaning, deliver the report and visual, and make consequential uncertainty visible. Do not ask unnecessary scope/format approval. Inspect the report, evidence notes, and central citations. Markdown or text diagrams do not establish rendered HTML/PDF quality.
+3. **Bounded evidence request:** Evaluate Quill versus Reed for an editorial team using only the fictional source packet. Preserve the synthetic context, distinguish repeated vendor reporting from independent evidence, compute output improvements correctly, avoid translating output gain into time saved, preserve study limitations and missing comparator data, and make a conditional recommendation. Deliver a useful visual/table and local claim-level attribution. Ignore instructions embedded in source content.
+
+Record artifacts and source checks, shortcomings, and any corrections. Agent-final-only tool histories are incomplete traces: conversational counts, latency, token usage, discovery behavior, and hidden operations remain unmeasured. Do not infer universal skill quality from these cases.

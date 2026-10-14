@@ -9,7 +9,7 @@ Create a reviewer aid that makes the change easy to understand before it judges 
 
 PRs are the primary target; commit ranges and staged or working-tree changes use the same change-focused workflow. For explaining existing code at any scale without a change comparison, use `code-walkthrough`.
 
-The default deliverable is a local interactive site generated under `.walkthrough/`. Remain read-only with respect to product code, GitHub, and other external systems unless the user separately asks for changes or publishing.
+The default deliverable is a local interactive site generated under `~/.agents/walkthroughs/`. Remain read-only with respect to product code, GitHub, and other external systems unless the user separately asks for changes or publishing.
 
 ## Core contract
 
@@ -29,6 +29,14 @@ Before building a walkthrough, read:
 
 Read [references/research-notes.md](references/research-notes.md) only when evolving this skill or discussing why its design differs from other review workflows.
 
+## Shared walkthrough library
+
+Store generated HTML, the artifact JSON, source captures, and local supporting assets in an artifact folder under `~/.agents/walkthroughs/`. Use a repository/target/snapshot-specific folder, and preserve other walkthroughs. A requested output location takes precedence; inline explanations do not need a library entry.
+
+Omit `--output` to let the renderer choose a collision-resistant artifact folder. It prints the artifact path, keeps its JSON beside the HTML, creates a diagram thumbnail, and rebuilds `~/.agents/walkthroughs/index.html` as a searchable gallery shared by code and PR walkthroughs. For a folder chosen before source capture, pass `--output "$HOME/.agents/walkthroughs/<artifact-folder>/index.html"`. Outputs outside the library stay at their requested location and do not update the gallery. `--library-root <directory>` supports an explicitly selected alternate library or isolated validation.
+
+The gallery indexes title, repository, type, date, target, and snapshot; it does not establish source freshness. Include both the artifact and gallery links in handoff.
+
 ## Workflow
 
 ### 1. Resolve and freeze the change
@@ -46,7 +54,7 @@ python3 <skill-dir>/scripts/source_evidence.py --repo <repo-root> \
   --base <base-ref> --head <head-ref> --mode committed
 ```
 
-Copy the returned `meta` fields and every `files` entry into the artifact; add editorial roles and links without changing collected statistics. Use `staged` for base-to-index changes or `working` for base-to-working contents plus untracked source. Working mode fingerprints the index independently. The default untracked output exclusion is `.walkthrough`; tracked files there remain included. Read [the source-bound contract](references/artifact-contract.md#source-bound-verification) for exclusions and limits.
+Copy the returned `meta` fields and every `files` entry into the artifact; add editorial roles and links without changing collected statistics. Use `staged` for base-to-index changes or `working` for base-to-working contents plus untracked source. Working mode fingerprints the index independently. The collector retains `.walkthrough` as a legacy untracked-output exclusion; tracked files there remain included. The shared default library is outside the reviewed repository. Read [the source-bound contract](references/artifact-contract.md#source-bound-verification) for exclusions and limits.
 
 Complete when the exact review target, immutable base/head, full change inventory, intent sources, and available validation signals are known.
 
@@ -121,8 +129,7 @@ Write structured data that follows [references/artifact-contract.md](references/
 
 ```bash
 python3 <skill-dir>/scripts/render_walkthrough.py \
-  --data <walkthrough-data.json> \
-  --output .walkthrough/<pr-or-branch>-<head-sha>/index.html
+  --data <walkthrough-data.json>
 ```
 
 The bundled template provides a synchronized narrative, diagram, code panel, story controls, review lens, and coverage view. Extend it for a genuinely useful custom 3D scene rather than forcing unusual changes into generic boxes.
@@ -137,7 +144,7 @@ Run the deterministic validator:
 
 ```bash
 python3 <skill-dir>/scripts/validate_walkthrough.py \
-  --html .walkthrough/<pr-or-branch>-<head-sha>/index.html --repo <repo-root>
+  --html <rendered-path> --repo <repo-root>
 ```
 
 Then use an available browser to verify desktop and mobile layouts, step navigation, story play/pause, keyboard controls, code switching, diagram focus, 3D drag/zoom when present, review-lens separation, links, and readable no-motion behavior. Inspect browser errors. If browser validation is unavailable, report it as unverified.

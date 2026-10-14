@@ -5,16 +5,36 @@ from __future__ import annotations
 
 import argparse
 import html
+import importlib.util
 import json
 from pathlib import Path
 
 
 DATA_TOKEN = "__WALKTHROUGH_DATA__"
 TITLE_TOKEN = "__WALKTHROUGH_TITLE__"
+KIND = "code"
+
+# Load the bundled helper without depending on another installed skill.
+_spec = importlib.util.spec_from_file_location(
+    "code_walkthrough_library", Path(__file__).with_name("walkthrough_library.py")
+)
+assert _spec and _spec.loader
+library = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(library)
 
 
-def render(data_path: Path, output_path: Path, template_path: Path) -> None:
-    data = json.loads(data_path.read_text(encoding="utf-8"))
+def render(
+    data_path: Path,
+    output_path: Path | None,
+    template_path: Path,
+    library_path: Path | None = None,
+) -> Path:
+    data = json.loads(data_path.expanduser().read_text(encoding="utf-8"))
+    root = library.library_root(library_path)
+    output_path = (output_path.expanduser() if output_path is not None
+                   else library.default_output(data, KIND, root))
+    if output_path.resolve().parent == root:
+        raise ValueError("The library root is reserved for the gallery; use an artifact folder")
     template = template_path.read_text(encoding="utf-8")
 
     if DATA_TOKEN not in template or TITLE_TOKEN not in template:
@@ -25,14 +45,16 @@ def render(data_path: Path, output_path: Path, template_path: Path) -> None:
     encoded = encoded.replace("</", "<\\/")
     rendered = template.replace(TITLE_TOKEN, html.escape(title)).replace(DATA_TOKEN, encoded)
 
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    output_path.write_text(rendered, encoding="utf-8")
+    library.atomic_write(output_path, rendered)
+    library.register(data, output_path, KIND, root)
+    return output_path
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data", type=Path, required=True, help="walkthrough JSON")
-    parser.add_argument("--output", type=Path, required=True, help="output HTML")
+    parser.add_argument("--output", type=Path, help="output HTML; default: an artifact folder in ~/.agents/walkthroughs")
+    parser.add_argument("--library-root", type=Path, help="override the shared walkthrough library root")
     parser.add_argument(
         "--template",
         type=Path,
@@ -41,8 +63,11 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    render(args.data, args.output, args.template)
-    print(f"Rendered walkthrough: {args.output.resolve()}")
+    output = render(args.data, args.output, args.template, args.library_root)
+    print(f"Rendered walkthrough: {output.resolve()}")
+    root = library.library_root(args.library_root)
+    if output.resolve().is_relative_to(root):
+        print(f"Walkthrough gallery: {root / 'index.html'}")
     return 0
 
 

@@ -7,7 +7,7 @@ description: Build an evidence-linked visual explanation of existing code at any
 
 Help the reader form a reliable mental model of the code they selected. Start at the reader's altitude: explain the purpose, useful outcome, and simplest end-to-end behavior before introducing internal names. Match the later detail to scope: a function may need a branch-by-branch trace, a notebook a cell/data journey, and a codebase an ownership map with representative runtime paths.
 
-The default deliverable is a local interactive site under `.walkthrough/code-<target>-<snapshot-id>/` with synchronized narrative, semantic diagrams, and exact source excerpts. Respect a requested explanation format; a small snippet may be clearer as an inline walkthrough. Remain read-only with respect to source code and external systems unless the user separately asks for changes or publishing.
+The default deliverable is a local interactive site under `~/.agents/walkthroughs/` with synchronized narrative, semantic diagrams, and exact source excerpts. Respect a requested explanation format; a small snippet may be clearer as an inline walkthrough. Remain read-only with respect to source code and external systems unless the user separately asks for changes or publishing.
 
 ## Core contract
 
@@ -22,6 +22,14 @@ The default deliverable is a local interactive site under `.walkthrough/code-<ta
 - **Be honest about coverage.** Catalog the source that supports the story and disclose excluded or unresolved areas within the selected scope.
 
 Read [references/code-method.md](references/code-method.md) for scope, source capture, discovery, and evidence; [references/visual-language.md](references/visual-language.md) for synchronized diagrams and code; and [references/artifact-contract.md](references/artifact-contract.md) when creating the interactive artifact.
+
+## Shared walkthrough library
+
+Store generated HTML, the artifact JSON, source captures, and local supporting assets in an artifact folder under `~/.agents/walkthroughs/`. Use a repository/target/snapshot-specific folder, and preserve other walkthroughs. A requested output location takes precedence; inline explanations do not need a library entry.
+
+Omit `--output` to let the renderer choose a collision-resistant artifact folder. It prints the artifact path, keeps its JSON beside the HTML, creates a diagram thumbnail, and rebuilds `~/.agents/walkthroughs/index.html` as a searchable gallery shared by code and PR walkthroughs. For a folder chosen before source capture, pass `--output "$HOME/.agents/walkthroughs/<artifact-folder>/index.html"`. Outputs outside the library stay at their requested location and do not update the gallery. `--library-root <directory>` supports an explicitly selected alternate library or isolated validation.
+
+The gallery indexes title, repository, type, date, target, and snapshot; it does not establish source freshness. Include both the artifact and gallery links in handoff.
 
 ## Workflow
 
@@ -77,8 +85,8 @@ Include only concrete, evidence-backed risks relevant to the target, such as a s
 For the interactive deliverable, write data following [references/artifact-contract.md](references/artifact-contract.md), then render and validate:
 
 ```bash
-python3 <skill-dir>/scripts/render_walkthrough.py --data <code-walkthrough.json> --output .walkthrough/code-<target>-<snapshot-id>/index.html
-python3 <skill-dir>/scripts/validate_walkthrough.py --html .walkthrough/code-<target>-<snapshot-id>/index.html
+python3 <skill-dir>/scripts/render_walkthrough.py --data <code-walkthrough.json>
+python3 <skill-dir>/scripts/validate_walkthrough.py --html <rendered-path>
 ```
 
 The validator checks artifact structure, not source accuracy. Compare excerpts and snapshot identifiers against the captured source separately. Use an available browser to verify desktop/mobile layouts, story controls, keyboard navigation, code switching, diagram focus, review-lens separation, reduced motion, links, and console errors. Report unavailable checks as unverified.
