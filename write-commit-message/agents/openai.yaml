@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write Commit Message"
+  short_description: "Clear commit messages grounded in actual changes"
+  default_prompt: "Use $write-commit-message to draft a concise commit message for the intended changes, following repository conventions."
