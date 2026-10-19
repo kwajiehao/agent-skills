@@ -1,0 +1,4 @@
+interface:
+  display_name: "PR Review"
+  short_description: "Review correctness, scope, and operational risk"
+  default_prompt: "Use $pr-review to assess this PR and return a concise, evidence-backed merge verdict."

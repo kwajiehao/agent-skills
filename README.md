@@ -28,6 +28,10 @@ Already have the repo cloned? Just run it from the root:
 | `/pr-walkthrough` | Builds author-perspective visual walkthroughs of PRs, commit ranges, or local changes with exact code, diagrams, evidence, and a secondary review lens |
 | `/draft-slack-message` | Drafts any Slack message to colleagues (DMs, replies, channel posts, intros, updates) in the user's voice, pulling relationship, thread and channel context from Slack first; never sends without approval |
 | `/research` | Clarifies vague research questions, investigates online, and produces understandable, source-backed reports with useful visuals |
+| `/python-engineering` | Implements and debugs production Python with explicit runtime, ownership, failure, and concurrency models, including threads, async, and processes |
+| `/pr-review` | Reviews correctness, fix scope, compatibility, and operational risk with a concise evidence-backed verdict and reusable PR checkpoints |
+
+Personal Codex context, hooks, and profiles: [personal-setup](personal-setup/README.md).
 
 ## How installing works
 
