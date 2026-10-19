@@ -17,6 +17,7 @@ The default deliverable is a local interactive site under `~/.agents/walkthrough
 - **Respect the selected scope.** Read callers, dependencies, types, configuration, or tests where needed for understanding. Do not expand a function explanation into a full repository tour.
 - **Pin the source actually used.** Use a Git revision for committed code or content digests for local files and supplied snippets. Recheck that source before handoff; Git and a remote are optional.
 - **Claims travel with evidence.** Connect non-obvious claims to exact code, tests, configuration, docs, schemas, or a clearly labeled inference. Expose missing context.
+- **Make outputs concrete.** Include a small coherent input and examples of meaningful intermediate state and final output, attached to the producing steps. Keep worked examples distinct from observed runs and from exact source. For a pure function, show returned values; for a change, compare before/after output when it changes.
 - **Code and visuals stay synchronized.** A code-bearing story step opens with a short exact excerpt while matching diagram nodes are focused.
 - **Teach first, assess second.** Keep concrete risks and uncertainties separate from the explanation. Do not manufacture findings or impose a repository-wide audit on a small target.
 - **Be honest about coverage.** Catalog the source that supports the story and disclose excluded or unresolved areas within the selected scope.
@@ -54,6 +55,8 @@ Read full implementations for central owners and enough supporting code to avoid
 Follow the smallest set of paths that explains the target. This may be one input through an algorithm, branches and edge cases, a script's execution, notebook cell dependencies, a request across modules, or startup and persistence across services.
 
 Trace control and data, state changes, observable outputs, and failure behavior. Distinguish code-defined behavior from a demonstrated execution. Do not claim a test ran or a notebook output is reproducible merely because it is present.
+
+Choose a small representative input and show what it produces along this journey: for example, a saved metadata row, the checkpoint used to resume it, and the resulting report or response. Prefer a safe local fixture or existing sanitized output when available; otherwise derive a clearly labeled worked example from the pinned code. Explain what persists, what a restart reuses, and which totals or identifiers connect the stages. Validate formats and cross-stage consistency. If no useful intermediate state exists, show the final observable result without inventing storage. Use the `examples` / `example_ids` contract for the interactive site.
 
 ### 4. Build the evidence ledger and reader story
 

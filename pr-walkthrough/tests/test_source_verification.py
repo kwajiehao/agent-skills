@@ -56,6 +56,8 @@ class SourceVerificationTests(unittest.TestCase):
         data["steps"] = [copy.deepcopy(data["steps"][1])]
         data["steps"][0].update(code_ids=["source"], claim_status="demonstrated", evidence=[{"label": "Implementation", "code_id": "source"}])
         data["findings"] = []
+        data["examples"] = []
+        data["steps"][0].pop("example_ids", None)
         return data
 
     def validate(self, data):

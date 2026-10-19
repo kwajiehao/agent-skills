@@ -199,6 +199,18 @@
       .finding dt { margin-top: 4px; }
     }
 
+    #output-examples { margin-top: 24px; min-width: 0; }
+    #output-examples[hidden] { display: none; }
+    .output-heading { font-size: 16px; margin: 0 0 12px; }
+    .output-example { margin: 12px 0; padding: 14px; min-width: 0; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+    .output-example summary { cursor: pointer; font-size: 14px; font-weight: 700; overflow-wrap: anywhere; }
+    .output-badge { display: block; margin: 7px 0 0; color: var(--green); font-size: 11px; font-weight: 500; }
+    .output-location { color: var(--muted); font: 11px/1.5 ui-monospace, monospace; overflow-wrap: anywhere; }
+    .output-explanation { color: var(--muted); font-size: 13px; line-height: 1.5; overflow-wrap: anywhere; }
+    .output-content { max-height: 280px; max-width: 100%; overflow: auto; padding: 12px; border-radius: 6px; background: #0a0d13; }
+    .output-sources { display: flex; flex-wrap: wrap; gap: 6px; }
+    .output-sources a { overflow-wrap: anywhere; max-width: 100%; }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .001ms !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; }
     }
@@ -251,6 +263,7 @@
           <div id="diagram-detail" aria-live="polite"></div>
           <div id="diagram-legend" aria-label="Diagram legend"></div>
         </section>
+        <section id="output-examples" aria-label="Output examples" hidden></section>
       </article>
     </section>
 
@@ -335,6 +348,40 @@
         });
       }
 
+      function renderExamples(step) {
+        const panel = byId("output-examples");
+        panel.replaceChildren();
+        const examples = (step.example_ids || []).map((id) => (data.examples || []).find((item) => item.id === id)).filter(Boolean);
+        panel.hidden = examples.length === 0;
+        if (!examples.length) return;
+        panel.append(create("h3", "output-heading", "Output examples"));
+        examples.forEach((example) => {
+          const card = create("details", "output-example");
+          card.open = true;
+          const summary = create("summary", "", example.label);
+          const provenance = example.provenance === "observed" ? "Observed output" : "Worked example · not a recorded execution";
+          const side = example.side && example.side !== "current" ? ` · ${example.side}` : "";
+          summary.append(create("span", "output-badge", `${example.stage} · ${provenance}${side}`));
+          card.append(summary);
+          card.append(create("p", "output-location", `${example.location} · ${example.format}`));
+          card.append(create("p", "output-explanation", example.explanation));
+          const pre = create("pre", "output-content");
+          pre.append(create("code", "", example.content));
+          card.append(pre);
+          if (example.execution) card.append(create("p", "output-explanation", `Execution evidence: ${example.execution}`));
+          const sources = create("div", "output-sources");
+          (example.evidence_code_ids || []).forEach((id) => {
+            const excerpt = findCode(id);
+            if (!excerpt) return;
+            const label = `${excerpt.path}:${excerpt.start_line}–${excerpt.end_line}`;
+            const url = excerpt.source_url || excerpt.diff_url;
+            sources.append(url ? link(label, url, "evidence-link") : create("span", "output-location", label));
+          });
+          card.append(sources);
+          panel.append(card);
+        });
+      }
+
       function setStep(index) {
         state.step = Math.max(0, Math.min(index, data.steps.length - 1));
         state.code = 0;
@@ -352,6 +399,7 @@
         renderStoryList();
         renderVisual(step);
         renderCode(step);
+        renderExamples(step);
         byId("story-progress").textContent = `${state.step + 1} / ${data.steps.length}`;
         byId("previous-step").disabled = state.step === 0;
         byId("next-step").disabled = state.step === data.steps.length - 1;

@@ -129,6 +129,35 @@ For a codebase or broad subsystem, order steps for progressive disclosure:
 
 The overview must stand on its own. Keep each overview narrative to one to three short paragraphs and avoid exhaustive lists of roles, phases, files, exceptions, or evidence. A function or small snippet can use a shorter contract → behavior → edge-cases arc instead.
 
+## `examples` and `steps[].example_ids`
+
+Show representative intermediate and final outputs for the behavior being taught: saved records, checkpoints, queue state, response bodies, generated files, or returned values. Use one small coherent input across stages; if a target has no meaningful intermediate output, show its final observable result instead. Do not invent a persisted artifact for a pure function.
+
+`examples` is optional for backward compatibility. New walkthroughs should attach useful examples to the steps where they are produced, using `example_ids`; examples render separately from exact source excerpts.
+
+```json
+{
+  "examples": [{
+    "id": "saved-job",
+    "label": "A job ready to resume",
+    "stage": "intermediate",
+    "provenance": "worked",
+    "format": "json",
+    "location": "checkpoints/job-7.json",
+    "content": "{\"job_id\": 7, \"next_page\": 2}",
+    "explanation": "For the example input job 7, page 1 is saved; a restart continues from page 2.",
+    "evidence_code_ids": ["checkpoint-writer"]
+  }],
+  "steps": [{"example_ids": ["saved-job"]}]
+}
+```
+
+Each example requires `id`, `label`, `stage` (`intermediate` or `final`), `provenance` (`worked` or `observed`), `format`, `location`, `content`, `explanation`, and nonempty `evidence_code_ids` referencing catalogued excerpts. `location` names the actual file, table, response, state, or return value; label projections, omissions and substituted values in `explanation`. `side` optionally identifies `before`, `after`, or `current` (default). Every example must be used by a step.
+
+Worked examples are small, code-consistent illustrations, explicitly shown as not recorded executions. Observed examples additionally require `execution`: a concrete command/test/run and the retained evidence location; an assertion that the code could run is insufficient. Executing a local fixture proves only that fixture. Preserve secrets and private payloads by using synthetic inputs or clearly disclosed redactions. Keep timestamps, IDs, counts and byte totals consistent across stages; validate parsable formats and cross-stage invariants. The validator checks shape and references, not output semantics or execution authenticity.
+
+For PRs, use the same input for before/after examples when output changes, pin evidence to the corresponding side, and explain which intermediate or final contract changed. If output is unchanged, show one example and explain the mechanism that changed.
+
 ## `findings`
 
 Each finding requires `severity`, `confidence`, `title`, `trigger`, `impact`, `evidence`, `resolution`, and `url`. Severity is `blocking`, `important`, or `optional`; confidence is `high`, `medium`, or `low`. Use an empty array when no actionable finding relevant to the selected code was verified.

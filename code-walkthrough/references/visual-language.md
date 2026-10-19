@@ -55,6 +55,10 @@ Keep equivalent components aligned and at matched scale. Reuse colors for the sa
 
 When showing framework versus plugin, control plane versus worker, or in-process versus external components, use boundaries and labels consistently across every diagram.
 
+## Outputs beside the journey
+
+Pair important transformations with small, copyable output examples at the producing story step. Show the input, meaningful saved or resumable state, and the final visible result as one coherent journey. Keep generated output visually distinct from source code; show format, destination, provenance, and what the reader should notice. Use collapsible cards for larger samples and keep overflow inside the card on mobile. Worked examples must remain labeled when copied or viewed independently; observed outputs need execution evidence. In change walkthroughs, align before/after examples on the same input.
+
 ## Motion and accessibility
 
 - Begin in overview state; story playback is opt-in.

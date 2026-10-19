@@ -39,7 +39,13 @@
       "start_line": 41,
       "end_line": 48,
       "content": "def schedule_retry(job, error):\n    attempts = job.attempts + 1\n    if attempts > job.max_attempts:\n        dead_letter(job, error)\n        return None\n    delay = backoff(attempts)\n    enqueue(job.with_attempts(attempts), delay=delay)\n    return delay",
-      "emphasis": [42, 43, 44, 46, 47],
+      "emphasis": [
+        42,
+        43,
+        44,
+        46,
+        47
+      ],
       "diff_url": "https://github.com/example/queue-service/pull/123/files#R41"
     },
     {
@@ -51,7 +57,13 @@
       "start_line": 73,
       "end_line": 80,
       "content": "def test_exhausted_job_goes_to_dead_letter(queue):\n    job = make_job(attempts=2, max_attempts=2)\n    delay = schedule_retry(job, TimeoutError())\n\n    assert delay is None\n    assert queue.pending == []\n    assert queue.dead_letters == [job]\n    assert queue.metrics['retry_exhausted'] == 1",
-      "emphasis": [75, 77, 78, 79, 80],
+      "emphasis": [
+        75,
+        77,
+        78,
+        79,
+        80
+      ],
       "diff_url": "https://github.com/example/queue-service/pull/123/files#R73"
     }
   ],
@@ -62,15 +74,62 @@
       "mode": "2d",
       "caption": "The worker still reports failures; retry ownership moves into one scheduler boundary.",
       "nodes": [
-        {"id": "job", "label": "Job", "detail": "Unit of work", "x": 80, "y": 150, "z": 0, "color": "slate"},
-        {"id": "worker", "label": "Worker", "detail": "Runs the job", "x": 280, "y": 150, "z": 0, "color": "blue"},
-        {"id": "scheduler", "label": "Retry scheduler", "detail": "Owns attempt policy", "x": 500, "y": 90, "z": 0, "color": "green"},
-        {"id": "dead-letter", "label": "Dead letter", "detail": "Terminal failures", "x": 500, "y": 230, "z": 0, "color": "red"}
+        {
+          "id": "job",
+          "label": "Job",
+          "detail": "Unit of work",
+          "x": 80,
+          "y": 150,
+          "z": 0,
+          "color": "slate"
+        },
+        {
+          "id": "worker",
+          "label": "Worker",
+          "detail": "Runs the job",
+          "x": 280,
+          "y": 150,
+          "z": 0,
+          "color": "blue"
+        },
+        {
+          "id": "scheduler",
+          "label": "Retry scheduler",
+          "detail": "Owns attempt policy",
+          "x": 500,
+          "y": 90,
+          "z": 0,
+          "color": "green"
+        },
+        {
+          "id": "dead-letter",
+          "label": "Dead letter",
+          "detail": "Terminal failures",
+          "x": 500,
+          "y": 230,
+          "z": 0,
+          "color": "red"
+        }
       ],
       "edges": [
-        {"source": "job", "target": "worker", "label": "execute", "style": "solid"},
-        {"source": "worker", "target": "scheduler", "label": "retryable", "style": "solid"},
-        {"source": "worker", "target": "dead-letter", "label": "exhausted", "style": "dashed"}
+        {
+          "source": "job",
+          "target": "worker",
+          "label": "execute",
+          "style": "solid"
+        },
+        {
+          "source": "worker",
+          "target": "scheduler",
+          "label": "retryable",
+          "style": "solid"
+        },
+        {
+          "source": "worker",
+          "target": "dead-letter",
+          "label": "exhausted",
+          "style": "dashed"
+        }
       ]
     },
     {
@@ -79,15 +138,62 @@
       "mode": "3d",
       "caption": "Depth represents successive attempts; every lane ends at the same terminal boundary.",
       "nodes": [
-        {"id": "attempt-1", "label": "Attempt 1", "detail": "Immediate execution", "x": -230, "y": -70, "z": -140, "color": "blue"},
-        {"id": "attempt-2", "label": "Attempt 2", "detail": "First backoff", "x": -70, "y": 25, "z": -30, "color": "amber"},
-        {"id": "attempt-3", "label": "Attempt 3", "detail": "Final retry", "x": 100, "y": -25, "z": 90, "color": "pink"},
-        {"id": "terminal", "label": "Terminal", "detail": "Dead-letter record", "x": 275, "y": 90, "z": 200, "color": "red"}
+        {
+          "id": "attempt-1",
+          "label": "Attempt 1",
+          "detail": "Immediate execution",
+          "x": -230,
+          "y": -70,
+          "z": -140,
+          "color": "blue"
+        },
+        {
+          "id": "attempt-2",
+          "label": "Attempt 2",
+          "detail": "First backoff",
+          "x": -70,
+          "y": 25,
+          "z": -30,
+          "color": "amber"
+        },
+        {
+          "id": "attempt-3",
+          "label": "Attempt 3",
+          "detail": "Final retry",
+          "x": 100,
+          "y": -25,
+          "z": 90,
+          "color": "pink"
+        },
+        {
+          "id": "terminal",
+          "label": "Terminal",
+          "detail": "Dead-letter record",
+          "x": 275,
+          "y": 90,
+          "z": 200,
+          "color": "red"
+        }
       ],
       "edges": [
-        {"source": "attempt-1", "target": "attempt-2", "label": "backoff", "style": "solid"},
-        {"source": "attempt-2", "target": "attempt-3", "label": "backoff", "style": "solid"},
-        {"source": "attempt-3", "target": "terminal", "label": "exhaust", "style": "dashed"}
+        {
+          "source": "attempt-1",
+          "target": "attempt-2",
+          "label": "backoff",
+          "style": "solid"
+        },
+        {
+          "source": "attempt-2",
+          "target": "attempt-3",
+          "label": "backoff",
+          "style": "solid"
+        },
+        {
+          "source": "attempt-3",
+          "target": "terminal",
+          "label": "exhaust",
+          "style": "dashed"
+        }
       ]
     }
   ],
@@ -99,11 +205,23 @@
       "kicker": "Why",
       "title": "Transient failures should not silently drop work",
       "takeaway": "The change centralizes retry policy without changing the worker's primary responsibility.",
-      "narrative": ["The author is solving an ownership problem: workers can detect failure, but retry limits and terminal handling need one consistent boundary."],
+      "narrative": [
+        "The author is solving an ownership problem: workers can detect failure, but retry limits and terminal handling need one consistent boundary."
+      ],
       "visual_id": "system-overview",
-      "focus_node_ids": ["worker", "scheduler", "dead-letter"],
+      "focus_node_ids": [
+        "worker",
+        "scheduler",
+        "dead-letter"
+      ],
       "code_ids": [],
-      "evidence": [{"label": "Example PR", "url": "https://github.com/example/queue-service/pull/123", "source_kind": "pr"}]
+      "evidence": [
+        {
+          "label": "Example PR",
+          "url": "https://github.com/example/queue-service/pull/123",
+          "source_kind": "pr"
+        }
+      ]
     },
     {
       "id": "mechanism",
@@ -112,12 +230,33 @@
       "kicker": "Key mechanism",
       "title": "One function decides retry or terminal handling",
       "takeaway": "The attempt count is incremented once, checked once, and then routed to exactly one outcome.",
-      "narrative": ["The scheduler becomes the policy seam. The worker reports the error; this function chooses a delayed enqueue or a dead-letter record."],
+      "narrative": [
+        "The scheduler becomes the policy seam. The worker reports the error; this function chooses a delayed enqueue or a dead-letter record."
+      ],
       "visual_id": "attempt-lanes",
-      "focus_node_ids": ["attempt-1", "attempt-2", "attempt-3", "terminal"],
-      "code_ids": ["retry-policy"],
-      "evidence": [{"label": "Retry implementation", "code_id": "retry-policy"}],
-      "camera": {"rotation_x": -0.18, "rotation_y": 0.2, "zoom": 1.05}
+      "focus_node_ids": [
+        "attempt-1",
+        "attempt-2",
+        "attempt-3",
+        "terminal"
+      ],
+      "code_ids": [
+        "retry-policy"
+      ],
+      "evidence": [
+        {
+          "label": "Retry implementation",
+          "code_id": "retry-policy"
+        }
+      ],
+      "camera": {
+        "rotation_x": -0.18,
+        "rotation_y": 0.2,
+        "zoom": 1.05
+      },
+      "example_ids": [
+        "exhausted-state"
+      ]
     },
     {
       "id": "proof",
@@ -126,11 +265,25 @@
       "kicker": "Proof",
       "title": "The exhausted path is observable and tested",
       "takeaway": "No retry is queued after the bound, and the dead-letter plus metric record the terminal outcome.",
-      "narrative": ["The test covers the negative boundary, not only the happy retry path. It connects queue state and observability to the same terminal decision."],
+      "narrative": [
+        "The test covers the negative boundary, not only the happy retry path. It connects queue state and observability to the same terminal decision."
+      ],
       "visual_id": "system-overview",
-      "focus_node_ids": ["dead-letter"],
-      "code_ids": ["retry-test"],
-      "evidence": [{"label": "Terminal-path test", "code_id": "retry-test"}]
+      "focus_node_ids": [
+        "dead-letter"
+      ],
+      "code_ids": [
+        "retry-test"
+      ],
+      "evidence": [
+        {
+          "label": "Terminal-path test",
+          "code_id": "retry-test"
+        }
+      ],
+      "example_ids": [
+        "terminal-output"
+      ]
     },
     {
       "id": "coverage",
@@ -140,9 +293,14 @@
       "kicker": "Review map",
       "title": "Two files carry the behavior and its proof",
       "takeaway": "The implementation and its boundary test are represented; no changed path is hidden.",
-      "narrative": ["This compact example has no generated or mechanical changes to collapse."],
+      "narrative": [
+        "This compact example has no generated or mechanical changes to collapse."
+      ],
       "visual_id": "system-overview",
-      "focus_node_ids": ["scheduler", "dead-letter"],
+      "focus_node_ids": [
+        "scheduler",
+        "dead-letter"
+      ],
       "code_ids": [],
       "evidence": []
     }
@@ -155,15 +313,56 @@
       "title": "Backoff behavior has no boundary test",
       "trigger": "A retryable failure before max_attempts.",
       "impact": "A regression could enqueue immediately or with an unintended delay.",
-      "evidence": [{"label": "Terminal-path test", "code_id": "retry-test"}],
+      "evidence": [
+        {
+          "label": "Terminal-path test",
+          "code_id": "retry-test"
+        }
+      ],
       "resolution": "Add a focused assertion for the first retry's delay and updated attempt count.",
       "url": "https://github.com/example/queue-service/pull/123/files#R73"
     }
   ],
   "coverage": {
-    "represented": ["src/retry.py", "tests/test_retry.py"],
+    "represented": [
+      "src/retry.py",
+      "tests/test_retry.py"
+    ],
     "deemphasized": [],
     "unresolved": [],
-    "evidence_gaps": ["Example data has no live CI signal."]
-  }
+    "evidence_gaps": [
+      "Example data has no live CI signal."
+    ]
+  },
+  "examples": [
+    {
+      "id": "exhausted-state",
+      "label": "The next attempt exceeds the budget",
+      "stage": "intermediate",
+      "provenance": "worked",
+      "side": "after",
+      "format": "json",
+      "location": "schedule_retry local decision",
+      "content": "{\"job_attempts\": 2, \"max_attempts\": 2, \"next_attempt\": 3}",
+      "explanation": "The bundled synthetic example starts with job.attempts=2 and max_attempts=2. The local increment yields 3, selecting terminal handling. No before implementation is supplied.",
+      "evidence_code_ids": [
+        "retry-policy"
+      ]
+    },
+    {
+      "id": "terminal-output",
+      "label": "Terminal handling returns no delay",
+      "stage": "final",
+      "provenance": "worked",
+      "side": "after",
+      "format": "text",
+      "location": "schedule_retry return value and queue state",
+      "content": "return value: None\npending: []\ndead_letters: [job]",
+      "explanation": "For the same exhausted job, the implementation returns None after dead_letter; the bundled test asserts no pending retry and one dead-lettered job. This is illustrative, not an executed PR test.",
+      "evidence_code_ids": [
+        "retry-policy",
+        "retry-test"
+      ]
+    }
+  ]
 }

@@ -13,8 +13,10 @@ async (page) => {
   check(await page.locator("#code-panel").innerText().then(text => text.includes("schedule_retry")), "selected source visible");
   await page.getByRole("button", {name: "Retry implementation", exact: true}).click();
   check(await page.locator("#code-panel").innerText().then(text => text.includes("schedule_retry")), "source evidence button selects excerpt");
+  check(await page.locator("#output-examples").innerText().then(text => text.includes("next_attempt")), "intermediate output follows mechanism");
   await page.keyboard.press("ArrowRight");
   check(await page.locator("#step-title").innerText() === "The exhausted path is observable and tested", "keyboard navigation");
+  check(await page.locator("#output-examples").innerText().then(text => text.includes("return value: None")), "final output follows proof");
   await page.locator("#play-story").click();
   check(await page.locator("#play-story").getAttribute("aria-pressed") === "true", "story play");
   await page.locator("#play-story").click();

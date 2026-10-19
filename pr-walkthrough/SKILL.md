@@ -16,6 +16,7 @@ The default deliverable is a local interactive site generated under `~/.agents/w
 - **Orient first, audit second.** The main story explains intent, design, behavior, and validation. Put fresh findings in a visually separate review lens; do not let critique hijack the walkthrough.
 - **Represent, do not impersonate.** Prefer “The author is solving…” or “The implementation suggests…” over unsourced first-person claims. Label inferred rationale and unresolved questions.
 - **Claims travel with evidence.** Every non-obvious claim should connect to an exact code excerpt, diff line, test, spec, issue, benchmark, PR comment, or clearly labeled inference.
+- **Make outputs concrete.** Include a small coherent input and examples of meaningful intermediate state and final output, attached to the producing steps. Keep worked examples distinct from observed runs and from exact source. For a pure function, show returned values; for a change, compare before/after output when it changes.
 - **Code and prose stay synchronized.** A story step that discusses code must select a short, exact, copyable excerpt beside the prose and highlight the corresponding diagram node.
 - **Visuals explain structure or behavior.** Diagrams are semantic models, not decoration. Use consistent encodings and scale. Prefer 2D unless depth materially explains hierarchy, concurrency, topology, or magnitude.
 - **Be concise without hiding scope.** Teach the smallest coherent story, then expose coverage, de-emphasized files, assumptions, and missing evidence so the reviewer knows what was and was not represented.
@@ -88,6 +89,8 @@ Start with the whole change, then move through its runtime or conceptual sequenc
 Tiny changes may need only three or four steps. Large changes may need multiple chapters, but every step must teach one reviewer-relevant idea. Keep the default overview explorable; make story mode opt-in.
 
 Complete when the story has a deliberate order and every step has one takeaway, one visual focus, and the minimum evidence needed to support it.
+
+Include a concrete input-to-output example in the behavior journey, showing meaningful intermediate state and the final response, file, or user-visible result. Compare the same input before and after when output changes; show one example when the external contract is unchanged. Prefer safe local fixtures or existing sanitized captures; otherwise label derived samples as worked examples. Bind examples to base/head source, disclose substitutions or omissions, and validate formats and cross-stage invariants. Use `examples` / `example_ids` to keep these outputs distinct from exact source code.
 
 ### 4. Select exact code excerpts
 

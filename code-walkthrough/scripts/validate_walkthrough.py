@@ -65,6 +65,47 @@ def duplicate_values(values: list[str]) -> set[str]:
     return {item for item in values if values.count(item) > 1}
 
 
+def validate_examples(data: dict, code_ids: set[str], result: Validation) -> set[str]:
+    """Validate optional output examples and their links to steps and source."""
+    examples = data.get("examples", [])
+    result.require(isinstance(examples, list), "examples must be an array")
+    ids: list[str] = []
+    evidence_ids: set[str] = set()
+    if isinstance(examples, list):
+        for index, example in enumerate(examples):
+            at = f"examples[{index}]"
+            required_keys(example, {"id", "label", "stage", "provenance", "format", "location", "content", "explanation", "evidence_code_ids"}, at, result)
+            if not isinstance(example, dict):
+                continue
+            for key in ("id", "label", "format", "location", "content", "explanation"):
+                result.require(isinstance(example.get(key), str) and bool(example[key].strip()), f"{at}.{key} must be a non-empty string")
+            ids.append(str(example.get("id", "")))
+            result.require(example.get("stage") in {"intermediate", "final"}, f"{at}.stage is invalid")
+            result.require(example.get("provenance") in {"worked", "observed"}, f"{at}.provenance is invalid")
+            result.require(example.get("side", "current") in {"before", "after", "current"}, f"{at}.side is invalid")
+            if example.get("provenance") == "observed":
+                result.require(isinstance(example.get("execution"), str) and bool(example["execution"].strip()), f"{at}.execution is required for observed output")
+            refs = example.get("evidence_code_ids")
+            result.require(isinstance(refs, list) and bool(refs), f"{at}.evidence_code_ids must be non-empty")
+            if isinstance(refs, list):
+                result.require(all(isinstance(ref, str) for ref in refs), f"{at}.evidence_code_ids must contain strings")
+                evidence_ids.update(map(str, refs))
+                result.require(not (set(map(str, refs)) - code_ids), f"{at} references unknown source code")
+    result.require(not duplicate_values(ids), "examples contains duplicate ids")
+    used: set[str] = set()
+    for index, step in enumerate(data.get("steps", []) if isinstance(data.get("steps"), list) else []):
+        if not isinstance(step, dict):
+            continue
+        refs = step.get("example_ids", [])
+        result.require(isinstance(refs, list), f"steps[{index}].example_ids must be an array")
+        if isinstance(refs, list):
+            result.require(all(isinstance(ref, str) for ref in refs), f"steps[{index}].example_ids must contain strings")
+            used.update(map(str, refs))
+            result.require(not (set(map(str, refs)) - set(ids)), f"steps[{index}] references unknown examples")
+    result.require(not (set(ids) - used), "orphaned output examples")
+    return evidence_ids
+
+
 def validate_data(data: Any, result: Validation) -> None:
     required_keys(data, REQUIRED_TOP_LEVEL, "root", result)
     if not isinstance(data, dict):
@@ -233,6 +274,7 @@ def validate_data(data: Any, result: Validation) -> None:
                 result.require(not unknown, f"{at} references unknown code: {', '.join(sorted(unknown))}")
             result.require(isinstance(step.get("evidence"), list), f"{at}.evidence must be an array")
         result.require(not duplicate_values(step_ids), "steps contains duplicate ids")
+    used_code.update(validate_examples(data, set(code_ids), result))
     result.require(not (set(code_ids) - used_code), f"orphaned code excerpts: {', '.join(sorted(set(code_ids) - used_code))}")
 
     findings = data.get("findings", [])

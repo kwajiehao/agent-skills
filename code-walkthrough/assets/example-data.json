@@ -97,7 +97,11 @@
       "code_ids": [
         "clamp"
       ],
-      "evidence": []
+      "evidence": [],
+      "example_ids": [
+        "capped-value",
+        "returned-value"
+      ]
     }
   ],
   "findings": [],
@@ -110,5 +114,33 @@
     "evidence_gaps": [
       "No callers, tests, or execution records were supplied."
     ]
-  }
+  },
+  "examples": [
+    {
+      "id": "capped-value",
+      "label": "The capped intermediate value",
+      "stage": "intermediate",
+      "provenance": "worked",
+      "format": "text",
+      "location": "min(value, upper)",
+      "content": "min(12, 10) → 10",
+      "explanation": "For clamp(12, 0, 10), the upper cap produces 10 in memory; nothing is persisted.",
+      "evidence_code_ids": [
+        "clamp"
+      ]
+    },
+    {
+      "id": "returned-value",
+      "label": "The returned value",
+      "stage": "final",
+      "provenance": "worked",
+      "format": "text",
+      "location": "clamp return value",
+      "content": "clamp(12, 0, 10) → 10",
+      "explanation": "The lower floor max(0, 10) leaves the result at 10. This is derived from the supplied function, not an executed test.",
+      "evidence_code_ids": [
+        "clamp"
+      ]
+    }
+  ]
 }
