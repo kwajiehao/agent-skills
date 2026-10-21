@@ -1,0 +1,4 @@
+interface:
+  display_name: "Walkthrough"
+  short_description: "Visual tours of systems, architecture, and workflows"
+  default_prompt: "Use $walkthrough to explain this system or workflow from its purpose and outcomes through evidence-linked diagrams, examples, and technical details."

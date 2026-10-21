@@ -1,4 +1,4 @@
 interface:
   display_name: "Code Walkthrough"
-  short_description: "Evidence-linked visual tours of code at any scale"
-  default_prompt: "Use $code-walkthrough to explain this code from purpose and outcomes down to optional evidence-linked technical details."
+  short_description: "Main flow and deep code traces with engineering detail"
+  default_prompt: "Use $code-walkthrough to explain this code's main flow and important engineering mechanisms, with a linked deep dive that steps into implementations and returns to each caller."

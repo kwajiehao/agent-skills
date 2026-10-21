@@ -24,12 +24,15 @@ Already have the repo cloned? Just run it from the root:
 |-------|-------------|
 | `/ai-fuzzing` | Extracts fuzzing requirements, builds and audits fuzz harnesses, runs bounded campaigns, and turns failures into durable feedback |
 | `/dep-review` | Reviews dependency bump PRs by auditing codebase usage, analyzing changelog/release changes, and cross-referencing impact to produce a structured risk assessment |
-| `/code-walkthrough` | Explains snippets, functions, files, modules, notebooks, or whole codebases with synchronized prose, exact code, diagrams, and evidence; works outside Git |
+| `/code-walkthrough` | Reads code from its entrypoint, explains each meaningful block, steps into important implementations, and returns to the caller |
+| `/walkthrough` | Builds evidence-linked visual explanations of software, systems, architecture, and technical workflows with synchronized prose, diagrams, and source |
 | `/pr-walkthrough` | Builds author-perspective visual walkthroughs of PRs, commit ranges, or local changes with exact code, diagrams, evidence, and a secondary review lens |
 | `/draft-slack-message` | Drafts any Slack message to colleagues (DMs, replies, channel posts, intros, updates) in the user's voice, pulling relationship, thread and channel context from Slack first; never sends without approval |
 | `/research` | Clarifies vague research questions, investigates online, and produces understandable, source-backed reports with useful visuals |
+| `/write-commit-message` | Writes accurate commit messages from actual changes, preserving the rationale and following repository conventions |
 | `/python-engineering` | Implements and debugs production Python with explicit runtime, ownership, failure, and concurrency models, including threads, async, and processes |
 | `/pr-review` | Reviews correctness, fix scope, compatibility, and operational risk with a concise evidence-backed verdict and reusable PR checkpoints |
+| `/pr-description` | Drafts concise PR titles and descriptions grounded in the diff, rationale, validation, and material risks |
 
 Personal Codex context, hooks, and profiles: [personal-setup](personal-setup/README.md).
 

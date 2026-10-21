@@ -1,101 +1,87 @@
 ---
 name: code-walkthrough
-description: Build an evidence-linked visual explanation of existing code at any scale, from a snippet or function to files, modules, scripts, notebooks, libraries, or an entire codebase, with or without Git. Use when someone wants to understand how code works, its control and data flow, contracts, or architecture. For a PR, commit range, or local change comparison use pr-walkthrough; do not use for a findings-only code review.
+description: Walk through existing code in execution order, with a concise main flow explaining its purpose and important engineering mechanisms, and a deeper trace that steps into implementations and returns to the caller. Use for developer code reading and understanding control, data, concurrency, and state across functions or files. Use walkthrough for a visual system overview, and pr-walkthrough for a change comparison.
 ---
 
 # Code Walkthrough
 
-Help the reader form a reliable mental model of the code they selected. Start at the reader's altitude: explain the purpose, useful outcome, and simplest end-to-end behavior before introducing internal names. Match the later detail to scope: a function may need a branch-by-branch trace, a notebook a cell/data journey, and a codebase an ownership map with representative runtime paths.
+Read the code with the developer. The organizing thread is what executes next: enter a function, understand its blocks, follow an important call into its implementation, and return to the suspended caller. The reader should be able to continue reading the source themselves after each step.
 
-The default deliverable is a local interactive site under `~/.agents/walkthroughs/` with synchronized narrative, semantic diagrams, and exact source excerpts. Respect a requested explanation format; a small snippet may be clearer as an inline walkthrough. Remain read-only with respect to source code and external systems unless the user separately asks for changes or publishing.
+Begin with a short explanation of the concrete end-to-end flow and a representative invocation or input. Then start reading actual code. Keep architecture background brief and introduce unfamiliar terms where the code first needs them. Remain read-only unless the user separately requests changes or execution with side effects.
 
-## Core contract
+## Offer the right reading depth
 
-- **Lead with purpose and outcome.** For a codebase or subsystem, the opening must plainly answer what it produces or enables, who it serves, and why it exists. For smaller code, start with its contract and observable effect. Do not make readers learn modules, roles, phases, or storage details before they know why those details matter.
-- **Disclose detail progressively.** Give a compact overview first, then offer deeper steps for architecture, control flow, state, code, tests, and risks. A reader should be able to stop after the overview and still explain the selected code accurately.
-- **Explain behavior and responsibility.** Organize around the decisions, transformations, boundaries, and flows that answer the reader's question.
-- **Respect the selected scope.** Read callers, dependencies, types, configuration, or tests where needed for understanding. Do not expand a function explanation into a full repository tour.
-- **Pin the source actually used.** Use a Git revision for committed code or content digests for local files and supplied snippets. Recheck that source before handoff; Git and a remote are optional.
-- **Claims travel with evidence.** Connect non-obvious claims to exact code, tests, configuration, docs, schemas, or a clearly labeled inference. Expose missing context.
-- **Make outputs concrete.** Include a small coherent input and examples of meaningful intermediate state and final output, attached to the producing steps. Keep worked examples distinct from observed runs and from exact source. For a pure function, show returned values; for a change, compare before/after output when it changes.
-- **Code and visuals stay synchronized.** A code-bearing story step opens with a short exact excerpt while matching diagram nodes are focused.
-- **Teach first, assess second.** Keep concrete risks and uncertainties separate from the explanation. Do not manufacture findings or impose a repository-wide audit on a small target.
-- **Be honest about coverage.** Catalog the source that supports the story and disclose excluded or unresolved areas within the selected scope.
+For a substantial target, provide two connected reading paths and open with **Main flow** unless the user requests a deep dive. A compact function may need only one path; do not manufacture two versions of a small explanation.
 
-Read [references/code-method.md](references/code-method.md) for scope, source capture, discovery, and evidence; [references/visual-language.md](references/visual-language.md) for synchronized diagrams and code; and [references/artifact-contract.md](references/artifact-contract.md) when creating the interactive artifact.
+- **Main flow:** a short execution-ordered walkthrough of the code's purpose, consequential decisions, and engineering mechanisms. For a subsystem, roughly 8–15 stops is often useful, not a quota. Each stop should earn its place by explaining an observable outcome, an important invariant, or a mechanism whose omission would leave a misleading mental model. Consolidate routine setup and helper plumbing instead of retaining every full-trace step. Read the implementation before deciding what to omit.
+- **Deep dive:** the block-by-block trace, with explicit step-ins and returns, alternate branches, and detailed state. Link each main-flow stop to the relevant implementation point and let the reader return to that same main-flow stop. Keep the full trace available without making it a prerequisite for understanding the main flow.
 
-## Shared walkthrough library
+Author the shorter path as a coherent story, not every Nth step of the deep dive. Follow the same input or operation from entry to outcome. Keep exact code central: a stop can use two short excerpts when a mechanism spans a caller and callee or two execution contexts. Mark omitted plumbing and link deeper rather than implying the main flow covers every block.
 
-Store generated HTML, the artifact JSON, source captures, and local supporting assets in an artifact folder under `~/.agents/walkthroughs/`. Use a repository/target/snapshot-specific folder, and preserve other walkthroughs. A requested output location takes precedence; inline explanations do not need a library entry.
+Select engineering detail by its effect on this code. When relevant, explain who owns concurrent work (processes, threads, async tasks, or remote jobs), what bounds admission and in-flight state, how publication handles competing writers, and what retries, recovery, ordering, and completion signals actually guarantee. Connect each mechanism to the problem it solves and its important limit. Do not turn these examples into a generic distributed-systems checklist or strip away subtleties just to meet a step target.
 
-Omit `--output` to let the renderer choose a collision-resistant artifact folder. It prints the artifact path, keeps its JSON beside the HTML, creates a diagram thumbnail, and rebuilds `~/.agents/walkthroughs/index.html` as a searchable gallery shared by code and PR walkthroughs. For a folder chosen before source capture, pass `--output "$HOME/.agents/walkthroughs/<artifact-folder>/index.html"`. Outputs outside the library stay at their requested location and do not update the gallery. `--library-root <directory>` supports an explicitly selected alternate library or isolated validation.
+In an HTML view, keep reading depth separate from presentation: Main flow / Deep dive selects the content, while Guided / Read all selects sequential navigation or a continuous page. Preserve step links, browser-back behavior, and the reader's return point when changing depth.
 
-The gallery indexes title, repository, type, date, target, and snapshot; it does not establish source freshness. Include both the artifact and gallery links in handoff.
+## Establish the starting point
 
-## Workflow
+Read applicable project instructions. Resolve the requested target to its actual entrypoint: a CLI wrapper before `main`, a route before its handler, a caller before a selected helper when needed, or the selected function itself. Explain how control gets there. Follow dispatch, registration, configuration, and decorators when they decide what runs; a function definition appearing earlier in a file does not mean it executes earlier.
 
-### 1. Resolve the target and capture its source
+Use the requested revision when supplied. Otherwise read the current checkout, record its Git HEAD and relevant local changes, and fingerprint the files used. Without Git, use file or snippet digests. Keep source excerpts and line numbers tied to that source; do not mix a committed file with a modified dependency silently.
 
-Identify the selected snippet, symbol, files, notebook, module, or codebase and the question the reader wants answered. Infer a sensible scope from the supplied target; clarify only when ambiguity materially changes the explanation.
+Choose a coherent input and carry it through the trace. Prefer a real fixture or sanitized example already present. Label a source-derived worked example as illustrative; reading code is not proof that a run succeeded. Never launch a job, transfer data, or contact production just to make the walkthrough more concrete.
 
-Read applicable `AGENTS.md` and relevant project guidance when working in a project. For a repository target without an explicit revision, use committed `HEAD` and disclose local changes. If the request selects a local file, uncommitted content, or pasted code, explain that content rather than silently substituting `HEAD`.
+For multiple entrypoints or operating modes, identify the routes, choose a useful first route, and name the others to cover. A whole repository can need multiple traces; it does not require narrating every unrelated file. In a deep dive of a requested function or file, account for every meaningful block in that scope; label the main flow as selective.
 
-Record the source using the snapshot forms in [the artifact contract](references/artifact-contract.md): immutable Git ref/SHA for committed source, or SHA-256 digests of the captured files/snippets. Notebook cell identifiers and execution evidence matter: source order does not establish execution order or prove displayed outputs are current.
+## Walk in execution order
 
-### 2. Discover the context needed to explain it
+Keep a small stack of active frames: symbol, file, current block, and the caller's resume location. Present it compactly when entering or leaving a scope, for example `CLI → main → build_plan`.
 
-For a snippet or function, identify inputs, outputs, branches, loops, side effects, failure conditions, and relevant callees. For a file or module, identify its public surface and who owns each responsibility. For a larger codebase, inventory entry points, major owners, state, external contracts, tests, and operations.
+For each meaningful block:
 
-For declarative code such as queries, styles, schemas, or infrastructure definitions, explain evaluation rules, dependencies, constraints, and resulting structures rather than forcing an imperative execution story.
+1. **Locate it.** Identify the active function, exact file, and source lines. Show the actual contiguous code being explained, usually one logical block. Preserve the source text; put illustrative values outside the excerpt. Split long blocks at natural boundaries instead of replacing their substance with pseudocode or ellipses.
+2. **Read it.** Explain the statements in their local order: what the variables mean, what the expressions compute, why this block is needed, and which state or external effects change. Explain syntax or library behavior when it would otherwise hide the mechanism. Avoid paraphrasing obvious lines individually.
+3. **Carry the example.** Show the useful arguments, values, decisions, and results for the same input. When a value depends on unavailable runtime state, name that dependency rather than inventing an observed value.
+4. **Follow control.** State what executes next. Step into an important call at this point, or explain its contract and continue. When the callee finishes, state its return value or effect, restore the caller's context, and resume at the precise next statement.
 
-Read full implementations for central owners and enough supporting code to avoid attributing behavior to the wrong layer. Treat generated, vendor, or data artifacts as context unless they are central to the reader's question. Label unavailable imports, callers, or runtime assumptions as evidence gaps.
+Callers stay suspended while their synchronous callees are explained. Do not finish summarizing a caller and only later tour its important helpers in a separate file catalog. Helper definitions, classes, constants, and imports enter the story when their behavior becomes relevant.
 
-### 3. Trace representative behavior
+### Decide when to step in
 
-Follow the smallest set of paths that explains the target. This may be one input through an algorithm, branches and edge cases, a script's execution, notebook cell dependencies, a request across modules, or startup and persistence across services.
+Read the implementation before treating a consequential helper as a black box. Step in when it owns a decision, transformation, state transition, retry, validation, I/O contract, or other mechanism the reader needs to understand. Follow important imported functions across files, and methods into the actual class or implementation selected at runtime. Explain a relevant type or configuration at its first use.
 
-Trace control and data, state changes, observable outputs, and failure behavior. Distinguish code-defined behavior from a demonstrated execution. Do not claim a test ran or a notebook output is reproducible merely because it is present.
+For a routine or already explained operation, give the contract, current arguments, return or effect, and a source link when useful, then continue. State why an unexpanded consequential dependency is being left at its contract. Standard-library and third-party internals need expansion only when their implementation matters to the question. If source or dispatch resolution is unavailable, label the boundary and the uncertainty.
 
-Choose a small representative input and show what it produces along this journey: for example, a saved metadata row, the checkpoint used to resume it, and the resulting report or response. Prefer a safe local fixture or existing sanitized output when available; otherwise derive a clearly labeled worked example from the pinned code. Explain what persists, what a restart reuses, and which totals or identifiers connect the stages. Validate formats and cross-stage consistency. If no useful intermediate state exists, show the final observable result without inventing storage. Use the `examples` / `example_ids` contract for the interactive site.
+Explain a shared helper fully at its first important call. At later calls, link back and explain only changed inputs, branches, state, or effects. For recursion, walk a useful recursive step and the base case, then show how returns unwind.
 
-### 4. Build the evidence ledger and reader story
+### Keep branches and execution boundaries honest
 
-Mark central claims as `stated`, `demonstrated`, `inferred`, `disputed`, or `unknown`, with exact source and confidence. Prefer implementation and tests over aspirational documentation; preserve contradictions as questions.
+At a conditional, show the predicate with the current values and trace the selected branch. Cover other meaningful branches at that same decision point or in an explicit alternate trace, explaining how their input and result differ. Mark deferred branches; a single happy path does not cover an entire function.
 
-Choose an arc suited to the scope. A function can move from its contract and observable result to a worked input, key decisions, and edge cases. A module can move from its purpose and public API to its internal flow and callers.
+For a loop, explain setup, one representative iteration, what changes between iterations, and termination. Follow distinct paths through the loop where they matter. Explain errors, early returns, exception handlers, and cleanup alongside the blocks that trigger them, including how control unwinds.
 
-For a codebase, use two explicit layers:
+Do not force background workers, subprocesses, callbacks, generators, or async tasks onto one synchronous stack. Show where work is scheduled or spawned, what input crosses the boundary, where the other execution begins, and how results, completion, or errors are observed. Distinguish a Python return from durable output, job completion, and a later consumer's execution. For lazy code, distinguish construction from execution and show suspension or resumption where it affects the flow.
 
-1. **Outcome and motivation:** what the software makes or enables, for whom, and what problem it replaces.
-2. **Simple operating model:** important inputs → the transformation in plain language → observable outputs. Keep the first visual to roughly three to five conceptual nodes.
-3. **Key ideas:** the few design choices that explain how the outcome is achieved or why this approach differs.
-4. **Optional deep dives:** boundaries, entry points, runtime journeys, state, extension points, tests, operations, and risks.
+## Keep the presentation centered on code
 
-Keep overview titles understandable without code knowledge and prefer one to three short paragraphs. Move file paths, exhaustive role or phase lists, exceptions, and multi-excerpt evidence into deep dives. Each step should teach one idea with one visual focus and minimum sufficient evidence. Illustrative inputs are allowed when labeled as worked examples rather than recorded executions.
+Default to a readable inline walkthrough for a compact target. For a substantial target, create a local HTML reading view with a sequential trace and a table of contents. Honor the user's requested format and output location. Read [references/trace-example.md](references/trace-example.md) for a small worked example of entering and returning from an imported function.
 
-### 5. Select exact excerpts and a visual model
+Code and its explanation are the main content. A substantial HTML walkthrough should keep the current source location, frame context, and next step visible; a plain reading mode must expose all steps in the selected depth. If there are step controls or collapsible callees, support normal links, back navigation, and keyboard use, and preserve the return point. The complete block trace belongs in Deep dive; the main flow still needs enough implementation evidence to explain its claims.
 
-Extract real text from the captured source. Prefer roughly 8–25 lines and one idea per excerpt; a shorter snippet needs no padding. Include source identifier/path, line range, language, exact content, emphasis, and an immutable link when available. For notebooks, use stable cell identifiers and cell-local line numbers. Preserve supplied code exactly and distinguish it from illustrative examples.
+Use a diagram only when it resolves a particular confusion more clearly than the trace. Do not require diagrams, 3D scenes, dashboards, graph schemas, or a visual artifact framework. A small call breadcrumb is often enough. Any overview stays subordinate to the source-reading sequence.
 
-Choose the least complex visual that answers the question: expression/data transformation, branch/loop flow, sequence, state lifecycle, ownership map, dependency fan-out, or deployment topology. For a broad target, the first visual should explain the product rather than the code layout: show intent or input, the core transformation, and the useful output; introduce processes, modules, and state stores in later visuals. Use 3D only when depth has a real meaning. Maintain location and context as the story focuses; keep critical distinctions visible without relying solely on motion, depth, hover, or color.
+For long targets, divide the complete deep trace into natural chapters or linked parts and continue across them. If constraints prevent completion of that trace, give the exact last block, resume point, and outstanding branches or callees; label it partial. A deliberately selective main flow is a separate reading path, not a claim of complete block coverage.
 
-### 6. Add a secondary review lens where useful
+## Verify and hand off
 
-Include only concrete, evidence-backed risks relevant to the target, such as a surprising edge case, unsafe assumption, hidden coupling, recovery gap, or missing validation. Attach severity, confidence, trigger, impact, evidence, and a resolution direction. Use an empty findings list when nothing actionable was verified. Keep wider unknowns in coverage rather than asserting conclusions about code you did not inspect.
+Before handoff, check that:
 
-### 7. Build and validate the artifact
+- Excerpts match the captured source and their line numbers, and important claims have implementation or test evidence.
+- Every step-in returns to the correct caller location, except explicitly explained non-returning paths or independent execution.
+- Every meaningful block in the selected function or file scope is explained, or explicitly listed as deferred or excluded. Multiple paths and repeated helpers are cross-referenced without losing their different behavior.
+- The example's values and state changes remain consistent, and illustrative results are distinct from executed checks.
+- The output reads as a continuous code-reading session. A module inventory or architecture summary alone does not satisfy the task.
+- The main flow stands on its own and preserves the consequential engineering subtleties. Depth switches, implementation links, and return links keep the reader's place; Read all shows only the selected depth.
 
-For the interactive deliverable, write data following [references/artifact-contract.md](references/artifact-contract.md), then render and validate:
+Recheck source identity before finishing. If source changed, refresh affected steps or mark the captured revision and staleness explicitly. For HTML, verify source links, navigation, code readability, and the reading layout using available browser tools; report unperformed checks as unverified.
 
-```bash
-python3 <skill-dir>/scripts/render_walkthrough.py --data <code-walkthrough.json>
-python3 <skill-dir>/scripts/validate_walkthrough.py --html <rendered-path>
-```
-
-The validator checks artifact structure, not source accuracy. Compare excerpts and snapshot identifiers against the captured source separately. Use an available browser to verify desktop/mobile layouts, story controls, keyboard navigation, code switching, diagram focus, review-lens separation, reduced motion, links, and console errors. Report unavailable checks as unverified.
-
-Before handoff, re-resolve the selected Git ref or recalculate digests for every captured file/snippet. If the source changed, rebuild or explicitly mark the artifact stale. For an immutable historical revision, report that revision rather than requiring it to match current `HEAD`.
-
-## Handoff
-
-Report the artifact path and local URL when applicable, selected scope and snapshot, behavior represented, validation performed, staleness, and material exclusions or evidence gaps. For an inline explanation, include enough source identifiers to make the same evidence boundary clear. Mention publishing only when requested.
+Finish with the invocation or input traced, the output or effect reached, the source snapshot, checks actually performed, and material gaps. For a saved walkthrough, link the reading view. Keep optional review findings separate and proportionate; this skill does not imply a bug hunt.
