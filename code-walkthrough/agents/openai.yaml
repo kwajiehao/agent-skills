@@ -1,4 +1,4 @@
 interface:
   display_name: "Code Walkthrough"
   short_description: "Main flow and deep code traces with engineering detail"
-  default_prompt: "Use $code-walkthrough to explain this code's main flow and important engineering mechanisms, with a linked deep dive that steps into implementations and returns to each caller."
+  default_prompt: "Use $code-walkthrough to explain this code's main flow and engineering mechanisms, trace one example object's concrete values across key interfaces, and offer a linked deep dive with step-ins and returns."

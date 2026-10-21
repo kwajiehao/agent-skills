@@ -82,3 +82,18 @@ For `[10, 20]`, the return value is `30`. Pop `subtotal` off the stack and retur
 The call on line 5 has completed, so `amount` becomes `30`. Line 6 formats and prints `Total: 30`. `print` is routine here; its internal implementation adds nothing to this calculation. `main` then returns `None` implicitly, control returns to the entry guard, and the script finishes.
 
 This trace covered both function bodies, the guard, and the negative-value branch. The imports were explained at their role in setup and at the actual call; there was no separate alphabetical tour of the files.
+
+## Concrete values at the interface
+
+For this small program, the key interface is the call from `main` to `subtotal` and its return. Show its actual Python values rather than inventing a request or message schema:
+
+```python
+# Producer: main, app.py:5. Consumer: subtotal, totals.py:1.
+# Argument prices is a list[int], passed here as the positional list value.
+subtotal([10, 20])  # illustrative return: 30 (int)
+
+# Return producer: subtotal, totals.py:7. Return consumer: main, app.py:5.
+amount = 30
+```
+
+A displayed frame object such as `{"prices": [10, 20], "amount": 30}` is a JSON projection of selected caller locals after the return, not a payload this program sends over a wire. The separate negative scenario `[10, -2]` raises `ValueError("negative price")`; it produces no return value and no printed total. Larger object-oriented workflows should similarly show the same object's concrete fields as it crosses their actual typed or serialized interfaces.

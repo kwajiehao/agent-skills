@@ -1,6 +1,6 @@
 ---
 name: code-walkthrough
-description: Walk through existing code in execution order, with a concise main flow explaining its purpose and important engineering mechanisms, and a deeper trace that steps into implementations and returns to the caller. Use for developer code reading and understanding control, data, concurrency, and state across functions or files. Use walkthrough for a visual system overview, and pr-walkthrough for a change comparison.
+description: Walk through existing code in execution order, with a concise main flow, concrete example objects at key interfaces, and a deeper trace that steps into implementations and returns to the caller. Use for developer code reading and understanding purpose, engineering mechanisms, control, data, concurrency, and state across functions or files. Use walkthrough for a visual system overview, and pr-walkthrough for a change comparison.
 ---
 
 # Code Walkthrough
@@ -29,6 +29,16 @@ Read applicable project instructions. Resolve the requested target to its actual
 Use the requested revision when supplied. Otherwise read the current checkout, record its Git HEAD and relevant local changes, and fingerprint the files used. Without Git, use file or snippet digests. Keep source excerpts and line numbers tied to that source; do not mix a committed file with a modified dependency silently.
 
 Choose a coherent input and carry it through the trace. Prefer a real fixture or sanitized example already present. Label a source-derived worked example as illustrative; reading code is not proof that a run succeeded. Never launch a job, transfer data, or contact production just to make the walkthrough more concrete.
+
+### Generate concrete examples at key interfaces
+
+Follow one representative object through the important boundaries. Generate actual example values for the interfaces that explain its journey: function arguments and results, typed records, serialized requests or messages, persisted rows or files, and completion/error signals where relevant. A list of interface names or an abstract shape alone is insufficient. A small function may need only an input and return value.
+
+At each selected boundary, identify the producing and consuming function or component, the type or format, and a concrete example in the natural notation for that interface. Show which fields changed and which identity or values were preserved. Derive field names, types, defaults, units, and null/absence behavior from the implementation or schema, and link that evidence. Distinguish a row from a whole table, a Python object from its serialized form, and a projection of selected fields from a complete valid payload. Do not invent fields just to make the stages look uniform.
+
+Keep identifiers, sizes, paths, versions, and totals consistent across the primary example. When an important alternate branch needs different values, label it as a separate scenario. Show failures or missing output in the form the interface actually uses; for example, no emitted row is different from a row with null fields. Clearly separate generated illustrative values from observed execution, and use fictional configuration values when necessary.
+
+Attach these examples to the code that produces or consumes them. In Main flow, keep compact example data at the key stops, with expandable detail when payloads are long; do not add a step for every field or grow the short path into another exhaustive trace. In Deep dive, reuse the same object and expand the relevant input/output or intermediate state at its callsite. Validate sample syntax, schema shape, cross-stage transformations, and arithmetic where practical without requiring production execution.
 
 For multiple entrypoints or operating modes, identify the routes, choose a useful first route, and name the others to cover. A whole repository can need multiple traces; it does not require narrating every unrelated file. In a deep dive of a requested function or file, account for every meaningful block in that scope; label the main flow as selective.
 
@@ -79,6 +89,7 @@ Before handoff, check that:
 - Every step-in returns to the correct caller location, except explicitly explained non-returning paths or independent execution.
 - Every meaningful block in the selected function or file scope is explained, or explicitly listed as deferred or excluded. Multiple paths and repeated helpers are cross-referenced without losing their different behavior.
 - The example's values and state changes remain consistent, and illustrative results are distinct from executed checks.
+- Key interfaces have concrete example objects or values with producer/consumer labels and schema evidence. Partial projections, serialization formats, missing output, and alternate scenarios are explicit; the primary object's identity remains traceable across boundaries.
 - The output reads as a continuous code-reading session. A module inventory or architecture summary alone does not satisfy the task.
 - The main flow stands on its own and preserves the consequential engineering subtleties. Depth switches, implementation links, and return links keep the reader's place; Read all shows only the selected depth.
 
