@@ -19,8 +19,15 @@ Working tree: <clean or relevant uncommitted changes>
 ## Consequential findings
 <ID; trigger; consequence; code; evidence status; disposition>
 
+## Requirement verification
+<requirement; implementation location; test/assertion or observation; result;
+executed / traced but unexecuted / unresolved; material gap and next check>
+
 ## Executed checks
 <command; commit/change tested; observed outcome; evidence path; limits>
+
+## Reused evidence
+<CI or retained result; exact code covered; relevant assertion; outcome; limits>
 
 ## Open assumptions and next step
 <unverified deployment facts, remaining question, exact next useful action>
