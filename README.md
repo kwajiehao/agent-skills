@@ -31,7 +31,7 @@ Already have the repo cloned? Just run it from the root:
 | `/research` | Clarifies vague research questions, investigates online, and produces understandable, source-backed reports with useful visuals |
 | `/write-commit-message` | Writes accurate commit messages from actual changes, preserving the rationale and following repository conventions |
 | `/python-engineering` | Implements and debugs production Python with explicit runtime, ownership, failure, and concurrency models, including threads, async, and processes |
-| `/pr-review` | Verifies consequential requirements against implementation and credible checks, reviews compatibility and operational risk, and reports a concise verdict with reusable PR checkpoints |
+| `/pr-review` | Traces operations across component handoffs, challenges design and failure paths, and verifies consequential requirements with concrete evidence |
 | `/pr-description` | Drafts concise PR titles and descriptions grounded in the diff, rationale, validation, and material risks |
 
 Personal Codex context, hooks, and profiles: [personal-setup](personal-setup/README.md).

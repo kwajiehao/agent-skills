@@ -1,6 +1,6 @@
 ---
 name: pr-review
-description: Review a pull request or local diff for correctness, requirement coverage, compatibility, and operational risk, verifying consequential behavior with concrete evidence. Use for findings-oriented reviews; use dep-review for dependency upgrades and pr-walkthrough for visual explanations.
+description: Review a PR or local diff for correctness, design fit, and operational risk by tracing the operation and challenging consequential failure paths. Use for findings-oriented reviews; use dep-review for dependency upgrades and pr-walkthrough for visual explanations.
 ---
 
 # PR Review
@@ -20,13 +20,44 @@ does not authorize application edits, external comments, or production actions.
 - Use an existing suitable checkout. Use an isolated worktree when verification
   would otherwise disturb existing edits; do not reset the user's checkout.
 
-## Evaluate behavior and proportionality
+## Trace the operation and challenge the design
 
-Trace the relevant trigger through validation, callers, state changes, and
-failure handling. Check whether the original failure is real, whether the fix
-addresses its root cause, and whether relevant variants or alternate paths
-remain. Inspect compatibility, rollout, retry, partial failure, and concurrency
-only where the change makes them consequential.
+Choose a concrete user/caller operation affected by the change. Trace it from
+entry to the observable result, including durable effects when promised. Follow
+the actual callers and consumers across handoffs, including relevant unchanged
+code; a function returning successfully may leave the operation incomplete.
+For a fix, establish the original failure and whether the proposed design repairs
+its cause while preserving nearby valid behavior.
+
+At each step and handoff, establish:
+
+- What input, identity, permissions and state enter, who owns the next action,
+  and which guarantee that action assumes from the previous step.
+- What must be validated or changed, when an effect becomes durable, and what
+  observable evidence establishes success for the caller.
+- Credible ways the step can fail or return an uncertain result, their effect on
+  later steps and the final outcome, and the guard or recovery that handles them.
+
+Challenge the design with failures grounded in the operation: malformed or stale
+input, identity/permission changes, failure between validation and use, dependency
+rejection, partial effects, a committed effect followed by a lost acknowledgement,
+retries, interruption and concurrent state changes. Choose applicable failures
+at each step; a small local operation needs a correspondingly short trace. Include
+rollout/version compatibility where producers and consumers can differ.
+
+Follow each material failure through error propagation, cleanup, retry and
+reconciliation. Check what the next component actually does, including whether
+it can report success too early, repeat an effect or leave unrecoverable state.
+Validate suspected failures against existing guards and caller behavior. A
+credible guard with supporting evidence is a successful design check; do not
+invent a finding for every step or require protection against arbitrary faults.
+
+Compare the design with the existing path and the smallest sound alternative.
+Challenge new flags, configs, helpers, shared abstractions and orchestration
+against the concrete missing behavior and actual consumers. Ask whether complexity
+removes a demonstrated failure or merely moves it to another component. Keep a compact
+step/handoff map with code locations, assumed guarantees, challenged failures,
+guards/recovery and evidence status in the ledger for substantial reviews.
 
 Prefer the smallest sound change. Separate demonstrated defects from optional
 architecture, ownership, observability, and performance improvements. Label
@@ -87,7 +118,9 @@ smallest useful correction. Keep optional follow-ups separate.
 
 Finish with requirement coverage, checks actually executed or reused, the
 reviewed SHA, and material limits. State consequential uncovered requirements
-and unexecuted checks explicitly.
+and unexecuted checks explicitly. Include a concise operation flow and the
+material failure boundaries when they explain the verdict; keep the detailed
+step map in the ledger rather than listing every hypothetical failure.
 If no consequential issue was found, say so without implying exhaustive proof.
 Draft a review comment only when requested; sending or posting needs the user's
 explicit approval for that specific message.

@@ -19,6 +19,13 @@ Working tree: <clean or relevant uncommitted changes>
 ## Consequential findings
 <ID; trigger; consequence; code; evidence status; disposition>
 
+## Operation and design trace
+<entry -> steps/handoffs -> observable result>
+<for each step: producer/consumer and code; input/identity/state; assumed
+guarantee and expected effect; credible failure and downstream consequence;
+guard/recovery; executed / traced but unexecuted / unresolved evidence>
+<existing alternative; why new machinery is necessary or can be removed>
+
 ## Requirement verification
 <requirement; implementation location; test/assertion or observation; result;
 executed / traced but unexecuted / unresolved; material gap and next check>
