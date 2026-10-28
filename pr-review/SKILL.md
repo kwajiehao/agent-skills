@@ -89,6 +89,11 @@ behavior under test. Compilation supports build/type claims; runtime promises
 need relevant behavior checks. Mocks may isolate dependencies; name the
 boundaries they omit. Passing unrelated tests is not evidence for a requirement.
 
+Compare the tested path with the actual public invocation. Identify setup,
+transport, or state transitions that the tests bypass, and check any that could
+invalidate a consequential guarantee. If such a boundary cannot be exercised,
+record the verification gap.
+
 Execute the smallest credible reproduction or relevant checks when feasible.
 For a fix, compare the original and changed behavior or use a negative control
 when it clarifies whether the check detects the defect. Reuse existing CI or
