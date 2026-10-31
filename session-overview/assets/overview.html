@@ -1,3 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Session overview</title>
+  <style>
+    :root{color-scheme:light dark}
+    body{margin:0;padding:16px;background:light-dark(#f5f6f8,#15171b)}
+    @media(max-width:480px){body{padding:8px}}
+  </style>
+</head>
+<body>
 <div id="current-session-overview">
   <div class="ov-app" aria-label="Current session overview">
     <header class="ov-header"><strong class="ov-title">Session overview</strong><span>Maintained by the agent at checkpoints</span></header>
@@ -18,7 +31,7 @@
         <section class="ov-detail" aria-label="Selected item and evidence" aria-live="polite"></section>
       </aside>
     </div>
-    <footer class="ov-footer">Updated during the conversation. Select an item to inspect its source and current implications.</footer>
+    <footer class="ov-footer">Updated by the agent at checkpoints. Refresh this tab after file updates if needed.</footer>
   </div>
   <script type="application/json" id="session-overview-data">
 {
@@ -47,7 +60,7 @@
     #current-session-overview dt{color:var(--ov-muted)}
     #current-session-overview dd{margin:0}
     #current-session-overview .ov-tracker{margin-top:27px;padding-top:23px;border-top:1px solid var(--ov-line)}
-    #current-session-overview button{font:inherit;color:inherit}
+    #current-session-overview button{font:inherit;color:inherit;cursor:pointer}
     #current-session-overview .ov-item{display:flex;align-items:flex-start;text-align:left;width:100%;gap:12px;border:1px solid transparent;border-radius:7px;background:transparent;padding:11px 10px;margin:3px 0}
     #current-session-overview .ov-item:hover{background:var(--ov-soft)}
     #current-session-overview .ov-item[aria-pressed="true"]{background:var(--ov-selected);border-color:var(--ov-line)}
@@ -81,8 +94,7 @@
       const data=JSON.parse(root.querySelector('#session-overview-data').textContent);
       const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
       const items=(data.items||[]).filter(x=>x.status!=='Superseded');
-      const saved=window.openai?.widgetState?.privateContent?.selectedItem;
-      let selected=items.some(x=>x.id===saved)?saved:items[0]?.id;
+      let selected=items[0]?.id;
       const badge=s=>['Required','Decided','Verified','Completed'].includes(s)?'confirmed':['Open','In progress'].includes(s)?'open':'';
       const safeHref=h=>typeof h==='string'&&(/^(https?:\/\/)/.test(h)||/^\/(?!\/)/.test(h))?h:null;
       function inspect(){
@@ -92,7 +104,8 @@
         panel.innerHTML=`<h2>Selected item</h2><h3>${esc(d.title)}</h3><p><span class="ov-badge ${badge(d.status)}">${esc(d.status)}</span></p><p class="ov-meta">${esc(d.owner)}</p><p>${esc(d.detail)}</p><h4>Source and evidence</h4><p class="ov-meta">${href?`<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(d.source.label)}</a>`:esc(d.source?.label||'Source not recorded')}</p>${d.source?.quote?`<blockquote>${esc(d.source.quote)}</blockquote>`:''}${d.next?`<h4>Current implication / next action</h4><p>${esc(d.next)}</p>`:''}`;
         root.querySelectorAll('[data-item]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.item===selected)));
       }
-      function choose(id){selected=id;inspect();if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{view:'Current session overview',selectedItem:selected},privateContent:{selectedItem:selected}}).catch(()=>{});}
+      function choose(id){selected=id;inspect();}
+      document.title=data.title||'Session overview';
       root.querySelector('.ov-title').textContent=data.title||'Session overview';
       root.querySelector('.ov-through').textContent=data.updatedThrough||'';
       root.querySelector('.ov-summary').textContent=data.summary||'No current summary recorded yet.';
@@ -103,7 +116,8 @@
       root.querySelectorAll('[data-item]').forEach(b=>b.addEventListener('click',()=>choose(b.dataset.item)));
       root.querySelectorAll('[data-related]').forEach(b=>b.addEventListener('click',()=>choose(b.dataset.related)));
       inspect();
-      window.addEventListener('openai:set_globals',e=>{const id=e.detail?.globals?.widgetState?.privateContent?.selectedItem;if(items.some(d=>d.id===id)){selected=id;inspect();}});
     })();
   </script>
 </div>
+</body>
+</html>
