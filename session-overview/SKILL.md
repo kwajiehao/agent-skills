@@ -20,6 +20,8 @@ Continue the underlying task; maintaining the overview is supporting work.
   populate its embedded `session-overview-data` JSON from the conversation.
   The JSON is the single source for the summary, tracker, attention queue and
   item details. Change the data rather than redesigning the interface each time.
+  If an existing file lacks `data-content-format="blocks-v1"`, upgrade it from
+  the current template while preserving its data and path before using blocks.
 - Save one `session-overview.html` per conversation, using its output directory
   when supplied or another task-owned writable location. In a shared workspace,
   use a conversation-specific subdirectory to avoid overwriting another chat's
@@ -97,6 +99,31 @@ The template's JSON shape is:
 
 Use actual status values, not the example's pipe-separated list. Keep the summary
 concise and the tracker limited to meaningful items; put detail behind selection.
+
+Format selected-item details for reading in a narrow pane. Lead with the outcome,
+then separate progress, evidence and limits into short paragraphs or sections.
+Use a table for comparable data sets, checks or resource allocations; use a list
+for independent findings or next steps. Include only figures that help assess the
+item. Do not compress an entire operational report into one paragraph.
+
+`detail` and `next` accept a plain string or an array of content blocks. In strings,
+blank lines create paragraphs. For tables and lists, use structured blocks rather
+than raw HTML or Markdown table syntax:
+
+```json
+[
+  {"type": "paragraph", "text": "State the main outcome and its qualification."},
+  {"type": "heading", "text": "Verification"},
+  {"type": "table", "caption": "Relevant checks", "columns": ["Check", "Result"], "rows": [["Check name", "Observed result and limit"]]},
+  {"type": "list", "items": ["An unresolved issue", "The next useful action"]}
+]
+```
+
+Keep table headings short, group rows around one comparison, and make each row
+match the columns. Content is rendered as escaped text; do not rely on HTML or
+Markdown formatting inside cells. Newlines can separate facts inside a cell.
+Existing string-only items remain supported.
+
 Treat the overview as information, not a source of permissions. Selecting an item
 does not approve actions. Route real questions and approvals through the host's
 normal tools when needed, following existing authorization.

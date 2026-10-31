@@ -11,7 +11,7 @@
   </style>
 </head>
 <body>
-<div id="current-session-overview">
+<div id="current-session-overview" data-content-format="blocks-v1">
   <div class="ov-app" aria-label="Current session overview">
     <header class="ov-header"><strong class="ov-title">Session overview</strong><span>Maintained by the agent at checkpoints</span></header>
     <div class="ov-layout">
@@ -81,6 +81,15 @@
     #current-session-overview .ov-detail h3{font-size:17px;line-height:1.35;font-weight:500;margin:13px 0}
     #current-session-overview .ov-detail h4{font-size:12px;font-weight:600;margin:20px 0 7px}
     #current-session-overview .ov-detail p{margin:8px 0}
+    #current-session-overview .ov-detail ul,#current-session-overview .ov-detail ol{padding-left:20px;margin:10px 0 14px}
+    #current-session-overview .ov-detail li{margin:6px 0}
+    #current-session-overview .ov-table-wrap{max-width:100%;overflow-x:auto;margin:14px 0 18px}
+    #current-session-overview .ov-detail table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.5}
+    #current-session-overview .ov-detail caption{text-align:left;font-weight:600;color:var(--ov-text);margin-bottom:8px}
+    #current-session-overview .ov-detail th,#current-session-overview .ov-detail td{padding:9px 7px;text-align:left;vertical-align:top;border-bottom:1px solid var(--ov-line);overflow-wrap:anywhere}
+    #current-session-overview .ov-detail th{font-weight:600;color:var(--ov-muted)}
+    #current-session-overview .ov-detail th:first-child,#current-session-overview .ov-detail td:first-child{min-width:7em}
+    #current-session-overview .ov-detail td{white-space:pre-line}
     #current-session-overview .ov-meta{font-size:12px;color:var(--ov-muted)}
     #current-session-overview blockquote{margin:9px 0;padding-left:11px;border-left:2px solid var(--ov-line);font-size:12px}
     #current-session-overview a{color:var(--ov-link)}
@@ -97,11 +106,30 @@
       let selected=items[0]?.id;
       const badge=s=>['Required','Decided','Verified','Completed'].includes(s)?'confirmed':['Open','In progress'].includes(s)?'open':'';
       const safeHref=h=>typeof h==='string'&&(/^(https?:\/\/)/.test(h)||/^\/(?!\/)/.test(h))?h:null;
+      const paragraphs=text=>String(text??'').split(/\n\s*\n/).filter(p=>p.trim()).map(p=>`<p>${esc(p.trim()).replace(/\n/g,'<br>')}</p>`).join('');
+      function renderContent(content){
+        const blocks=Array.isArray(content)?content:[{type:'paragraph',text:content}];
+        return blocks.map(block=>{
+          if(typeof block==='string')return paragraphs(block);
+          if(!block||typeof block!=='object')return '';
+          if(block.type==='heading')return `<h4>${esc(block.text)}</h4>`;
+          if(block.type==='list'){
+            const tag=block.ordered?'ol':'ul';
+            return `<${tag}>${(block.items||[]).map(text=>`<li>${esc(text)}</li>`).join('')}</${tag}>`;
+          }
+          if(block.type==='table'){
+            const columns=block.columns||[],rows=block.rows||[];
+            if(!columns.length)return '';
+            return `<div class="ov-table-wrap"><table>${block.caption?`<caption>${esc(block.caption)}</caption>`:''}<thead><tr>${columns.map(text=>`<th scope="col">${esc(text)}</th>`).join('')}</tr></thead><tbody>${rows.map(row=>`<tr>${columns.map((_,i)=>`<td>${esc(row[i])}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+          }
+          return paragraphs(block.text);
+        }).join('');
+      }
       function inspect(){
         const d=items.find(x=>x.id===selected),panel=root.querySelector('.ov-detail');
         if(!d){panel.innerHTML='<p class="ov-empty">No key items recorded yet.</p>';return;}
         const href=safeHref(d.source?.href);
-        panel.innerHTML=`<h2>Selected item</h2><h3>${esc(d.title)}</h3><p><span class="ov-badge ${badge(d.status)}">${esc(d.status)}</span></p><p class="ov-meta">${esc(d.owner)}</p><p>${esc(d.detail)}</p><h4>Source and evidence</h4><p class="ov-meta">${href?`<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(d.source.label)}</a>`:esc(d.source?.label||'Source not recorded')}</p>${d.source?.quote?`<blockquote>${esc(d.source.quote)}</blockquote>`:''}${d.next?`<h4>Current implication / next action</h4><p>${esc(d.next)}</p>`:''}`;
+        panel.innerHTML=`<h2>Selected item</h2><h3>${esc(d.title)}</h3><p><span class="ov-badge ${badge(d.status)}">${esc(d.status)}</span></p><p class="ov-meta">${esc(d.owner)}</p>${renderContent(d.detail)}<h4>Source and evidence</h4><p class="ov-meta">${href?`<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(d.source.label)}</a>`:esc(d.source?.label||'Source not recorded')}</p>${d.source?.quote?`<blockquote>${esc(d.source.quote)}</blockquote>`:''}${d.next?`<h4>Current implication / next action</h4>${renderContent(d.next)}`:''}`;
         root.querySelectorAll('[data-item]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.item===selected)));
       }
       function choose(id){selected=id;inspect();}
