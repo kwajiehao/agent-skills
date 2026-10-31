@@ -14,9 +14,11 @@ does not authorize application edits, external comments, or production actions.
 - Record the repository, PR URL when present, base/head SHAs, and dirty state.
   Read applicable AGENTS.md files and the PR's problem statement and discussion.
   Distinguish the reviewed commit from local uncommitted work.
-- For a repeat review, load the existing ledger. Compare its head with the
-  current head, inspect the delta, and recheck conclusions affected by changes
-  to callers, dependencies, or deployment. Expand beyond the delta when needed.
+- For a repeat review, load the existing ledger and recover its scope, reviewed
+  revision, finding dispositions, evidence and next step. Compare both base and
+  head with the current change; inspect the delta and recheck conclusions affected
+  by changed callers, dependencies or deployment. Expand beyond the delta when
+  needed; do not restart unchanged investigation without a concrete reason.
 - Use an existing suitable checkout. Use an isolated worktree when verification
   would otherwise disturb existing edits; do not reset the user's checkout.
 
@@ -106,6 +108,22 @@ Before reporting a blocker, check callers, existing guards, and relevant tests
 for evidence that refutes it. Missing access or an unexecuted check is a
 verification gap, not by itself a demonstrated implementation defect. Name the
 smallest next check that would resolve consequential uncertainty.
+
+## Follow-up reviews and authorized fixes
+
+Keep a stable ID for each consequential finding. After a change, recheck its
+trigger and affected behavior against the new revision; mark it resolved only
+with supporting evidence, and preserve any untested boundary. Reuse unaffected
+evidence with its covered revision and limits. Rerun expensive checks when the
+change or environment invalidates them, not merely to obtain another green run.
+
+When the user also authorizes fixes, work through concrete findings within that
+scope: fix, inspect the resulting diff, and recheck the finding and affected
+requirements. A review alone remains read-only. Stop the loop when the agreed
+requirements are supported and no consequential finding remains, or when a
+specific access/evidence blocker or material scope decision prevents progress.
+Record that boundary and the smallest next action. Do not prolong the loop for
+optional redesign, or treat repeated reviewer agreement as independent evidence.
 
 ## Deliver the review
 

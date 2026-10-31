@@ -17,7 +17,9 @@ Working tree: <clean or relevant uncommitted changes>
 <ready / changes needed / evidence incomplete, with reason>
 
 ## Consequential findings
-<ID; trigger; consequence; code; evidence status; disposition>
+<stable ID; trigger; consequence; code; evidence status; disposition
+(open / resolved / not reproduced / unresolved); revision and evidence for the
+latest disposition; remaining verification boundary>
 
 ## Operation and design trace
 <entry -> steps/handoffs -> observable result>
@@ -40,5 +42,7 @@ executed / traced but unexecuted / unresolved; material gap and next check>
 <unverified deployment facts, remaining question, exact next useful action>
 
 ## Follow-up reviews
-<date; previous head -> current head; affected conclusions rechecked>
+<date; previous base/head -> current base/head; changed scope if any; finding
+IDs and affected requirements rechecked; unaffected evidence reused and why it
+still applies; checks rerun and results; remaining blocker or next action>
 ```
