@@ -1,0 +1,109 @@
+<div id="current-session-overview">
+  <div class="ov-app" aria-label="Current session overview">
+    <header class="ov-header"><strong class="ov-title">Session overview</strong><span>Maintained by the agent at checkpoints</span></header>
+    <div class="ov-layout">
+      <main class="ov-main">
+        <section aria-labelledby="ov-summary-heading">
+          <div class="ov-heading"><h2 id="ov-summary-heading">Current summary</h2><span class="ov-through"></span></div>
+          <p class="ov-summary"></p>
+          <dl class="ov-fields"></dl>
+        </section>
+        <section class="ov-tracker" aria-labelledby="ov-items-heading">
+          <div class="ov-heading"><h2 id="ov-items-heading">Key items</h2><span>Current decisions, work and open issues</span></div>
+          <div class="ov-items"></div>
+        </section>
+      </main>
+      <aside class="ov-aside">
+        <section class="ov-attention" aria-labelledby="ov-attention-heading"><h2 id="ov-attention-heading">Needs your attention</h2><div class="ov-requests"></div></section>
+        <section class="ov-detail" aria-label="Selected item and evidence" aria-live="polite"></section>
+      </aside>
+    </div>
+    <footer class="ov-footer">Updated during the conversation. Select an item to inspect its source and current implications.</footer>
+  </div>
+  <script type="application/json" id="session-overview-data">
+{
+  "title": "Session overview",
+  "updatedThrough": "",
+  "summary": "",
+  "fields": [],
+  "items": [],
+  "attention": []
+}
+  </script>
+  <style>
+    #current-session-overview{background:transparent}
+    #current-session-overview .ov-app{--ov-bg:light-dark(#fff,#1b1d21);--ov-soft:light-dark(#f5f6f8,#24272d);--ov-text:light-dark(#22262d,#eef1f5);--ov-muted:light-dark(#5e6570,#b7bec9);--ov-line:light-dark(#dfe3e8,#3d434d);--ov-selected:light-dark(#edf3fd,#28364b);--ov-green:light-dark(#285f43,#a8d9bc);--ov-green-bg:light-dark(#e9f4ed,#243b30);--ov-amber:light-dark(#78571d,#ecd39d);--ov-amber-bg:light-dark(#fcf2df,#3d3424);--ov-link:light-dark(#2e5597,#b5d0ff);background:var(--ov-bg);color:var(--ov-text);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;border:1px solid var(--ov-line);border-radius:12px;overflow-wrap:anywhere}
+    #current-session-overview .ov-app *{box-sizing:border-box}
+    #current-session-overview .ov-header{padding:19px 110px 18px 22px;display:flex;flex-wrap:wrap;align-items:center;gap:7px 18px;border-bottom:1px solid var(--ov-line)}
+    #current-session-overview .ov-title{font-size:16px;font-weight:600}
+    #current-session-overview .ov-header>span{font-size:12px;color:var(--ov-muted)}
+    #current-session-overview .ov-layout{display:grid;grid-template-columns:minmax(0,65%) minmax(0,35%)}
+    #current-session-overview .ov-main{padding:25px 24px;min-width:0}
+    #current-session-overview .ov-heading{display:flex;align-items:baseline;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:13px}
+    #current-session-overview h2{font-size:14px;line-height:1.4;margin:0;font-weight:600}
+    #current-session-overview .ov-heading>span{font-size:11px;color:var(--ov-muted)}
+    #current-session-overview .ov-summary{font-size:16px;line-height:1.5;letter-spacing:-.12px;margin:0 0 20px}
+    #current-session-overview .ov-fields{display:grid;grid-template-columns:86px minmax(0,1fr);gap:10px;margin:0;font-size:13px}
+    #current-session-overview dt{color:var(--ov-muted)}
+    #current-session-overview dd{margin:0}
+    #current-session-overview .ov-tracker{margin-top:27px;padding-top:23px;border-top:1px solid var(--ov-line)}
+    #current-session-overview button{font:inherit;color:inherit}
+    #current-session-overview .ov-item{display:flex;align-items:flex-start;text-align:left;width:100%;gap:12px;border:1px solid transparent;border-radius:7px;background:transparent;padding:11px 10px;margin:3px 0}
+    #current-session-overview .ov-item:hover{background:var(--ov-soft)}
+    #current-session-overview .ov-item[aria-pressed="true"]{background:var(--ov-selected);border-color:var(--ov-line)}
+    #current-session-overview .ov-item-content{flex:1;min-width:0}
+    #current-session-overview .ov-item-title{display:block;font-size:13px;font-weight:500}
+    #current-session-overview .ov-item-note{display:block;color:var(--ov-muted);font-size:12px;margin-top:3px}
+    #current-session-overview .ov-badge{font-size:11px;font-weight:500;background:var(--ov-soft);color:var(--ov-muted);padding:3px 6px;border-radius:4px;white-space:nowrap;flex-shrink:0;margin-top:1px}
+    #current-session-overview .ov-badge.confirmed{background:var(--ov-green-bg);color:var(--ov-green)}
+    #current-session-overview .ov-badge.open{background:var(--ov-amber-bg);color:var(--ov-amber)}
+    #current-session-overview .ov-aside{background:var(--ov-soft);border-left:1px solid var(--ov-line);padding:25px 20px;min-width:0}
+    #current-session-overview .ov-attention{padding-bottom:23px;border-bottom:1px solid var(--ov-line)}
+    #current-session-overview .ov-empty{font-size:13px;color:var(--ov-muted);margin:14px 0 0}
+    #current-session-overview .ov-request{margin-top:13px}
+    #current-session-overview .ov-request>strong{font-size:13px;font-weight:500}
+    #current-session-overview .ov-request>p{font-size:12px;color:var(--ov-muted);margin:6px 0}
+    #current-session-overview .ov-request>button{font-size:12px;padding:5px 8px;border:1px solid var(--ov-line);border-radius:5px;background:var(--ov-bg)}
+    #current-session-overview .ov-detail{padding-top:22px;font-size:13px}
+    #current-session-overview .ov-detail h3{font-size:17px;line-height:1.35;font-weight:500;margin:13px 0}
+    #current-session-overview .ov-detail h4{font-size:12px;font-weight:600;margin:20px 0 7px}
+    #current-session-overview .ov-detail p{margin:8px 0}
+    #current-session-overview .ov-meta{font-size:12px;color:var(--ov-muted)}
+    #current-session-overview blockquote{margin:9px 0;padding-left:11px;border-left:2px solid var(--ov-line);font-size:12px}
+    #current-session-overview a{color:var(--ov-link)}
+    #current-session-overview .ov-footer{padding:12px 22px;border-top:1px solid var(--ov-line);font-size:11px;color:var(--ov-muted)}
+    @media(max-width:710px){#current-session-overview .ov-layout{grid-template-columns:1fr}#current-session-overview .ov-main{padding:21px 16px}#current-session-overview .ov-aside{border-left:0;border-top:1px solid var(--ov-line);padding:21px 16px}#current-session-overview .ov-header{padding-left:16px}#current-session-overview .ov-summary{font-size:15px}#current-session-overview .ov-item{gap:8px;padding:10px 7px;flex-wrap:wrap}#current-session-overview .ov-item-content{flex-basis:170px}#current-session-overview .ov-fields{grid-template-columns:70px minmax(0,1fr)}}
+    @media(pointer:coarse){#current-session-overview .ov-request>button{min-height:44px}}
+  </style>
+  <script>
+    (()=>{
+      const root=document.getElementById('current-session-overview');
+      const data=JSON.parse(root.querySelector('#session-overview-data').textContent);
+      const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+      const items=(data.items||[]).filter(x=>x.status!=='Superseded');
+      const saved=window.openai?.widgetState?.privateContent?.selectedItem;
+      let selected=items.some(x=>x.id===saved)?saved:items[0]?.id;
+      const badge=s=>['Required','Decided','Verified','Completed'].includes(s)?'confirmed':['Open','In progress'].includes(s)?'open':'';
+      const safeHref=h=>typeof h==='string'&&(/^(https?:\/\/)/.test(h)||/^\/(?!\/)/.test(h))?h:null;
+      function inspect(){
+        const d=items.find(x=>x.id===selected),panel=root.querySelector('.ov-detail');
+        if(!d){panel.innerHTML='<p class="ov-empty">No key items recorded yet.</p>';return;}
+        const href=safeHref(d.source?.href);
+        panel.innerHTML=`<h2>Selected item</h2><h3>${esc(d.title)}</h3><p><span class="ov-badge ${badge(d.status)}">${esc(d.status)}</span></p><p class="ov-meta">${esc(d.owner)}</p><p>${esc(d.detail)}</p><h4>Source and evidence</h4><p class="ov-meta">${href?`<a href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(d.source.label)}</a>`:esc(d.source?.label||'Source not recorded')}</p>${d.source?.quote?`<blockquote>${esc(d.source.quote)}</blockquote>`:''}${d.next?`<h4>Current implication / next action</h4><p>${esc(d.next)}</p>`:''}`;
+        root.querySelectorAll('[data-item]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.item===selected)));
+      }
+      function choose(id){selected=id;inspect();if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{view:'Current session overview',selectedItem:selected},privateContent:{selectedItem:selected}}).catch(()=>{});}
+      root.querySelector('.ov-title').textContent=data.title||'Session overview';
+      root.querySelector('.ov-through').textContent=data.updatedThrough||'';
+      root.querySelector('.ov-summary').textContent=data.summary||'No current summary recorded yet.';
+      root.querySelector('.ov-fields').innerHTML=(data.fields||[]).map(x=>`<dt>${esc(x.label)}</dt><dd>${esc(x.value)}</dd>`).join('');
+      root.querySelector('.ov-items').innerHTML=items.map(d=>`<button type="button" class="ov-item cursor-interaction" data-item="${esc(d.id)}" aria-pressed="${d.id===selected}"><span class="ov-item-content"><span class="ov-item-title">${esc(d.title)}</span><span class="ov-item-note">${esc(d.note)}</span></span><span class="ov-badge ${badge(d.status)}">${esc(d.status)}</span></button>`).join('')||'<p class="ov-empty">No key items recorded yet.</p>';
+      const attention=data.attention||[];
+      root.querySelector('.ov-requests').innerHTML=attention.length?attention.map(x=>`<div class="ov-request"><strong>${esc(x.title)}</strong><p>${esc(x.detail)}</p>${items.some(d=>d.id===x.itemId)?`<button type="button" class="cursor-interaction" data-related="${esc(x.itemId)}">Inspect item</button>`:''}</div>`).join(''):'<p class="ov-empty">No decision or action requested from you.</p>';
+      root.querySelectorAll('[data-item]').forEach(b=>b.addEventListener('click',()=>choose(b.dataset.item)));
+      root.querySelectorAll('[data-related]').forEach(b=>b.addEventListener('click',()=>choose(b.dataset.related)));
+      inspect();
+      window.addEventListener('openai:set_globals',e=>{const id=e.detail?.globals?.widgetState?.privateContent?.selectedItem;if(items.some(d=>d.id===id)){selected=id;inspect();}});
+    })();
+  </script>
+</div>
