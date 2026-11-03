@@ -22,6 +22,19 @@ does not authorize application edits, external comments, or production actions.
 - Use an existing suitable checkout. Use an isolated worktree when verification
   would otherwise disturb existing edits; do not reset the user's checkout.
 
+## Question the problem and approach
+
+Establish who encounters the problem, what evidence supports the need, and what
+happens if behavior stays unchanged. Check whether the PR addresses the underlying
+cause and delivers the needed outcome; do not simply accept its framing.
+
+Compare the high-level approach with keeping the current behavior, reusing an
+existing mechanism, or making a smaller change where credible. Judge alternatives
+against actual constraints and material tradeoffs, including compatibility,
+operational burden and cost. Explain what justifies the chosen approach or makes
+an alternative preferable. Scale this inquiry to the change; missing context is
+an open question, not proof that the PR is unnecessary.
+
 ## Trace the operation and challenge the design
 
 Choose a concrete user/caller operation affected by the change. Trace it from
@@ -54,17 +67,17 @@ Validate suspected failures against existing guards and caller behavior. A
 credible guard with supporting evidence is a successful design check; do not
 invent a finding for every step or require protection against arbitrary faults.
 
-Compare the design with the existing path and the smallest sound alternative.
 Challenge new flags, configs, helpers, shared abstractions and orchestration
 against the concrete missing behavior and actual consumers. Ask whether complexity
 removes a demonstrated failure or merely moves it to another component. Keep a compact
 step/handoff map with code locations, assumed guarantees, challenged failures,
 guards/recovery and evidence status in the ledger for substantial reviews.
 
-Prefer the smallest sound change. Separate demonstrated defects from optional
-architecture, ownership, observability, and performance improvements. Label
-worst-case calculations and distinguish them from measured behavior. Test effort
-should match the risk; a read-only review need not add tests to the repository.
+Prefer the smallest sound change. Treat design concerns with demonstrated
+consequences as substantive findings; separate them from preference-based or
+optional improvements. Label worst-case calculations and distinguish them from
+measured behavior. Test effort should match the risk; a read-only review need
+not add tests to the repository.
 
 Use specialized security skills only when the requested review needs them.
 Do not automatically turn ordinary PR review into a full security audit.
