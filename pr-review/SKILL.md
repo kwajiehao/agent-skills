@@ -44,6 +44,13 @@ code; a function returning successfully may leave the operation incomplete.
 For a fix, establish the original failure and whether the proposed design repairs
 its cause while preserving nearby valid behavior.
 
+Select the smallest set of contrasting cases that can distinguish the change's
+consequential promises. When shared behavior changes, include an existing caller's
+input or persisted artifact; when correctness depends on a gate or prior state,
+include the refused input or next invocation after the first leaves effects.
+Trace these through the real entry point and consumers. State why an applicable
+case is unverified rather than letting one fresh successful path stand for it.
+
 At each step and handoff, establish:
 
 - What input, identity, permissions and state enter, who owns the next action,
@@ -103,6 +110,13 @@ configured mock return or mirror the implementation do not establish the
 behavior under test. Compilation supports build/type claims; runtime promises
 need relevant behavior checks. Mocks may isolate dependencies; name the
 boundaries they omit. Passing unrelated tests is not evidence for a requirement.
+
+For each consequential claim, record the distinguishing case and where its
+expected result comes from. Check that at least one assertion or traced guard
+would reject a plausible violation; use a small negative control when feasible
+and useful. If a mock replaces the consumer that enforces the contract, verify
+that contract separately and do not count argument forwarding as end-to-end
+coverage.
 
 Compare the tested path with the actual public invocation. Identify setup,
 transport, or state transitions that the tests bypass, and check any that could
