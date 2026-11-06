@@ -52,21 +52,18 @@ def snapshot(config, release):
                         "prefix": config['storage'].get('prefix', 'lance-v1')}, "tables": tables}
 
 
-def observe(release, config_path):
-    # Use system Python plus only the deployment's existing YAML parser. Do not
-    # load the backup package, Pydantic, Lance, or its historical catalogues.
-    print("work-status-stage: yaml-import", file=sys.stderr, flush=True)
-    packages = list((Path(release) / 'devops/offsite_backup/.venv/lib').glob('python*/site-packages/yaml'))
-    if len(packages) != 1:
-        raise ValueError('expected one deployed YAML parser')
-    sys.path.insert(0, str(packages[0].parent))
-    import yaml
-    config = yaml.safe_load(read_private(Path(config_path)))
-    return snapshot(config, release)
+def observe(mode, value, release=None):
+    # No imports from the deployment's environment on the shared filesystem.
+    # YAML parsing happens locally through the existing system safe parser.
+    if mode == 'config':
+        return {'config_yaml': read_private(Path(value)).decode('utf-8')}
+    if mode == 'receipts':
+        return snapshot(json.loads(value), release)
+    raise ValueError('unsupported observer mode')
 
 
 def main():
-    signal.alarm(45)
+    signal.alarm(30)
     try:
         print(json.dumps(observe(*sys.argv[1:]), default=str))
         return 0

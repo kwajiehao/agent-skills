@@ -14,7 +14,8 @@ repository's `bin/nb` and the backup release found in the live cron schedule.
 Only configuration and small receipts are read on Nebius; completion manifests
 use the existing laptop AWS CLI `r2-backup-restore` profile. The observer avoids
 loading the backup package, its models, Lance or historical integrity catalogues.
-It uses system Python with only the deployment's existing safe YAML parser.
+The remote reader uses only system Python's stdlib. Configuration is parsed
+locally with the installed Ruby/Psych safe YAML parser; no new packages are installed.
 
 Read the report's observation time and collection errors first. An unavailable
 collector is **unknown**, never a healthy result carried over from yesterday.

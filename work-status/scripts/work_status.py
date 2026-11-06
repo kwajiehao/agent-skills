@@ -39,12 +39,12 @@ def now():
     return datetime.now(timezone.utc).isoformat()
 
 
-def run(argv, *, cwd=None, timeout=90, env=None):
+def run(argv, *, cwd=None, timeout=90, env=None, input=None):
     """One bounded attempt. Access failures do not trigger repeated login attempts."""
     try:
         result = subprocess.run([str(x) for x in argv], cwd=cwd, text=True,
                                 capture_output=True, timeout=timeout,
-                                env={**os.environ, **(env or {})})
+                                env={**os.environ, **(env or {})}, input=input)
     except subprocess.TimeoutExpired as exc:
         stderr = exc.stderr or b""
         if isinstance(stderr, bytes):
@@ -112,10 +112,20 @@ def backup_status(config):
     cron = run([repo / "bin/nb", "scrontab", "-l"], cwd=repo)
     release, path, schedule = deployed_release(cron, home)
     observer = Path(__file__).with_name("backup_observer.py").read_text()
-    raw = run([repo / "bin/nb", "env",
-               "PYTHONDONTWRITEBYTECODE=1",
-               "/usr/bin/python3", "-c", observer,
-               release, path], cwd=repo, timeout=60)
+    # bin/nb normally redirects Python bytecode lookup to a shared runtime
+    # tree. An isolated stdlib-only reader can use the host's installed cache.
+    remote = [repo / "bin/nb", "/usr/bin/python3", "-I", "-B", "-c", observer]
+    yaml_text = checked_json(run([*remote, 'config', path], cwd=repo, timeout=45))['config_yaml']
+    # macOS's existing Ruby/Psych safe parser avoids new packages locally and
+    # importing even a small Python package from the remote shared filesystem.
+    parsed = checked_json(run(['ruby', '-r', 'yaml', '-r', 'json', '-e',
+        'puts JSON.generate(YAML.safe_load(STDIN.read, aliases: false))'], input=yaml_text, timeout=10))
+    metadata = {k: parsed[k] for k in ('site', 'state_dir', 'tables', 'storage')}
+    metadata['max_backup_age_hours'] = parsed.get('max_backup_age_hours', 48)
+    # Do not send unneeded configuration or source paths back in SSH arguments.
+    metadata['tables'] = [{k:t[k] for k in ('name', 'enrollment_file')} for t in metadata['tables']]
+    metadata['storage'] = {k:metadata['storage'][k] for k in ('bucket', 'endpoint')} | {'prefix':parsed['storage'].get('prefix', 'lance-v1')}
+    raw = run([*remote, 'receipts', json.dumps(metadata), release], cwd=repo, timeout=45)
     result = checked_json(raw)
     if not result.get("tables"):
         raise ValueError("backup observer returned no table evidence")
