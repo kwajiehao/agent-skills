@@ -132,8 +132,6 @@ def refresh(atlas_root, home, cache_dir, archive_root=None):
             else:
                 parsed = parser._parse_rollout(str(path))
             document = source_document(parsed, key)
-            if document is None:
-                warnings.append(f'No usable session header in {path.name}.')
             sources[key] = {'signature': signature, 'document': document}
             parsed_count += 1
         except (OSError, ValueError, KeyError, TypeError) as exc:
@@ -175,6 +173,7 @@ def refresh(atlas_root, home, cache_dir, archive_root=None):
         doc['segments'] = unique
     return list(documents.values()), {'refreshed_at': index['refreshed_at'], 'sources': len(sources),
         'threads': len(documents), 'parsed': parsed_count, 'reused': reused,
+        'sources_without_indexed_activity': sum(entry.get('document') is None for entry in sources.values()),
         'skipped_records': sum(x['diagnostics'] for x in documents.values()), 'warnings': warnings,
         'coverage': 'Retained Codex prompts, bounded assistant excerpts/tool labels and existing atlas archives; not every tool output or deleted session.'}
 
@@ -275,7 +274,8 @@ def main():
     if args.json or refresh_only:
         print(json.dumps({'coverage': coverage, 'results': results}, indent=2, ensure_ascii=False))
     else:
-        print(f"Checked {coverage['sources']} retained sources at {coverage['refreshed_at']}; {coverage['skipped_records']} skipped records.")
+        print(f"Checked {coverage['sources']} retained sources at {coverage['refreshed_at']}; "
+              f"{coverage['sources_without_indexed_activity']} without indexable activity; {coverage['skipped_records']} skipped records.")
         for result in results:
             print(f"\n{result['title']}\n{result['url']}\nMatch: {result['matched_at']} ({result['evidence_kind']}); last activity: {result['last_activity']}\n{result['excerpt']}")
         if not results:
