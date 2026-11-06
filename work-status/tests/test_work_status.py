@@ -11,6 +11,9 @@ from unittest.mock import patch
 spec = importlib.util.spec_from_file_location('work_status', Path(__file__).parents[1] / 'scripts/work_status.py')
 ws = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(ws)
+observer_spec = importlib.util.spec_from_file_location('backup_observer', Path(__file__).parents[1] / 'scripts/backup_observer.py')
+observer = importlib.util.module_from_spec(observer_spec)
+observer_spec.loader.exec_module(observer)
 
 
 def pr():
@@ -25,6 +28,32 @@ def pr():
 
 
 class StatusTests(unittest.TestCase):
+    def test_remote_reader_rejects_public_symlink_and_oversize_metadata(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / 'receipt'
+            path.write_text('{}'); path.chmod(0o600)
+            self.assertEqual(observer.read_private(path), b'{}')
+            link = Path(directory) / 'link'; link.symlink_to(path)
+            with self.assertRaises(OSError):
+                observer.read_private(link)
+            path.chmod(0o644)
+            with self.assertRaises(ValueError):
+                observer.read_private(path)
+            path.chmod(0o600); path.write_bytes(b'x' * 65537)
+            with self.assertRaises(ValueError):
+                observer.read_private(path)
+
+    def test_remote_snapshot_keeps_other_tables_when_receipt_is_missing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'enrollment.json'; path.write_text('{"generation":"abc"}'); path.chmod(0o600)
+            config = {'site':'nebius', 'state_dir':str(root), 'max_backup_age_hours':48,
+                'storage':{'bucket':'test', 'prefix':'lance-v1', 'endpoint':'https://example.r2.cloudflarestorage.com'},
+                'tables':[{'name':'good', 'enrollment_file':str(path)}, {'name':'missing', 'enrollment_file':str(root/'absent')}]}
+            result = observer.snapshot(config, '/release')
+            self.assertEqual(result['tables'][0]['generation'], 'abc')
+            self.assertEqual(result['tables'][1]['error'], 'FileNotFoundError')
+
     def test_backup_fresh_failed_stale_missing_and_old_failure(self):
         point = {'backup_id': 'a' * 32, 'backup_time': '2026-11-06T00:00:00Z', 'completed_at': '2026-11-06T01:00:00Z'}
         instant = datetime(2026, 11, 7, tzinfo=timezone.utc)

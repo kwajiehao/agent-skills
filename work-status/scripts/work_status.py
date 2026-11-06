@@ -114,7 +114,7 @@ def backup_status(config):
     observer = Path(__file__).with_name("backup_observer.py").read_text()
     raw = run([repo / "bin/nb", "env",
                "PYTHONDONTWRITEBYTECODE=1",
-               f"{release}/devops/offsite_backup/.venv/bin/python", "-c", observer,
+               "/usr/bin/python3", "-c", observer,
                release, path], cwd=repo, timeout=60)
     result = checked_json(raw)
     if not result.get("tables"):

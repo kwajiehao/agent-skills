@@ -4,35 +4,65 @@ from datetime import datetime, timezone
 import json
 import os
 from pathlib import Path
+import re
 import signal
+import stat
 import sys
 
 
-def observe(release, config_path):
-    os.chdir(release)
-    sys.path.insert(0, release)
-    print("work-status-stage: config-import", file=sys.stderr, flush=True)
-    # Avoid monitoring/source imports: they load the full Lance runtime.
-    from devops.offsite_backup.config import load_config
-    from devops.offsite_backup.state import read_private
+def read_private(path):
+    # Same ownership/symlink/size boundary as offsite_backup.state.read_private,
+    # without importing its Pydantic model dependency on the login node.
+    with os.fdopen(os.open(path, os.O_RDONLY | os.O_NOFOLLOW), 'rb') as stream:
+        info = os.fstat(stream.fileno())
+        if not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid() or info.st_mode & 0o077 or info.st_size > 65536:
+            raise ValueError('unsafe or oversized private metadata')
+        return stream.read(65537)
 
-    config = load_config(Path(config_path))
+
+def snapshot(config, release):
+    if config.get('site') != 'nebius' or type(config.get('max_backup_age_hours', 48)) is not int or config.get('max_backup_age_hours', 48) < 1:
+        raise ValueError('invalid backup site/freshness configuration')
+    state = Path(config['state_dir'])
+    if not state.is_absolute() or '..' in state.parts:
+        raise ValueError('invalid backup state directory')
     print("work-status-stage: small-receipts", file=sys.stderr, flush=True)
     tables = []
-    for table in config.tables:
-        entry = {"table": table.name}
+    for table in config['tables']:
+        name = table['name']
+        if not re.fullmatch(r'[a-z][a-z0-9_-]{0,79}', name):
+            raise ValueError('invalid table name')
+        entry = {"table": name}
         try:
-            enrollment = json.loads(read_private(table.enrollment_file, 65536))
+            enrollment_path = Path(table['enrollment_file'])
+            if not enrollment_path.is_absolute() or '..' in enrollment_path.parts:
+                raise ValueError('invalid enrollment path')
+            enrollment = json.loads(read_private(enrollment_path))
             entry["generation"] = enrollment["generation"]
-            failure_path = config.state_dir / table.name / "last_failure.json"
-            entry["failure"] = json.loads(read_private(failure_path, 65536)) if failure_path.exists() else None
+            failure_path = state / name / "last_failure.json"
+            entry["failure"] = json.loads(read_private(failure_path)) if failure_path.exists() else None
         except Exception as exc:
             entry["error"] = type(exc).__name__
         tables.append(entry)
-    return {"observed_at": datetime.now(timezone.utc).isoformat(), "site": config.site,
-            "release": Path(release).name, "max_backup_age_hours": config.max_backup_age_hours,
-            "storage": {"bucket": config.storage.bucket, "prefix": config.storage.prefix,
-                        "endpoint": config.storage.endpoint}, "tables": tables}
+    if not tables or len({t['table'] for t in tables}) != len(tables):
+        raise ValueError('empty or duplicate table configuration')
+    return {"observed_at": datetime.now(timezone.utc).isoformat(), "site": config['site'],
+            "release": Path(release).name, "max_backup_age_hours": config.get('max_backup_age_hours', 48),
+            "storage": {"bucket": config['storage']['bucket'], "endpoint": config['storage']['endpoint'],
+                        "prefix": config['storage'].get('prefix', 'lance-v1')}, "tables": tables}
+
+
+def observe(release, config_path):
+    # Use system Python plus only the deployment's existing YAML parser. Do not
+    # load the backup package, Pydantic, Lance, or its historical catalogues.
+    print("work-status-stage: yaml-import", file=sys.stderr, flush=True)
+    packages = list((Path(release) / 'devops/offsite_backup/.venv/lib').glob('python*/site-packages/yaml'))
+    if len(packages) != 1:
+        raise ValueError('expected one deployed YAML parser')
+    sys.path.insert(0, str(packages[0].parent))
+    import yaml
+    config = yaml.safe_load(read_private(Path(config_path)))
+    return snapshot(config, release)
 
 
 def main():
