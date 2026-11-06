@@ -28,6 +28,12 @@ guarantee and expected effect; credible failure and downstream consequence;
 guard/recovery; executed / traced but unexecuted / unresolved evidence>
 <existing alternative; why new machinery is necessary or can be removed>
 
+## Performance assessment
+<selected metric and why it matters; workload/scale and source; budget or unknown>
+<before/after work and resource growth; effective guard; concrete trigger/impact;
+measured / code-derived / unknown evidence, revision and limits; next check>
+<omit detail when no material performance path changes>
+
 ## Requirement verification
 <requirement; implementation location; test/assertion or observation; result;
 executed / traced but unexecuted / unresolved; material gap and next check>

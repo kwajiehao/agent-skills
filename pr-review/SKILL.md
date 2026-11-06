@@ -1,6 +1,6 @@
 ---
 name: pr-review
-description: Review a PR or local diff for correctness, design fit, and operational risk by tracing the operation and challenging consequential failure paths. Use for findings-oriented reviews; use dep-review for dependency upgrades and pr-walkthrough for visual explanations.
+description: Review a PR or local diff for correctness, performance, design fit, and operational risk by tracing the operation and challenging consequential failure paths. Use for findings-oriented reviews; use dep-review for dependency upgrades and pr-walkthrough for visual explanations.
 ---
 
 # PR Review
@@ -89,6 +89,47 @@ not add tests to the repository.
 Use specialized security skills only when the requested review needs them.
 Do not automatically turn ordinary PR review into a full security audit.
 
+## Evaluate performance in context
+
+Use the operation trace and changed code to identify which performance outcomes
+could materially change, even when the PR makes no performance claim. Inspect
+relevant callers, data access, tests/benchmarks, deployment configuration and
+available telemetry or budgets to select the few metrics that matter. Depending
+on the path, these may be tail latency, throughput, CPU or memory per operation,
+I/O or remote-call volume, queue delay, or cost per unit of work. Explain why each
+selected metric matters and its workload: input/data size, invocation frequency,
+concurrency and resource limits. Use evidenced ranges; label assumptions and
+unknown budgets rather than inventing targets. If no material performance path
+changes, keep this check brief.
+
+Compare before and after along the actual path: work per invocation, number of
+invocations, retained resources and how these grow with data or concurrency.
+Follow relevant loops, queries, fan-out, allocations, serialization and blocking
+through downstream consumers. Check effective bounds and mitigations such as
+pagination, indexes, batching, caches, backpressure and pool limits; their presence
+alone does not establish that they protect this workload. Include retries or
+recovery when they can amplify load, and weigh resource tradeoffs against the
+problem the PR solves.
+
+Support material concerns with a concrete trigger, changed mechanism and impact
+on a selected metric. Distinguish measured before/after results from code-derived
+counts or complexity and from unknown runtime effects. State calculation inputs;
+do not translate an extra query or a complexity change into a claimed latency
+regression without supporting evidence.
+
+Reuse relevant benchmarks or telemetry when available. If measurement would
+resolve a consequential uncertainty, choose the smallest bounded comparison on
+the same representative workload and environment; preserve relevant data size,
+cache state and concurrency. Record what the check omits. A review does not
+authorize costly load tests, production experiments or infrastructure changes;
+when these would be needed, report the gap and proposed next check.
+
+Report a performance finding when the realistic workload and traced or measured
+mechanism support a consequential regression, resource exhaustion or unmet
+performance requirement. Missing benchmarks alone do not establish a defect;
+name a verification gap when missing evidence affects the review decision. Keep
+speculative tuning and optional optimization separate from findings.
+
 ## Verify the implementation
 
 Identify the consequential requirements within the requested scope from the
@@ -167,10 +208,12 @@ and evidence status: reproduced, traced but unexecuted, or unresolved. State the
 smallest useful correction. Keep optional follow-ups separate.
 
 Finish with requirement coverage, checks actually executed or reused, the
-reviewed SHA, and material limits. State consequential uncovered requirements
-and unexecuted checks explicitly. Include a concise operation flow and the
-material failure boundaries when they explain the verdict; keep the detailed
-step map in the ledger rather than listing every hypothetical failure.
+reviewed SHA, and material limits. Summarize the selected performance metrics,
+supported impact and material uncertainty when relevant. State consequential
+uncovered requirements and unexecuted checks explicitly. Include a concise
+operation flow and the material failure boundaries when they explain the verdict;
+keep the detailed step map in the ledger rather than listing every hypothetical
+failure.
 If no consequential issue was found, say so without implying exhaustive proof.
 Draft a review comment only when requested; sending or posting needs the user's
 explicit approval for that specific message.
