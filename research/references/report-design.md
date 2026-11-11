@@ -1,12 +1,10 @@
 # Report and visual design
 
-## Teach before adding detail
+## Frame the research findings
 
-Start with a direct answer the reader can restate in their own words. Introduce the smallest mental model needed to explain it. Order findings by importance to the question rather than discovery order. A beginner report can move from a concrete example to the mechanism, then limitations and applications; a decision report can move from the choice to criteria, evidence, and tradeoffs.
+Use [technical-writing](../../technical-writing/SKILL.md) for the shared explanation and document-structure guidance. A beginner report can move from a concrete example to the mechanism, limitations, and applications; a decision report can move from the choice to criteria, evidence, and tradeoffs.
 
-Use headings that communicate findings where possible. Prefer short, connected paragraphs; use lists for parallel points and tables for comparisons. Explain technical terms once, retain accurate terminology, and avoid replacing a precise concept with a misleading analogy. Show a worked example when abstraction is the main obstacle. Label invented examples as illustrative.
-
-A summary should retain any qualification that changes the conclusion. Move secondary detail into deep dives, but keep essential uncertainty beside the relevant finding. Do not hide weak evidence beneath a confident headline.
+Preserve qualifications that change the conclusion. Put uncertainty beside the relevant finding, distinguish illustrative examples from observed data, and do not let a confident headline conceal weak evidence.
 
 ## Choose a visual by the reader's question
 

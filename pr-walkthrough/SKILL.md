@@ -11,6 +11,10 @@ PRs are the primary target; commit ranges and staged or working-tree changes use
 
 The default deliverable is a local interactive site generated under `~/.agents/walkthroughs/`. Remain read-only with respect to product code, GitHub, and other external systems unless the user separately asks for changes or publishing.
 
+Apply [technical-writing](../technical-writing/SKILL.md) to the reviewer story
+and explanations. Retain this skill's author perspective, pinned diff, exact
+excerpts, synchronized visuals, and verification requirements.
+
 ## Core contract
 
 - **Orient first, audit second.** The main story explains intent, design, behavior, and validation. Put fresh findings in a visually separate review lens; do not let critique hijack the walkthrough.

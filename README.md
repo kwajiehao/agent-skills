@@ -28,6 +28,7 @@ Already have the repo cloned? Just run it from the root:
 | `/walkthrough` | Builds evidence-linked visual explanations of software, systems, architecture, and technical workflows with synchronized prose, diagrams, and source |
 | `/pr-walkthrough` | Builds author-perspective visual walkthroughs of PRs, commit ranges, or local changes with exact code, diagrams, evidence, and a secondary review lens |
 | `/draft-slack-message` | Drafts any Slack message to colleagues (DMs, replies, channel posts, intros, updates) in the user's voice, pulling relationship, thread and channel context from Slack first; never sends without approval |
+| `/technical-writing` | Writes reader-focused technical explanations, repository docs, runbooks, and decisions using selected Google guidance and local documentation preferences |
 | `/research` | Clarifies vague research questions, investigates online, and produces understandable, source-backed reports with useful visuals |
 | `/write-commit-message` | Writes accurate commit messages from actual changes, preserving the rationale and following repository conventions |
 | `/python-engineering` | Implements and debugs production Python with explicit runtime, ownership, failure, and concurrency models, including threads, async, and processes |

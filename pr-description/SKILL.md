@@ -37,6 +37,11 @@ overlapping edit makes the intended correction unclear, resolve it before postin
 
 ## Write for the reviewer
 
+Apply [technical-writing](../technical-writing/SKILL.md) to new or revised prose
+for clear mechanisms, concrete examples, and reader-focused structure. Keep this
+skill's preservation rules, PR template, and validation requirements; the shared
+guidance does not authorize rewriting an existing description.
+
 - Title: name the specific action and affected behavior; follow local conventions.
 - Lead with the problem and resulting behavior. For bugs, connect trigger →
   failure → fix. Explain necessary mechanisms and non-obvious tradeoffs;

@@ -9,6 +9,10 @@ Read the code with the developer. The organizing thread is what executes next: e
 
 Begin with a short explanation of the concrete end-to-end flow and a representative invocation or input. Then start reading actual code. Keep architecture background brief and introduce unfamiliar terms where the code first needs them. Remain read-only unless the user separately requests changes or execution with side effects.
 
+Apply [technical-writing](../technical-writing/SKILL.md) to the explanation,
+especially audience, terminology, and concrete operations. This skill retains
+execution order, exact source, step-ins and returns, and depth navigation.
+
 ## Offer the right reading depth
 
 For a substantial target, provide two connected reading paths and open with **Main flow** unless the user requests a deep dive. A compact function may need only one path; do not manufacture two versions of a small explanation.

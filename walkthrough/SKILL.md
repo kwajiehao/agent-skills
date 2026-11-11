@@ -11,6 +11,10 @@ Help the reader form a reliable mental model of the code they selected. Start at
 
 The default deliverable is a local interactive site under `~/.agents/walkthroughs/` with synchronized narrative, semantic diagrams, and exact source excerpts. Respect a requested explanation format; a small snippet may be clearer as an inline walkthrough. Remain read-only with respect to source code and external systems unless the user separately asks for changes or publishing.
 
+Apply [technical-writing](../technical-writing/SKILL.md) to the reader story
+and explanations. Retain this skill's source evidence, synchronized visuals,
+artifact verification, and delivery requirements.
+
 ## Core contract
 
 - **Lead with purpose and outcome.** For a codebase or subsystem, the opening must plainly answer what it produces or enables, who it serves, and why it exists. For smaller code, start with its contract and observable effect. Do not make readers learn modules, roles, phases, or storage details before they know why those details matter.

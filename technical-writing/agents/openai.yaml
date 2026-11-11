@@ -1,0 +1,4 @@
+interface:
+  display_name: "Technical Writing"
+  short_description: "Write clear technical explanations and procedures"
+  default_prompt: "Use $technical-writing to make this documentation clear, concrete, and useful for its reader."

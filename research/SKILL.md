@@ -39,7 +39,7 @@ Use available web/search tools directly; the skill does not require a particular
 
 ## Make the report understandable
 
-Read [references/report-design.md](references/report-design.md) when shaping the report, especially for comparisons, visuals, or exported artifacts.
+Apply [technical-writing](../technical-writing/SKILL.md) when drafting or revising the report. It supplies shared audience, structure, explanation, and procedure guidance; this skill retains the research and evidence workflow. Read [references/report-design.md](references/report-design.md) for research-specific framing, comparisons, visuals, and exported artifacts.
 
 Lead with the answer and its most important qualification. Explain the few concepts needed to understand it, then develop the findings in a logical order. For each major finding, connect the claim, supporting evidence, what it means for the question, and any limitation. Define unfamiliar terms at first use. Use concrete examples or analogies where they help, identifying where an analogy stops applying.
 
