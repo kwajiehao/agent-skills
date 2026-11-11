@@ -1,6 +1,6 @@
 ---
 name: technical-writing
-description: Write or revise technical documentation and explanations for a specific reader and task, including runbooks, design docs, repository docs, and technical reports. Use for document structure, concrete explanations, and actionable procedures; specialized skills retain their research, review, and format workflows. Do not use for casual messages or grammar-only copyediting.
+description: Write or revise technical documentation and technical communication in chat, including everyday technical answers, runbooks, design docs, repository docs, and technical reports. Use for document structure, concrete explanations, and actionable procedures; specialized skills retain their research, review, and format workflows. Do not use for casual messages or grammar-only copyediting.
 ---
 
 # Technical writing
@@ -8,7 +8,8 @@ description: Write or revise technical documentation and explanations for a spec
 Help the reader understand a system, make a decision, or complete a task. Apply
 the guidance to the requested scope; a short explanation needs no document
 template or separate planning artifact. Preserve repository conventions and
-the user's requested format.
+the user's requested format. In chat, keep brief answers brief and apply the
+writing principles without adding a document workflow to a simple reply.
 
 ## Establish what the reader needs
 
