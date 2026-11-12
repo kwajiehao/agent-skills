@@ -9,6 +9,9 @@ Help the user decide whether a change is ready and what consequential issues
 remain. Follow repository review rules and the user's requested scope. A review
 does not authorize application edits, external comments, or production actions.
 
+Apply [technical-writing](../technical-writing/SKILL.md) to explanations and review
+comments; this skill retains the review's evidence and authorization requirements.
+
 ## Establish the change and decision
 
 - Record the repository, PR URL when present, base/head SHAs, and dirty state.
@@ -43,6 +46,10 @@ the actual callers and consumers across handoffs, including relevant unchanged
 code; a function returning successfully may leave the operation incomplete.
 For a fix, establish the original failure and whether the proposed design repairs
 its cause while preserving nearby valid behavior.
+
+Explain key handoffs with concrete arguments/results, messages or persisted rows,
+naming the producer and consumer. Use code-derived fields and units, consistent
+example values, and clear labels for illustrative or partial data.
 
 Select the smallest set of contrasting cases that can distinguish the change's
 consequential promises. When shared behavior changes, include an existing caller's
@@ -200,6 +207,11 @@ Use ready, changes needed, or evidence incomplete. Do not call the change ready
 when an unmet requirement or consequential verification gap prevents a sound
 decision. Separate confirmed defects from incomplete evidence; proportionate
 verification does not require running every test or proving every possible case.
+
+After the verdict, briefly explain the main motivation and design: the original
+problem, before/after behavior and why the approach fits. Use the traced operation
+and concrete interface examples so a reader unfamiliar with the code can follow.
+Keep tuning questions separate from demonstrated design defects.
 
 Usually surface at most three consequential issues; disclose any additional
 material blockers rather than concealing them to meet a count. For each issue,
