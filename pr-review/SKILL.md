@@ -159,6 +159,11 @@ behavior under test. Compilation supports build/type claims; runtime promises
 need relevant behavior checks. Mocks may isolate dependencies; name the
 boundaries they omit. Passing unrelated tests is not evidence for a requirement.
 
+For a test that merely mirrors implementation, name the claimed behavior, a
+plausible violation that still passes, and whether to remove the test or replace
+its assertions. Literal checks remain useful when the literal is itself a
+contract; mocks alone do not make a test redundant.
+
 For each consequential claim, record the distinguishing case and where its
 expected result comes from. Check that at least one assertion or traced guard
 would reject a plausible violation; use a small negative control when feasible
@@ -166,10 +171,12 @@ and useful. If a mock replaces the consumer that enforces the contract, verify
 that contract separately and do not count argument forwarding as end-to-end
 coverage.
 
-Compare the tested path with the actual public invocation. Identify setup,
-transport, or state transitions that the tests bypass, and check any that could
-invalidate a consequential guarantee. If such a boundary cannot be exercised,
-record the verification gap.
+Compare test fixtures with the actual caller inputs, consumed representations
+(including exact bytes when they trigger effects), and prior state or concurrency.
+Trace setup, transport and state transitions that tests bypass, including
+deployment/startup effects when a feature is disabled. Check boundaries that
+could invalidate a consequential guarantee; if one cannot be exercised, record
+the verification gap.
 
 Execute the smallest credible reproduction or relevant checks when feasible.
 For a fix, compare the original and changed behavior or use a negative control
