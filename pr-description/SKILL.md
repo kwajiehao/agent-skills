@@ -46,6 +46,12 @@ guidance does not authorize rewriting an existing description.
 - Lead with the problem and resulting behavior. For bugs, connect trigger →
   failure → fix. Explain necessary mechanisms and non-obvious tradeoffs;
   summarize by behavior rather than listing files.
+- Ground the explanation in the motivating workflow, incident, or follow-up
+  when that context is available. Show one concrete operation and connect it to
+  the approach and supporting evidence; distinguish observations from suspected
+  causes. For a multi-part PR, give a short review map: what the parts do, why
+  they belong together, and which checks support the combined behavior. Explain
+  important exceptions or upstream adaptations where they affect that decision.
 - Keep simple PRs to one or two short paragraphs plus validation. For larger
   changes, **Why / What changed / Validation** is an adaptable shape. Honor
   required template fields; omit optional empty sections.
