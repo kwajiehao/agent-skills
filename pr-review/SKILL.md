@@ -5,245 +5,139 @@ description: Review a PR or local diff for correctness, performance, design fit,
 
 # PR Review
 
-Help the user decide whether a change is ready and what consequential issues
-remain. Follow repository review rules and the user's requested scope. A review
-does not authorize application edits, external comments, or production actions.
+Decide whether the change is ready and identify consequential issues. Follow the
+user's scope and repository instructions. Review alone does not authorize source
+edits, external comments, production actions or costly experiments. Apply
+[technical-writing](../technical-writing/SKILL.md) to explanations.
 
-Apply [technical-writing](../technical-writing/SKILL.md) to explanations and review
-comments; this skill retains the review's evidence and authorization requirements.
+## 1. Establish the decision and revision
 
-## Establish the change and decision
+Record the repository, PR URL, base/head SHAs and relevant dirty state. Read
+applicable AGENTS.md files, the problem statement and discussion. Use a suitable
+checkout or an isolated worktree; preserve existing edits.
 
-- Record the repository, PR URL when present, base/head SHAs, and dirty state.
-  Read applicable AGENTS.md files and the PR's problem statement and discussion.
-  Distinguish the reviewed commit from local uncommitted work.
-- For a repeat review, load the existing ledger and recover its scope, reviewed
-  revision, finding dispositions, evidence and next step. Compare both base and
-  head with the current change; inspect the delta and recheck conclusions affected
-  by changed callers, dependencies or deployment. Expand beyond the delta when
-  needed; do not restart unchanged investigation without a concrete reason.
-- Use an existing suitable checkout. Use an isolated worktree when verification
-  would otherwise disturb existing edits; do not reset the user's checkout.
+For a follow-up, load the [review ledger](references/ledger.md), compare both
+base and head, and recheck conclusions affected by the delta, including changed
+callers or deployment. Reuse unaffected evidence with its revision and limits;
+do not restart the investigation without a reason.
 
-## Question the problem and approach
+Establish who encounters the problem, the evidence for it and the outcome needed.
+Compare the approach with existing mechanisms or a smaller change where credible.
+Explain material tradeoffs in compatibility, operational burden and cost. Missing
+context is a question, not proof that the change is unnecessary.
 
-Establish who encounters the problem, what evidence supports the need, and what
-happens if behavior stays unchanged. Check whether the PR addresses the underlying
-cause and delivers the needed outcome; do not simply accept its framing.
+## 2. Trace one concrete operation
 
-Compare the high-level approach with keeping the current behavior, reusing an
-existing mechanism, or making a smaller change where credible. Judge alternatives
-against actual constraints and material tradeoffs, including compatibility,
-operational burden and cost. Explain what justifies the chosen approach or makes
-an alternative preferable. Scale this inquiry to the change; missing context is
-an open question, not proof that the PR is unnecessary.
+Follow an affected operation from its real entry point to the caller-visible
+result and any promised durable effect. Include relevant unchanged callers and
+consumers. For a fix, establish the original failure and whether the change
+repairs its cause while preserving nearby valid behavior.
 
-## Trace the operation and challenge the design
+At consequential handoffs, identify the producer, consumer, concrete arguments
+or stored rows, required identity/state and component enforcing the guarantee.
+Trace failures through the caller's next action: rejection, partial effects,
+lost acknowledgement, retry, interruption or concurrent change. Select cases
+that fit this operation; do not manufacture findings for every possible fault.
 
-Choose a concrete user/caller operation affected by the change. Trace it from
-entry to the observable result, including durable effects when promised. Follow
-the actual callers and consumers across handoffs, including relevant unchanged
-code; a function returning successfully may leave the operation incomplete.
-For a fix, establish the original failure and whether the proposed design repairs
-its cause while preserving nearby valid behavior.
+Check the existing-user path when shared behavior changes. For deployment or
+startup changes, consider disabled features and existing state, not only a fresh
+enabled installation. Include mixed-version behavior where components can differ.
+Check whether a successful return actually establishes the promised outcome.
 
-Explain key handoffs with concrete arguments/results, messages or persisted rows,
-naming the producer and consumer. Use code-derived fields and units, consistent
-example values, and clear labels for illustrative or partial data.
+Challenge added flags, helpers and orchestration against a concrete unmet need.
+Prefer reuse and the smallest sound change. Separate demonstrated consequences
+from optional simplification or stylistic preference.
 
-Select the smallest set of contrasting cases that can distinguish the change's
-consequential promises. When shared behavior changes, include an existing caller's
-input or persisted artifact; when correctness depends on a gate or prior state,
-include the refused input or next invocation after the first leaves effects.
-Trace these through the real entry point and consumers. State why an applicable
-case is unverified rather than letting one fresh successful path stand for it.
+## 3. Connect each consequential claim to evidence
 
-At each step and handoff, establish:
+Use one compact map in the ledger, or inline for a small review:
 
-- What input, identity, permissions and state enter, who owns the next action,
-  and which guarantee that action assumes from the previous step.
-- What must be validated or changed, when an effect becomes durable, and what
-  observable evidence establishes success for the caller.
-- Credible ways the step can fail or return an uncertain result, their effect on
-  later steps and the final outcome, and the guard or recovery that handles them.
+| Claim | Enforcing component / code | Distinguishing case and expected result | Evidence / gap |
+| --- | --- | --- | --- |
+| Required behavior | Actual consumer, not just its helper | A plausible violation the check would catch | Executed, traced but unexecuted, or unresolved; revision and limits |
 
-Challenge the design with failures grounded in the operation: malformed or stale
-input, identity/permission changes, failure between validation and use, dependency
-rejection, partial effects, a committed effect followed by a lost acknowledgement,
-retries, interruption and concurrent state changes. Choose applicable failures
-at each step; a small local operation needs a correspondingly short trace. Include
-rollout/version compatibility where producers and consumers can differ.
+Start with the component enforcing the claim, then inspect evidence for that
+component. A passing helper test cannot establish a guarantee enforced elsewhere.
+Compare fixtures with the actual caller's inputs, consumed representation,
+permissions and prior state. Semantic parsing does not test byte-sensitive
+consumers. Name omitted setup, transport, startup or recovery boundaries that
+could invalidate the claim.
 
-Follow each material failure through error propagation, cleanup, retry and
-reconciliation. Check what the next component actually does, including whether
-it can report success too early, repeat an effect or leave unrecoverable state.
-Validate suspected failures against existing guards and caller behavior. A
-credible guard with supporting evidence is a successful design check; do not
-invent a finding for every step or require protection against arbitrary faults.
+Derive expected results from the requirement or an independent reference. For a
+test that merely mirrors implementation, identify the claimed behavior, a
+plausible violation that still passes, and whether to remove it or replace its
+assertions. Mocks may isolate dependencies and literal assertions may enforce a
+real contract; neither is automatically redundant. Do not count mocked consumer
+behavior or argument forwarding as end-to-end verification.
 
-Challenge new flags, configs, helpers, shared abstractions and orchestration
-against the concrete missing behavior and actual consumers. Ask whether complexity
-removes a demonstrated failure or merely moves it to another component. Keep a compact
-step/handoff map with code locations, assumed guarantees, challenged failures,
-guards/recovery and evidence status in the ledger for substantial reviews.
+Run the smallest credible reproduction or relevant check when feasible. For a
+fix, compare original and changed behavior or use a useful negative control.
+Choose contrasting cases that distinguish the guarantee: an existing caller,
+rejected input, interrupted operation or next invocation after partial effects,
+as appropriate. Preserve the conditions implicated by the actual failure.
+Compilation proves build/type properties; runtime promises need behavior evidence.
 
-Prefer the smallest sound change. Treat design concerns with demonstrated
-consequences as substantive findings; separate them from preference-based or
-optional improvements. Label worst-case calculations and distinguish them from
-measured behavior. Test effort should match the risk; a read-only review need
-not add tests to the repository.
+Record commands, observed results, covered revision and limitations. A test's
+presence does not establish execution; unrelated passing tests do not establish
+a claim. Reuse CI or prior results only when the changed path and conditions
+remain covered. If a consequential boundary cannot be verified, retain that gap
+in the verdict instead of treating helper success as readiness.
 
-Use specialized security skills only when the requested review needs them.
-Do not automatically turn ordinary PR review into a full security audit.
+Before reporting a defect, check actual callers, existing guards and contrary
+evidence. Missing access or measurement is a verification gap, not automatically
+a defect. State the smallest check that would resolve consequential uncertainty.
+Do not modify product code merely to make a review experiment pass.
 
-## Evaluate performance in context
+## 4. Assess performance along that operation
 
-Use the operation trace and changed code to identify which performance outcomes
-could materially change, even when the PR makes no performance claim. Inspect
-relevant callers, data access, tests/benchmarks, deployment configuration and
-available telemetry or budgets to select the few metrics that matter. Depending
-on the path, these may be tail latency, throughput, CPU or memory per operation,
-I/O or remote-call volume, queue delay, or cost per unit of work. Explain why each
-selected metric matters and its workload: input/data size, invocation frequency,
-concurrency and resource limits. Use evidenced ranges; label assumptions and
-unknown budgets rather than inventing targets. If no material performance path
-changes, keep this check brief.
+Identify material performance changes even when the PR makes no performance
+claim. Select the few relevant outcomes: latency, throughput, CPU/memory, I/O,
+remote calls, queueing or cost. Establish workload size, invocation frequency,
+concurrency and resource limits from callers, configuration or telemetry; label
+assumptions and unknown budgets.
 
-Compare before and after along the actual path: work per invocation, number of
-invocations, retained resources and how these grow with data or concurrency.
-Follow relevant loops, queries, fan-out, allocations, serialization and blocking
-through downstream consumers. Check effective bounds and mitigations such as
-pagination, indexes, batching, caches, backpressure and pool limits; their presence
-alone does not establish that they protect this workload. Include retries or
-recovery when they can amplify load, and weigh resource tradeoffs against the
-problem the PR solves.
+Compare work per invocation and the number of invocations before and after.
+Trace loops, queries, fan-out, allocations, serialization and blocking through
+consumers, including retry/recovery amplification. Check that pagination,
+indexes, caches, pool limits or other bounds actually constrain this workload.
+Weigh their resource and operational costs against the problem they solve.
 
-Support material concerns with a concrete trigger, changed mechanism and impact
-on a selected metric. Distinguish measured before/after results from code-derived
-counts or complexity and from unknown runtime effects. State calculation inputs;
-do not translate an extra query or a complexity change into a claimed latency
-regression without supporting evidence.
+Distinguish measured results, code-derived counts/complexity and unknown runtime
+effects. An extra query alone does not establish a latency regression. When a
+measurement would settle a material uncertainty, use a bounded comparison on the
+same representative workload and environment, preserving relevant cache state,
+data size and concurrency. Report what it omits; do not expand authorization.
 
-Reuse relevant benchmarks or telemetry when available. If measurement would
-resolve a consequential uncertainty, choose the smallest bounded comparison on
-the same representative workload and environment; preserve relevant data size,
-cache state and concurrency. Record what the check omits. A review does not
-authorize costly load tests, production experiments or infrastructure changes;
-when these would be needed, report the gap and proposed next check.
+Report a performance defect when a concrete trigger and traced or measured
+mechanism support consequential impact. Missing benchmarks alone are a gap;
+speculative tuning stays separate from findings. Keep this section brief when no
+material performance path changes.
 
-Report a performance finding when the realistic workload and traced or measured
-mechanism support a consequential regression, resource exhaustion or unmet
-performance requirement. Missing benchmarks alone do not establish a defect;
-name a verification gap when missing evidence affects the review decision. Keep
-speculative tuning and optional optimization separate from findings.
+## 5. Deliver the verdict and close the loop
 
-## Verify the implementation
+Lead with **ready**, **changes needed** or **evidence incomplete**, and the main
+reason. Do not call the change ready while a consequential requirement is unmet
+or unverified. Explain the motivation and design through the concrete operation
+so someone unfamiliar with the conversation can follow.
 
-Identify the consequential requirements within the requested scope from the
-user's request, PR discussion, and repository contracts. Check whether the
-implementation fulfills them, including promised durable effects and relevant
-rejection or recovery behavior. A PR checklist or author summary is context;
-inspect the actual implementation and assertions independently.
+For each finding, give the location, trigger, consequence, evidence status and
+smallest useful correction. Usually lead with at most three; disclose additional
+material blockers rather than hiding them. Separate confirmed defects, evidence
+gaps and optional suggestions. Summarize executed/reused checks, reviewed SHA,
+performance conclusions and remaining limits. No findings does not mean proof of
+all possible behavior. Draft comments only when requested; posting requires the
+user's approval of the specific message.
 
-For each consequential requirement, record the implementation location, the
-test/assertion or runtime observation that checks it, and the observed result.
-Distinguish executed evidence, traced but unexecuted behavior, and unresolved
-gaps. Keep this map compact; use the ledger for substantial reviews and summarize
-coverage and material gaps in the response.
+For substantial or repeated reviews, retain the compact ledger at
+`~/.agents/reviews/<owner>-<repo>/pr-<number>.md`, or an authorized task-workspace
+path if necessary. For local changes use a stable slug. Do not modify the reviewed
+repository merely for read-only review bookkeeping or broaden permissions to
+relocate notes.
 
-Inspect what a test proves: identify a plausible defect its assertions would
-catch. Exercise real implementation behavior and derive expected results from
-the requirement or an independent reference. Assertions that only confirm a
-configured mock return or mirror the implementation do not establish the
-behavior under test. Compilation supports build/type claims; runtime promises
-need relevant behavior checks. Mocks may isolate dependencies; name the
-boundaries they omit. Passing unrelated tests is not evidence for a requirement.
-
-For a test that merely mirrors implementation, name the claimed behavior, a
-plausible violation that still passes, and whether to remove the test or replace
-its assertions. Literal checks remain useful when the literal is itself a
-contract; mocks alone do not make a test redundant.
-
-For each consequential claim, record the distinguishing case and where its
-expected result comes from. Check that at least one assertion or traced guard
-would reject a plausible violation; use a small negative control when feasible
-and useful. If a mock replaces the consumer that enforces the contract, verify
-that contract separately and do not count argument forwarding as end-to-end
-coverage.
-
-Compare test fixtures with the actual caller inputs, consumed representations
-(including exact bytes when they trigger effects), and prior state or concurrency.
-Trace setup, transport and state transitions that tests bypass, including
-deployment/startup effects when a feature is disabled. Check boundaries that
-could invalidate a consequential guarantee; if one cannot be exercised, record
-the verification gap.
-
-Execute the smallest credible reproduction or relevant checks when feasible.
-For a fix, compare the original and changed behavior or use a negative control
-when it clarifies whether the check detects the defect. Reuse existing CI or
-retained results only when they cover the reviewed code and relevant behavior;
-a test's presence does not establish that it ran. Record commands, outcomes,
-environment limits, and unverified deployment facts. Do not turn a toy recreation
-into proof about the product or modify product code to make a review check pass.
-
-Before reporting a blocker, check callers, existing guards, and relevant tests
-for evidence that refutes it. Missing access or an unexecuted check is a
-verification gap, not by itself a demonstrated implementation defect. Name the
-smallest next check that would resolve consequential uncertainty.
-
-## Follow-up reviews and authorized fixes
-
-Keep a stable ID for each consequential finding. After a change, recheck its
-trigger and affected behavior against the new revision; mark it resolved only
-with supporting evidence, and preserve any untested boundary. Reuse unaffected
-evidence with its covered revision and limits. Rerun expensive checks when the
-change or environment invalidates them, not merely to obtain another green run.
-
-When the user also authorizes fixes, work through concrete findings within that
-scope: fix, inspect the resulting diff, and recheck the finding and affected
-requirements. A review alone remains read-only. Stop the loop when the agreed
-requirements are supported and no consequential finding remains, or when a
-specific access/evidence blocker or material scope decision prevents progress.
-Record that boundary and the smallest next action. Do not prolong the loop for
-optional redesign, or treat repeated reviewer agreement as independent evidence.
-
-## Deliver the review
-
-Lead with the merge/readiness verdict and the strongest supporting reason.
-Use ready, changes needed, or evidence incomplete. Do not call the change ready
-when an unmet requirement or consequential verification gap prevents a sound
-decision. Separate confirmed defects from incomplete evidence; proportionate
-verification does not require running every test or proving every possible case.
-
-After the verdict, briefly explain the main motivation and design: the original
-problem, before/after behavior and why the approach fits. Use the traced operation
-and concrete interface examples so a reader unfamiliar with the code can follow.
-Keep tuning questions separate from demonstrated design defects.
-
-Usually surface at most three consequential issues; disclose any additional
-material blockers rather than concealing them to meet a count. For each issue,
-give the exact code location, concrete trigger, user or operational consequence,
-and evidence status: reproduced, traced but unexecuted, or unresolved. State the
-smallest useful correction. Keep optional follow-ups separate.
-
-Finish with requirement coverage, checks actually executed or reused, the
-reviewed SHA, and material limits. Summarize the selected performance metrics,
-supported impact and material uncertainty when relevant. State consequential
-uncovered requirements and unexecuted checks explicitly. Include a concise
-operation flow and the material failure boundaries when they explain the verdict;
-keep the detailed step map in the ledger rather than listing every hypothetical
-failure.
-If no consequential issue was found, say so without implying exhaustive proof.
-Draft a review comment only when requested; sending or posting needs the user's
-explicit approval for that specific message.
-
-## Carry review state forward
-
-For substantial or repeated PR reviews, keep a compact per-PR ledger using
-[the ledger template](references/ledger.md). Prefer
-`~/.agents/reviews/<owner>-<repo>/pr-<number>.md`; for local changes, use a stable
-task slug. Preserve prior evidence and update the reviewed head and next step.
-If that destination is outside permitted writes, save it in the authorized task
-workspace and identify its path. Do not broaden filesystem permissions merely
-to relocate notes. Do not write to the reviewed source repository for bookkeeping
-when the user asked for a read-only review.
+Keep stable finding IDs. Mark a finding resolved only after rechecking its trigger
+and affected behavior on the new revision. Preserve untested boundaries and
+reuse unaffected evidence. When fixes are authorized, fix, inspect the final diff
+and verify affected claims. Stop when the requested requirements are supported,
+or identify the specific access, evidence or scope blocker and next action.
+Do not prolong the work for optional redesign, repeat tests without a changed
+reason, or count repeated reviewer agreement as independent evidence.

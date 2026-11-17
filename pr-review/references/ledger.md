@@ -23,9 +23,6 @@ latest disposition; remaining verification boundary>
 
 ## Operation and design trace
 <entry -> steps/handoffs -> observable result>
-<for each step: producer/consumer and code; input/identity/state; assumed
-guarantee and expected effect; credible failure and downstream consequence;
-guard/recovery; executed / traced but unexecuted / unresolved evidence>
 <existing alternative; why new machinery is necessary or can be removed>
 
 ## Performance assessment
@@ -34,9 +31,10 @@ guard/recovery; executed / traced but unexecuted / unresolved evidence>
 measured / code-derived / unknown evidence, revision and limits; next check>
 <omit detail when no material performance path changes>
 
-## Requirement verification
-<requirement; implementation location; test/assertion or observation; result;
-executed / traced but unexecuted / unresolved; material gap and next check>
+## Claim verification
+| Claim | Enforcing component / code | Distinguishing case and expected result | Evidence / gap |
+| --- | --- | --- | --- |
+| <required behavior> | <actual consumer, including relevant unchanged code> | <plausible violation; expected result from requirement or independent reference> | <executed / traced but unexecuted / unresolved; covered revision, result and remaining boundary> |
 
 ## Executed checks
 <command; commit/change tested; observed outcome; evidence path; limits>
