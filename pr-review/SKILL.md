@@ -134,6 +134,14 @@ path if necessary. For local changes use a stable slug. Do not modify the review
 repository merely for read-only review bookkeeping or broaden permissions to
 relocate notes.
 
+For PR status or fix follow-ups, use `work-status --pr <PR URL>` when available,
+adding `--ledger <path>` for an existing review. Reuse facts already collected for
+this request. The sibling `../work-status/scripts/work_status.py` can also be
+resolved from this skill and run with Python 3. Its snapshot does not verify fixes. Read the ledger's
+findings and follow-ups, compare relevant current code, and lead with code
+fixed/unfixed/unverified at the checked SHA. Report discussion resolution
+separately; a resolved thread is not evidence that its code issue was fixed.
+
 Keep stable finding IDs. Mark a finding resolved only after rechecking its trigger
 and affected behavior on the new revision. Preserve untested boundaries and
 reuse unaffected evidence. When fixes are authorized, fix, inspect the final diff
