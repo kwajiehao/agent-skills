@@ -70,6 +70,10 @@ assertions. Mocks may isolate dependencies and literal assertions may enforce a
 real contract; neither is automatically redundant. Do not count mocked consumer
 behavior or argument forwarding as end-to-end verification.
 
+When the diff adds or modifies tests, read the
+[diff-time test gate](references/test-gate.md) and check touched tests against
+it; skip it when no tests changed.
+
 Run the smallest credible reproduction or relevant check when feasible. For a
 fix, compare original and changed behavior or use a useful negative control.
 Choose contrasting cases that distinguish the guarantee: an existing caller,
